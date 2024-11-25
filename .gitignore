@@ -1,0 +1,50 @@
+# Python/Django ignores
+__pycache__/
+*.py[cod]
+*.egg
+*.egg-info/
+*.pyo
+*.pyd
+.Python
+
+instance/
+.env
+*.env
+*.log
+*.pot
+*.pyc
+*.pyo
+.coverage
+.pytest_cache/
+htmlcov/
+.DS_Store
+.vscode/
+.idea/
+*.swp
+
+
+# Angular ignores
+node_modules/
+
+.angular/
+coverage/
+*.log
+*.lock
+
+# Environment settings
+*.env
+.env.local
+.env.development
+.env.production
+.env.test
+.env.*.local*
+env
+env/
+
+# IDE and editor-specific files
+.vscode/
+.idea/
+*.sublime-workspace
+*.sublime-project
+*.swp
+*.iml
