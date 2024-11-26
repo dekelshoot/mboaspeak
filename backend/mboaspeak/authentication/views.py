@@ -1,4 +1,4 @@
-from django.shortcuts import render
+
 
 # Create your views here.
 from rest_framework.views import APIView
@@ -99,3 +99,28 @@ class UpdateUserView(APIView):
             serializer.save()
             return Response(serializer.data, status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+from django.contrib.auth import get_user_model
+
+User = get_user_model()
+
+class UserDetailView(APIView):
+    """
+    Vue pour afficher les détails de l'utilisateur authentifié.
+    Cette vue est protégée par JWT, donc seule l'authentification est requise.
+    """
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        user = request.user  # Récupérer l'utilisateur connecté
+
+        # Sérialiser les données de l'utilisateur
+        user_data = {
+            "username": user.username,
+            "email": user.email,
+            "primary_language": user.primary_language,
+            "user_type": user.user_type
+        }
+
+        return Response(user_data, status=status.HTTP_200_OK)

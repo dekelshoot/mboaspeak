@@ -4,7 +4,7 @@ from rest_framework_simplejwt.views import (
     TokenRefreshView,
     TokenVerifyView,
 )
-from .views import RegisterView,LoginView, UpdateUserView  # Assurez-vous que RegisterView est bien importé
+from .views import RegisterView,LoginView, UpdateUserView, UserDetailView  # Assurez-vous que RegisterView est bien importé
 
 urlpatterns = [
     # Route pour obtenir un access token et un refresh token
@@ -17,7 +17,7 @@ urlpatterns = [
     
     # Route pour l'inscription d'un utilisateur
     path('login/', LoginView.as_view(), name='login'),
-
+    path('user/', UserDetailView.as_view(), name='user_detail'),  # Nouvelle route pour afficher les détails de l'utilisateur
     # Route pour la mise à jour du profil utilisateur
     path('update/', UpdateUserView.as_view(), name='update_user'),
 ]

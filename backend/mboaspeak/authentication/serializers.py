@@ -18,7 +18,7 @@ class RegisterSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ['username', 'email', 'password', 'first_name', 'last_name', 'primary_language', 'user_type']
+        fields = ['username', 'email', 'password',  'primary_language', 'user_type']
 
     def create(self, validated_data):
         # Hacher le mot de passe avant de le sauvegarder
