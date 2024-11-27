@@ -1,8 +1,7 @@
 
-
-# Angular ignores
 node_modules/
-
+/node_modules/
+frontend/node_modules/
 env
 env/
 # See https://docs.github.com/get-started/getting-started-with-git/ignoring-files for more about ignoring files.
@@ -37,6 +36,8 @@ yarn-error.log
 
 # Miscellaneous
 /.angular/cache
+frontend/.angular/cache
+frontend/.vscode
 .sass-cache/
 /connect.lock
 /coverage
