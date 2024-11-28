@@ -23,6 +23,7 @@ import { EvaluationMentorComponent } from './components/dashboard-mentor/evaluat
 import { StatMenteeComponent } from './layouts/stat-mentee/stat-mentee.component';
 import { AboutComponent } from './components/about/about.component';
 import { AppsComponent } from './components/apps/apps.component';
+import { AuthService } from './services/auth.service';
 
 @NgModule({
   declarations: [
@@ -53,8 +54,9 @@ import { AppsComponent } from './components/apps/apps.component';
     HttpClientModule,
     ReactiveFormsModule,
     FormsModule,
+
   ],
-  providers: [],
+  providers: [AuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

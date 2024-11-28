@@ -4,7 +4,7 @@ from django.db import models
 LANGUAGE_CHOICES = [
     ('english', 'English'),
     ('french', 'French'),
-    ('francanglais', 'Francanglais'),
+    ('camfranglais', 'Camfranglais'),
     ('pidgin', 'Pidgin'),
 ]
 

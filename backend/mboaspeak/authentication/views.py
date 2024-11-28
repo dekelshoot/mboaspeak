@@ -14,7 +14,7 @@ from .serializers import UserSerializer
 from django.contrib.auth import authenticate
 from .serializers import RegisterSerializer
 from rest_framework_simplejwt.tokens import RefreshToken
-
+from .models import LANGUAGE_CHOICES
 
 class RegisterView(APIView):
     """
@@ -25,7 +25,7 @@ class RegisterView(APIView):
     def post(self, request):
         # Sérialisation des données
         serializer = RegisterSerializer(data=request.data)
-
+        print(request.data)
         if serializer.is_valid():
             # Créer l'utilisateur et associer son type (Admin, Linguist, Contributor)
             user = serializer.save()
@@ -44,6 +44,7 @@ class RegisterView(APIView):
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
+
 
 
 
@@ -73,6 +74,10 @@ class LoginView(APIView):
                 {
                     "refresh": str(refresh),
                     "access": str(access_token),
+                    "username": user.username,
+                    "email": user.email,
+                    "primary_language": user.primary_language,
+                    "user_type": user.user_type
                 },
                 status=status.HTTP_200_OK,
             )
@@ -124,3 +129,9 @@ class UserDetailView(APIView):
         }
 
         return Response(user_data, status=status.HTTP_200_OK)
+    
+class LanguageView(APIView):
+    def get(self, request):
+        language = [x[0] for x in LANGUAGE_CHOICES] 
+
+        return Response(language, status=status.HTTP_200_OK)

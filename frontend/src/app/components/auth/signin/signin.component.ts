@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormGroup, FormBuilder, FormArray, Validators } from '@angular/forms';
+import { AuthService } from 'src/app/services/auth.service';
 import { RequestService } from 'src/app/services/request.service';
 import { RouterService } from 'src/app/services/router.service';
 
@@ -14,11 +15,15 @@ export class SigninComponent {
   message: string = '';
   success = false;
   err = false;
+  authDataExists: boolean = false;
   constructor(private requestService: RequestService,
-    private formBuilder: FormBuilder, public routerService: RouterService
+    private formBuilder: FormBuilder, public routerService: RouterService, private authService: AuthService
   ) { }
   ngOnInit(): void {
-    console.log("hellohttp://127.0.0.1:8000/api/auth/login/")
+    const authData = localStorage.getItem('authData');
+    if (this.authService.hasAuthData()) {
+      this.routerService.routeRoute("/apps")
+    }
     this.initForm();
   }
 
@@ -50,9 +55,17 @@ export class SigninComponent {
         this.loadingData = false
         this.success = true
         this.err = false
-        localStorage.setItem('access_token', response.access);
-        localStorage.setItem('refresh_token', response.refresh);
-        console.log('Login successful!', response);
+
+
+
+        // Sauvegarder les données
+        this.authService.saveAuthData({
+          ...response
+        });
+
+
+        console.log('Login successful! Data stored in localStorage:', this.authService.getAuthData());
+
         setTimeout(() => {
           this.routerService.routeRoute("/apps")
         }, 2000)
