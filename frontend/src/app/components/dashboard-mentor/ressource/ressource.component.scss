@@ -1,0 +1,47 @@
+.content {
+  margin: 30px;
+  width: 93%;
+}
+
+.btn {
+  color: white;
+  font-weight: 600;
+}
+
+.parent {
+  // display: flex;
+  // flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+/***************** 8.Widget  ****************/
+.widget-panel {
+  margin-top: 20px;
+  padding: 40px 20px;
+  border-radius: 4px;
+  color: #ffffff;
+  position: relative;
+  margin-bottom: 20px;
+  cursor: pointer;
+}
+
+
+.widget-style-2 {
+  padding-left: 30px;
+}
+
+.widget-style-2 i {
+  font-size: 60px;
+  float: right;
+  padding: 30px;
+  margin-top: -40px;
+  margin-right: -20px;
+  color: #edf0f0;
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.widget-style-2 h2 {
+  font-weight: 600;
+  font-size: 32px;
+}

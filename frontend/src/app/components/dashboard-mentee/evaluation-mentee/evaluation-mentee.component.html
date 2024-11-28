@@ -1,0 +1,68 @@
+<div class="content">
+  <div *ngIf="active == 1 && !loading">
+    <h2>All evaluations</h2>
+    <button class="btn btn-primary" (click)="changeActive(2)">
+      Add evaluation
+    </button>
+    <hr />
+
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th scope="col">Mentor</th>
+          <th scope="col">Note</th>
+          <th scope="col">Commentaire</th>
+          <th scope="col">Date</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let evaluation of evaluations">
+          <td>{{ evaluation.mentor }}</td>
+          <td>{{ evaluation.note }}</td>
+          <td>
+            {{ evaluation.commentaire }}
+          </td>
+          <td>{{ evaluation.date }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div *ngIf="loading" class="px-4 pt-5 my-5 text-center">
+    <div class="spinner-border text-secondary" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+  </div>
+
+  <div *ngIf="active == 2 && !loading">
+    <h2>Add evaluation</h2>
+    <form class="parent" [formGroup]="formForm" (ngSubmit)="ngOnSubmit()">
+      <br />
+      <div class="form-floating mb-3">
+        <input
+          type="number"
+          class="form-control"
+          id="floatingInput"
+          placeholder=""
+          formControlName="note"
+        />
+        <label for="floatingInput">Note</label>
+      </div>
+      <br />
+      <div class="form-floating">
+        <textarea
+          class="form-control"
+          placeholder="Leave a comment here"
+          id="floatingTextarea2"
+          style="height: 100px"
+          formControlName="commentaire"
+        ></textarea>
+        <label for="floatingTextarea2">Comments</label>
+      </div>
+      <br />
+      <button class="w-100 btn btn-primary btn-lg" type="submit">
+        Ajouter évaluation
+      </button>
+    </form>
+  </div>
+</div>

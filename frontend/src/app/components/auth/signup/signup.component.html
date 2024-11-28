@@ -1,0 +1,510 @@
+<div class="container">
+  <div *ngIf="loadingData" class="px-4 pt-5 my-5 text-center">
+    <div class="spinner-border text-secondary" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+  </div>
+  <main *ngIf="!loadingData">
+    <div class="py-5 text-center">
+      <img
+        class="d-block mx-auto mb-4"
+        src="../assets/logo.png"
+        alt=""
+        width="72"
+        height="72"
+      />
+      <h2>Créez votre compte</h2>
+
+      <p class="lead">
+        Rejoignez notre plateforme de mentoring et commencez votre parcours
+        d'apprentissage.
+      </p>
+      <p>
+        Que vous soyez mentor ou mentee, notre application vous offre les outils
+        nécessaires pour une expérience de mentoring enrichissante.
+      </p>
+    </div>
+
+    <div class="row g-5">
+      <div class="col-md-5 col-lg-4 order-md-last">
+        <h4 class="d-flex justify-content-between align-items-center mb-3">
+          <span class="text-primary">Quel sera votre rôle?</span>
+        </h4>
+        <ul class="list-group mb-3">
+          <li
+            class="list-group-item d-flex justify-content-between lh-sm"
+            (click)="this.changeRole(1)"
+            [ngClass]="{ selected: this.role === 1 }"
+          >
+            <div>
+              <h6 class="my-0">Être un mentor</h6>
+              <small>je souhaite aider les jeunnes</small>
+            </div>
+          </li>
+          <li
+            class="list-group-item d-flex justify-content-between lh-sm"
+            (click)="this.changeRole(2)"
+            [ngClass]="{ selected: this.role === 2 }"
+          >
+            <div>
+              <h6 class="my-0">Être un mentee</h6>
+              <small>je souhaite être encadrer</small>
+            </div>
+          </li>
+        </ul>
+
+        <p class="mb-1">Vous n'avez pas de compte?</p>
+        <a (click)="routerService.routeRoute('/auth/sign-in')"
+          >se créer un compte</a
+        >
+      </div>
+
+      <div class="col-md-7 col-lg-8" *ngIf="this.role == 1">
+        <h4 class="mb-3">Mentor</h4>
+        <form
+          class="needs-validation"
+          [formGroup]="formForm"
+          (ngSubmit)="ngOnSubmit1()"
+          novalidate
+        >
+          <div class="row g-3">
+            <div class="col-sm-6">
+              <label for="firstName" class="form-label">First name</label>
+              <input
+                type="text"
+                class="form-control"
+                id="firstName"
+                placeholder=""
+                value=""
+                formControlName="first_name"
+                required
+              />
+              <div class="invalid-feedback">Valid first name is required.</div>
+            </div>
+
+            <div class="col-sm-6">
+              <label for="lastName" class="form-label">Last name</label>
+              <input
+                type="text"
+                class="form-control"
+                id="lastName"
+                placeholder=""
+                formControlName="last_name"
+                value=""
+                required
+              />
+              <div class="invalid-feedback">Valid last name is required.</div>
+            </div>
+
+            <div class="col-12">
+              <label for="username" class="form-label">Username</label>
+              <div class="input-group has-validation">
+                <span class="input-group-text">@</span>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="username"
+                  formControlName="username"
+                  placeholder="Username"
+                  required
+                />
+                <div class="invalid-feedback">Your username is required.</div>
+              </div>
+            </div>
+
+            <div class="col-12">
+              <label for="email" class="form-label">Email </label>
+              <input
+                type="email"
+                class="form-control"
+                id="email"
+                formControlName="email"
+                placeholder="you@example.com"
+              />
+              <div class="invalid-feedback">
+                Please enter a valid email address for shipping updates.
+              </div>
+            </div>
+
+            <div class="col-12">
+              <label for="password" class="form-label">password </label>
+              <input
+                type="password"
+                class="form-control"
+                id="password"
+                formControlName="password"
+                placeholder=""
+              />
+              <div class="invalid-feedback">
+                Please enter a valid password address for shipping updates.
+              </div>
+            </div>
+
+            <p>Domaines d'expertise</p>
+            <div class="chec" formArrayName="domaines_expertise">
+              <div
+                *ngFor="let domaine of this.domaineExpertise; let i = index"
+                [formGroupName]="i"
+              >
+                <div class="form-check">
+                  <input
+                    class="form-check-input"
+                    type="checkbox"
+                    value=""
+                    formControlName="checked"
+                  />
+                  <label class="form-check-label" for="flexCheckDefault">
+                    {{ domaine.name }}
+                  </label>
+                </div>
+              </div>
+            </div>
+
+            <p>Qualifications</p>
+            <div class="chec" formArrayName="qualifications">
+              <div
+                *ngFor="let qualification of this.qualifications; let i = index"
+                [formGroupName]="i"
+              >
+                <div class="form-check">
+                  <input
+                    class="form-check-input"
+                    type="checkbox"
+                    value=""
+                    formControlName="checked"
+                  />
+                  <label class="form-check-label" for="flexCheckDefault">
+                    {{ qualification.name }}
+                  </label>
+                </div>
+              </div>
+            </div>
+
+            <p>Préférences</p>
+            <div class="chec" formArrayName="preferences">
+              <div
+                *ngFor="let preference of this.preferences; let i = index"
+                [formGroupName]="i"
+              >
+                <div class="form-check">
+                  <input
+                    class="form-check-input"
+                    type="checkbox"
+                    value=""
+                    formControlName="checked"
+                  />
+                  <label class="form-check-label" for="flexCheckDefault">
+                    {{ preference.name }}
+                  </label>
+                </div>
+              </div>
+            </div>
+
+            <p>Experience</p>
+            <div class="chec" formArrayName="experiences">
+              <div
+                *ngFor="let experience of this.experiences; let i = index"
+                [formGroupName]="i"
+              >
+                <div class="form-check">
+                  <input
+                    class="form-check-input"
+                    type="checkbox"
+                    value=""
+                    formControlName="checked"
+                  />
+                  <label class="form-check-label" for="flexCheckDefault">
+                    {{ experience.years }}
+                  </label>
+                </div>
+              </div>
+            </div>
+
+            <p>Langue</p>
+            <div class="chec" formArrayName="langues">
+              <div
+                *ngFor="let langue of this.langues; let i = index"
+                [formGroupName]="i"
+              >
+                <div class="form-check">
+                  <input
+                    class="form-check-input"
+                    type="checkbox"
+                    value=""
+                    formControlName="checked"
+                  />
+                  <label class="form-check-label" for="flexCheckDefault">
+                    {{ langue.name }}
+                  </label>
+                </div>
+              </div>
+            </div>
+
+            <p>Disponibilite</p>
+            <div class="chec" formArrayName="disponibilite">
+              <div
+                *ngFor="let disponibilite of this.disponibilite; let i = index"
+                [formGroupName]="i"
+              >
+                <div class="form-check">
+                  <input
+                    class="form-check-input"
+                    type="checkbox"
+                    value=""
+                    formControlName="checked"
+                  />
+                  <label class="form-check-label" for="flexCheckDefault">
+                    {{
+                      [
+                        disponibilite.day,
+                        "de",
+                        disponibilite.start_time,
+                        "à",
+                        disponibilite.end_time
+                      ].join(" ")
+                    }}
+                  </label>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <hr class="my-4" />
+
+          <button
+            class="w-100 btn btn-primary btn-lg"
+            [disabled]="formForm.invalid"
+            type="submit"
+          >
+            Créer le compte
+          </button>
+        </form>
+      </div>
+
+      <div class="col-md-7 col-lg-8" *ngIf="this.role == 2">
+        <h4 class="mb-3">Mentee</h4>
+        <form
+          class="needs-validation"
+          [formGroup]="formForm"
+          (ngSubmit)="ngOnSubmit2()"
+          novalidate
+        >
+          <div class="row g-3">
+            <div class="col-sm-6">
+              <label for="firstName" class="form-label">First name</label>
+              <input
+                type="text"
+                class="form-control"
+                id="firstName"
+                formControlName="first_name"
+                placeholder=""
+                value=""
+                required
+              />
+              <div class="invalid-feedback">Valid first name is required.</div>
+            </div>
+
+            <div class="col-sm-6">
+              <label for="lastName" class="form-label">Last name</label>
+              <input
+                type="text"
+                class="form-control"
+                id="lastName"
+                formControlName="last_name"
+                placeholder=""
+                value=""
+                required
+              />
+              <div class="invalid-feedback">Valid last name is required.</div>
+            </div>
+
+            <div class="col-12">
+              <label for="username" class="form-label">Username</label>
+              <div class="input-group has-validation">
+                <span class="input-group-text">@</span>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="username"
+                  formControlName="username"
+                  placeholder="Username"
+                  required
+                />
+                <div class="invalid-feedback">Your username is required.</div>
+              </div>
+            </div>
+
+            <div class="col-12">
+              <label for="email" class="form-label">Email </label>
+              <input
+                type="email"
+                class="form-control"
+                id="email"
+                formControlName="email"
+                placeholder="you@example.com"
+              />
+              <div class="invalid-feedback">
+                Please enter a valid email address for shipping updates.
+              </div>
+            </div>
+
+            <div class="col-12">
+              <label for="password" class="form-label">password </label>
+              <input
+                type="password"
+                class="form-control"
+                id="password"
+                formControlName="password"
+                placeholder=""
+              />
+              <div class="invalid-feedback">
+                Please enter a valid password address for shipping updates.
+              </div>
+            </div>
+
+            <p>Centres d'intérêt</p>
+            <div class="chec" formArrayName="centres_interet">
+              <div
+                *ngFor="let domaine of this.domaineExpertise; let i = index"
+                [formGroupName]="i"
+              >
+                <div class="form-check">
+                  <input
+                    class="form-check-input"
+                    type="checkbox"
+                    value=""
+                    formControlName="checked"
+                  />
+                  <label class="form-check-label" for="flexCheckDefault">
+                    {{ domaine.name }}
+                  </label>
+                </div>
+              </div>
+            </div>
+
+            <p>Objectifs</p>
+            <div class="chec" formArrayName="objectifs">
+              <div
+                *ngFor="let domaine of this.domaineExpertise; let i = index"
+                [formGroupName]="i"
+              >
+                <div class="form-check">
+                  <input
+                    class="form-check-input"
+                    type="checkbox"
+                    value=""
+                    formControlName="checked"
+                  />
+                  <label class="form-check-label" for="flexCheckDefault">
+                    {{ domaine.name }}
+                  </label>
+                </div>
+              </div>
+            </div>
+
+            <p>Niveau d'éducation</p>
+            <div class="chec" formArrayName="niveau_education">
+              <div
+                *ngFor="
+                  let niveau_education of this.niveau_education;
+                  let i = index
+                "
+                [formGroupName]="i"
+              >
+                <div class="form-check">
+                  <input
+                    class="form-check-input"
+                    type="checkbox"
+                    value=""
+                    formControlName="checked"
+                  />
+                  <label class="form-check-label" for="flexCheckDefault">
+                    {{ niveau_education.level }}
+                  </label>
+                </div>
+              </div>
+            </div>
+
+            <p>Compétences actuelles</p>
+            <div class="chec" formArrayName="competences_actuelles">
+              <div
+                *ngFor="let qualification of this.qualifications; let i = index"
+                [formGroupName]="i"
+              >
+                <div class="form-check">
+                  <input
+                    class="form-check-input"
+                    type="checkbox"
+                    value=""
+                    formControlName="checked"
+                  />
+                  <label class="form-check-label" for="flexCheckDefault">
+                    {{ qualification.name }}
+                  </label>
+                </div>
+              </div>
+            </div>
+
+            <p>Langue</p>
+            <div class="chec" formArrayName="langues">
+              <div
+                *ngFor="let langue of this.langues; let i = index"
+                [formGroupName]="i"
+              >
+                <div class="form-check">
+                  <input
+                    class="form-check-input"
+                    type="checkbox"
+                    value=""
+                    formControlName="checked"
+                  />
+                  <label class="form-check-label" for="flexCheckDefault">
+                    {{ langue.name }}
+                  </label>
+                </div>
+              </div>
+            </div>
+
+            <p>Disponibilite</p>
+            <div class="chec" formArrayName="disponibilite">
+              <div
+                *ngFor="let disponibilite of this.disponibilite; let i = index"
+                [formGroupName]="i"
+              >
+                <div class="form-check">
+                  <input
+                    class="form-check-input"
+                    type="checkbox"
+                    value=""
+                    formControlName="checked"
+                  />
+                  <label class="form-check-label" for="flexCheckDefault">
+                    {{
+                      [
+                        disponibilite.day,
+                        "de",
+                        disponibilite.start_time,
+                        "à",
+                        disponibilite.end_time
+                      ].join(" ")
+                    }}
+                  </label>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <hr class="my-4" />
+
+          <button
+            class="w-100 btn btn-primary btn-lg"
+            [disabled]="formForm.invalid"
+            type="submit"
+          >
+            Créer le compte
+          </button>
+        </form>
+      </div>
+    </div>
+  </main>
+</div>

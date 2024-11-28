@@ -1,0 +1,33 @@
+<div class="content">
+  <div *ngIf="active == 1 && !loading">
+    <h2>All ressources</h2>
+    <hr />
+
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th scope="col">Mentor</th>
+          <th scope="col">Titre</th>
+          <th scope="col">Type</th>
+          <th scope="col">Domaine</th>
+          <th scope="col">Url</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let ressource of ressources">
+          <td>{{ ressource.mentor }}</td>
+          <td>{{ ressource.titre }}</td>
+          <td>{{ ressource.type }}</td>
+          <td>{{ ressource.domaine }}</td>
+          <td><a [href]="ressource.url">link</a></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div *ngIf="loading" class="px-4 pt-5 my-5 text-center">
+    <div class="spinner-border text-secondary" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+  </div>
+</div>

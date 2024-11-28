@@ -1,0 +1,194 @@
+<main>
+  <div class="container py-4">
+    <header class="pb-3 mb-4 border-bottom">
+      <a
+        href="/"
+        class="d-flex align-items-center text-body-emphasis text-decoration-none"
+      >
+        <img
+          class="mb-4"
+          src="../assets/logo.png"
+          alt=""
+          width="50"
+          height="50"
+        />
+        <span class="fs-4">Mentor me</span>
+      </a>
+    </header>
+
+    <div class="p-5 mb-4 bg-body-tertiary rounded-3">
+      <div class="row flex-lg-row-reverse align-items-center g-5 py-5">
+        <div class="col-10 col-sm-8 col-lg-6">
+          <img
+            src="../assets/illustration1.png"
+            class="d-block mx-lg-auto img-fluid"
+            alt="Bootstrap Themes"
+            width="700"
+            height="500"
+            loading="lazy"
+          />
+        </div>
+        <div class="col-lg-6">
+          <h1 class="display-5 fw-bold text-body-emphasis lh-1 mb-3">
+            Bienvenue sur notre Application de Mentoring
+          </h1>
+          <p class="lead">
+            Connectez les mentors et les mentees pour des expériences
+            d'apprentissage enrichissantes. Notre plateforme facilite la mise en
+            relation de mentors expérimentés avec des mentees souhaitant
+            développer leurs compétences et atteindre leurs objectifs.
+          </p>
+          <div class="d-grid gap-2 d-md-flex justify-content-md-start">
+            <button
+              (click)="start()"
+              class="btn btn-outline-secondary"
+              type="button"
+            >
+              Commencer
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="px-4 pt-5 my-5 text-center border-bottom">
+      <h1 class="display-4 fw-bold text-body-emphasis">
+        Trouvez des mentors pour vous aider à acquérir des compétences
+        inestimables
+      </h1>
+      <div class="col-lg-6 mx-auto">
+        <p class="lead mb-4">
+          Chaque utilisateur est unique, c'est pourquoi nous offrons des
+          programmes de mentorat personnalisés adaptés à vos besoins spécifiques
+          et à vos objectifs professionnels.
+        </p>
+        <div class="d-grid gap-2 d-sm-flex justify-content-sm-center mb-5">
+          <button
+            (click)="routerService.routeRoute('/auth/sign-up')"
+            type="button"
+            class="btn btn-outline-secondary btn-lg px-4 me-sm-3"
+          >
+            Inscrivez vous
+          </button>
+          <button
+            (click)="start()"
+            type="button"
+            class="btn btn-outline-secondary btn-lg px-4"
+          >
+            Commencer
+          </button>
+        </div>
+      </div>
+      <div class="overflow-hidden" style="max-height: 30vh">
+        <div class="container px-5">
+          <img
+            src="../assets/illustration2.jpg"
+            class="img-fluid border rounded-3 shadow-lg mb-4"
+            alt="Example image"
+            width="700"
+            height="500"
+            loading="lazy"
+          />
+        </div>
+      </div>
+    </div>
+
+    <div class="row align-items-md-stretch">
+      <div class="col-md-6">
+        <div class="h-100 p-5 text-bg-dark rounded-3">
+          <h2>Fonctionnalités Clés</h2>
+          <ul class="list-unstyled">
+            <li>
+              <strong>Matching Automatique :</strong> Trouvez les mentors et
+              mentees idéaux grâce à notre algorithme de matching.
+            </li>
+            <li>
+              <strong>Gestion des Sessions :</strong> Planifiez, gérez et suivez
+              vos sessions de mentoring en toute simplicité.
+            </li>
+            <li>
+              <strong>Partage de Ressources :</strong> Accédez à une
+              bibliothèque de ressources partagées par les mentors.
+            </li>
+            <li>
+              <strong>Évaluations et Feedback :</strong> Recevez et donnez des
+              évaluations pour améliorer continuellement l'expérience de
+              mentoring.
+            </li>
+            <li>
+              <strong>Suivi des Objectifs :</strong> Définissez et suivez les
+              objectifs de développement personnel et professionnel.
+            </li>
+          </ul>
+          <button (click)="start()" class="btn btn-outline-light" type="button">
+            Commencer
+          </button>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="h-100 p-5 bg-body-tertiary border rounded-3">
+          <h2>Pourquoi Choisir Notre Application ?</h2>
+          <ul class="list-unstyled">
+            <li>
+              <strong>Interface Intuitive :</strong> Une interface conviviale et
+              facile à utiliser pour tous les utilisateurs.
+            </li>
+            <li>
+              <strong>Support Personnalisé :</strong> Profitez d'un support
+              dédié pour répondre à toutes vos questions.
+            </li>
+            <li>
+              <strong>Communauté Engagée :</strong> Rejoignez une communauté de
+              mentors et de mentees passionnés et engagés.
+            </li>
+            <li>
+              <strong>Évolutivité :</strong> Une solution adaptée à tous les
+              types de programmes de mentoring, des petites organisations aux
+              grandes entreprises.
+            </li>
+            <li>
+              <strong>Confidentialité et Sécurité :</strong> Vos données sont
+              protégées et votre confidentialité est garantie.
+            </li>
+          </ul>
+          <button
+            (click)="start()"
+            class="btn btn-outline-secondary"
+            type="button"
+          >
+            Commencer
+          </button>
+        </div>
+      </div>
+    </div>
+    <br />
+    <div class="p-5 mb-4 bg-body-tertiary rounded-3">
+      <div class="container-fluid py-5">
+        <h1 class="display-5 fw-bold">
+          Prêt à Débuter Votre Parcours de Mentoring ?
+        </h1>
+        <p class="lead">
+          Rejoignez notre plateforme et commencez à créer des connexions
+          significatives et productives dès aujourd'hui.
+        </p>
+
+        <button
+          (click)="routerService.routeRoute('/auth/sign-up')"
+          class="btn btn-outline-secondary mr-5"
+          style="margin: 10px"
+          type="button"
+        >
+          Inscrivez-vous Maintenant
+        </button>
+
+        <button
+          (click)="start()"
+          class="btn btn-outline-secondary"
+          type="button"
+        >
+          Commencer
+        </button>
+      </div>
+    </div>
+  </div>
+</main>

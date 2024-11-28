@@ -1,0 +1,104 @@
+<div class="content">
+  <div *ngIf="active == 1 && !loading">
+    <h2>All sessions</h2>
+    <button class="btn btn-primary" (click)="chargeMenttee()">
+      Add session
+    </button>
+    <hr />
+
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th scope="col">Mentee</th>
+          <th scope="col">Type</th>
+          <th scope="col">Disponibilité</th>
+          <th scope="col">Commentaire</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let session of sessions">
+          <td>{{ session.mentee }}</td>
+          <td>{{ session.type }}</td>
+          <td>
+            {{ session.disponibilite.day }} de
+            {{ session.disponibilite.start_time }} à
+            {{ session.disponibilite.end_time }}
+          </td>
+          <td>{{ session.commentaire }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div *ngIf="loading" class="px-4 pt-5 my-5 text-center">
+    <div class="spinner-border text-secondary" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+  </div>
+
+  <div *ngIf="active == 2 && !loading">
+    <h2>Select mentee</h2>
+    <div class="row">
+      <div
+        class="col-lg-3 col-sm-6"
+        *ngFor="let user of users"
+        (click)="chargeData(user.id)"
+      >
+        <div class="widget-panel widget-style-2 bg-primary">
+          <h2 class="m-0 counter">
+            {{ user.first_name }} {{ user.last_name }}
+          </h2>
+          <div>{{ user.username }}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="active == 3 && !loading">
+    <h2>Add session</h2>
+    <form class="parent" [formGroup]="formForm" (ngSubmit)="ngOnSubmit()">
+      <div class="form-floating">
+        <select
+          class="form-select"
+          id="floatingSelect"
+          aria-label="Floating label select example"
+          formControlName="disponibilite"
+        >
+          <option *ngFor="let option of disponibilite" [value]="option.id">
+            {{ option.day }} de {{ option.start_time }} à {{ option.end_time }}
+          </option>
+        </select>
+        <label for="floatingSelect">Select type:</label>
+      </div>
+      <br />
+      <div class="form-floating">
+        <select
+          class="form-select"
+          id="floatingSelect"
+          aria-label="Floating label select example"
+          formControlName="type"
+        >
+          <option *ngFor="let option of type" [value]="option">
+            {{ option }}
+          </option>
+        </select>
+        <label for="floatingSelect">Select type:</label>
+      </div>
+      <br />
+      <div class="form-floating">
+        <textarea
+          class="form-control"
+          placeholder="Leave a comment here"
+          id="floatingTextarea2"
+          style="height: 100px"
+          formControlName="commentaire"
+        ></textarea>
+        <label for="floatingTextarea2">Comments</label>
+      </div>
+      <br />
+      <button class="w-100 btn btn-primary btn-lg" type="submit">
+        Ajouter la session
+      </button>
+    </form>
+  </div>
+</div>

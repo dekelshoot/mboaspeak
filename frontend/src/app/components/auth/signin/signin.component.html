@@ -1,0 +1,54 @@
+<div class="container">
+  <div *ngIf="loadingData" class="px-4 pt-5 my-5 text-center">
+    <div class="spinner-border text-secondary" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+  </div>
+  <main class="form-signin w-100 m-auto" *ngIf="!loadingData">
+    <form [formGroup]="formForm" (ngSubmit)="ngOnSubmit()">
+      <img
+        class="mb-4"
+        src="../../assets/MboaSpeak.png"
+        alt=""
+        width="72"
+        height="72"
+      />
+      <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
+
+      <div class="form-floating">
+        <input
+          type="username"
+          class="form-control"
+          id="floatingInput"
+          placeholder=""
+          formControlName="username"
+        />
+        <label for="floatingInput">Username</label>
+      </div>
+      <div class="form-floating">
+        <input
+          type="password"
+          class="form-control"
+          id="floatingPassword"
+          placeholder="Password"
+          formControlName="password"
+        />
+        <label for="floatingPassword">Password</label>
+      </div>
+
+      <button class="btn btn-primary w-100 py-2" type="submit">Sign in</button>
+      <br /><br /><br />
+      <p class="mb-1">Vous n'avez pas de compte?</p>
+
+      <a (click)="routerService.routeRoute('/auth/sign-up')"
+        >se créer un compte</a
+      >
+    </form>
+  </main>
+  <div *ngIf="success" class="alert alert-success" role="alert">
+    {{ message }}
+  </div>
+  <div *ngIf="err" class="alert alert-danger" role="alert">
+    {{ message }}
+  </div>
+</div>

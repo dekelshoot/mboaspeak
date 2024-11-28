@@ -1,0 +1,41 @@
+<div class="wraper container-fluid" *ngIf="!loading">
+  <div class="row">
+    <div class="col-lg-3 col-sm-6">
+      <div class="widget-panel widget-style-2 bg-warning">
+        <i class="bi bi-calendar-check"></i>
+        <h2 class="m-0 counter">{{ sessions.length }}</h2>
+        <div>Total Sessions</div>
+      </div>
+    </div>
+    <div class="col-lg-3 col-sm-6">
+      <div class="widget-panel widget-style-2 bg-success">
+        <i class="bi bi-layers-half"></i>
+        <h2 class="m-0 counter">{{ ressources.length }}</h2>
+        <div>Ressources</div>
+      </div>
+    </div>
+    <div class="col-lg-3 col-sm-6">
+      <div class="widget-panel widget-style-2 bg-danger">
+        <i class="bi bi-card-checklist"></i>
+        <h2 class="m-0 counter">{{ evaluations.length }}</h2>
+        <div>Evaluations</div>
+      </div>
+    </div>
+    <div class="col-lg-3 col-sm-6">
+      <div class="widget-panel widget-style-2 bg-info">
+        <i class="bi bi-person-gear"></i>
+        <h2 class="m-0 counter">{{ mentees.length }}</h2>
+        <div>Mentees</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="wraper container-fluid" *ngIf="loading">
+  <div class="px-4 pt-5 my-5 text-center">
+    <div class="spinner-border text-secondary" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+  </div>
+</div>
+<!-- end row -->

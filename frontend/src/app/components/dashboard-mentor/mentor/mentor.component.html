@@ -1,0 +1,99 @@
+<main class="d-flex flex-nowrap">
+  <div
+    class="d-flex flex-column flex-shrink-0 p-3 text-bg-dark"
+    style="width: 280px; height: 100%"
+  >
+    <a
+      href="/"
+      class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none"
+    >
+      <span class="fs-4">Mentor dashboard</span>
+    </a>
+    <hr />
+    <ul class="nav nav-pills flex-column mb-auto">
+      <li class="nav-item">
+        <a
+          class="nav-link text-white"
+          [ngClass]="{ active: active == 1 }"
+          (click)="changeActive(1)"
+        >
+          <i class="bi bi-speedometer"></i>
+          Dashboard
+        </a>
+      </li>
+      <li>
+        <a
+          class="nav-link text-white"
+          [ngClass]="{ active: active == 2 }"
+          (click)="changeActive(2)"
+        >
+          <i class="bi bi-calendar-check"></i>
+          Session
+        </a>
+      </li>
+      <li>
+        <a
+          class="nav-link text-white"
+          [ngClass]="{ active: active == 3 }"
+          (click)="changeActive(3)"
+        >
+          <i class="bi bi-layers-half"></i>
+          Ressources
+        </a>
+      </li>
+      <li>
+        <a
+          class="nav-link text-white"
+          [ngClass]="{ active: active == 4 }"
+          (click)="changeActive(4)"
+        >
+          <i class="bi bi-card-checklist"></i>
+          Evaluation
+        </a>
+      </li>
+    </ul>
+    <hr />
+    <div class="dropdown">
+      <a
+        class="d-flex align-items-center text-white text-decoration-none dropdown-toggle"
+        data-bs-toggle="dropdown"
+        aria-expanded="false"
+      >
+        <img
+          src="../../../assets/logo.png"
+          alt=""
+          width="32"
+          height="32"
+          class="rounded-circle me-2"
+        />
+        <strong>moi</strong>
+      </a>
+      <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
+        <li><a class="dropdown-item" (click)="logout()">Sign out</a></li>
+      </ul>
+    </div>
+  </div>
+  <app-stat
+    *ngIf="active == 1"
+    class="stat d-flex"
+    style="width: 100%"
+  ></app-stat>
+
+  <div class="content" *ngIf="active == 2">
+    <app-session-mentor
+      class="session"
+      style="width: 100%"
+    ></app-session-mentor>
+  </div>
+
+  <div class="content" *ngIf="active == 3">
+    <app-ressource class="session" style="width: 100%"></app-ressource>
+  </div>
+
+  <div class="content" *ngIf="active == 4">
+    <app-evaluation-mentor
+      class="session"
+      style="width: 100%"
+    ></app-evaluation-mentor>
+  </div>
+</main>

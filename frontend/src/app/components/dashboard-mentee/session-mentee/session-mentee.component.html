@@ -1,0 +1,36 @@
+<div class="content">
+  <div *ngIf="active == 1 && !loading">
+    <h2>All sessions</h2>
+
+    <hr />
+
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th scope="col">Mentor</th>
+          <th scope="col">Type</th>
+          <th scope="col">Disponibilité</th>
+          <th scope="col">Commentaire</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let session of sessions">
+          <td>{{ session.mentor }}</td>
+          <td>{{ session.type }}</td>
+          <td>
+            {{ session.disponibilite.day }} de
+            {{ session.disponibilite.start_time }} à
+            {{ session.disponibilite.end_time }}
+          </td>
+          <td>{{ session.commentaire }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div *ngIf="loading" class="px-4 pt-5 my-5 text-center">
+    <div class="spinner-border text-secondary" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+  </div>
+</div>
