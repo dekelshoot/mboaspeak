@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +11,7 @@ export class RequestService {
       'Content-Type': 'application/json',
     }
   )
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private authService: AuthService) { }
 
 
   //////////////////////// CRUD/////////////////////////////
@@ -29,9 +30,28 @@ export class RequestService {
     })
   }
 
-  getAll(base: any) {
+  //recuper les informations de la bd
+  getWithAccess(base: any, id: any) {
+    let token = this.authService.getAccessToken()
+    const headers = this.headers.set('Authorization', `Bearer ${token}`);
     return new Promise((resolve, reject) => {
-      this.http.get(base).subscribe(
+      this.http.get(`${base}/${id}/`, { headers: headers }).subscribe(
+        (res: any) => {
+          resolve(res);
+        },
+        (err: any) => {
+          reject(err);
+        }
+      )
+    })
+  }
+
+  getAll(base: any) {
+    let token = this.authService.getAccessToken()
+    const headers = this.headers.set('Authorization', `Bearer ${token}`);
+    console.log(headers)
+    return new Promise((resolve, reject) => {
+      this.http.get(base, { headers: headers }).subscribe(
         (res: any) => {
           resolve(res);
         },
@@ -44,6 +64,22 @@ export class RequestService {
   }
 
 
+  //inserer les informations dans la bd
+  postWithAccess(base: any, data: any) {
+    let token = this.authService.getAccessToken()
+    console.log(token)
+    const headers = this.headers.set('Authorization', `Bearer ${token}`);
+    return new Promise((resolve, reject) => {
+      this.http.post(base, data, { headers: headers }).subscribe(
+        (res: any) => {
+          resolve(res);
+        },
+        (err: any) => {
+          reject(err);
+        }
+      )
+    })
+  }
   //inserer les informations dans la bd
   post(base: any, data: any) {
     return new Promise((resolve, reject) => {
@@ -60,9 +96,22 @@ export class RequestService {
 
 
 
-  //mettre ajour les informations dans la bd
+
+  //update les informations dans la bd
   update(base: any, id: any, data: any) {
-    return this.http.put(`${base}/${id}`, data);
+    let token = this.authService.getAccessToken()
+    console.log(token)
+    const headers = this.headers.set('Authorization', `Bearer ${token}`);
+    return new Promise((resolve, reject) => {
+      this.http.put(`${base}/${id}/`, data, { headers: headers }).subscribe(
+        (res: any) => {
+          resolve(res);
+        },
+        (err: any) => {
+          reject(err);
+        }
+      )
+    })
   }
 
   //supprimer les informations dans la bd

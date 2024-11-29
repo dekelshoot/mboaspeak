@@ -20,10 +20,10 @@ export class SigninComponent {
     private formBuilder: FormBuilder, public routerService: RouterService, private authService: AuthService
   ) { }
   ngOnInit(): void {
-    const authData = localStorage.getItem('authData');
-    if (this.authService.hasAuthData()) {
-      this.routerService.routeRoute("/apps")
-    }
+    // const authData = localStorage.getItem('authData');
+    // if (this.authService.hasAuthData()) {
+    //   this.routerService.routeRoute("/apps")
+    // }
     this.initForm();
   }
 

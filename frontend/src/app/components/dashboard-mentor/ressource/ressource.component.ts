@@ -46,29 +46,7 @@ export class RessourceComponent implements OnInit {
   }
 
   chargeMenttee() {
-    this.changeActive(2)
-    this.loading = true
-    const userString = localStorage.getItem('user');
-    if (userString !== null) {
-      const user = JSON.parse(userString);
-      if (user.is_mentee) {
-        this.routerService.routeRoute('/auth/sign-in');
-      } else {
-        let data = {
-          "id": user.id,
-          "type_user": "mentor"
-        }
-        this.requestService.post("http://127.0.0.1:8000/api/connexion/", data).then(
-          (res: any) => {
-            this.users = res.data
-            console.log(this.users)
-            this.loading = false;
-          }
-        )
-      }
-    } else {
-      this.routerService.routeRoute('/auth/sign-in');
-    }
+
 
   }
   chargeData(id: any) {
@@ -87,29 +65,6 @@ export class RessourceComponent implements OnInit {
   }
 
   chargeRessource() {
-    this.changeActive(1)
-    this.loading = true
-    const userString = localStorage.getItem('user');
-    if (userString !== null) {
-      const user = JSON.parse(userString);
-      if (user.is_mentee) {
-        this.routerService.routeRoute('/auth/sign-in');
-      } else {
-        let data = {
-          "action": 4,
-          "mentor": user.id
-        };
-        this.requestService.post("http://127.0.0.1:8000/api/ressources/", data).then(
-          (res: any) => {
-            console.log(res)
-            this.ressources = res
-            this.loading = false;
-          }
-        )
-      }
-    } else {
-      this.routerService.routeRoute('/auth/sign-in');
-    }
   }
 
   ngOnSubmit() {

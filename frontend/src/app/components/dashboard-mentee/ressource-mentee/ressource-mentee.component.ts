@@ -37,28 +37,5 @@ export class RessourceMenteeComponent implements OnInit {
     this.active = active
   }
   chargeRessource() {
-    this.changeActive(1)
-    this.loading = true
-    const userString = localStorage.getItem('user');
-    if (userString !== null) {
-      const user = JSON.parse(userString);
-      if (user.is_mentor) {
-        this.routerService.routeRoute('/auth/sign-in');
-      } else {
-        let data = {
-          "action": 6,
-          "mentee": user.id
-        };
-        this.requestService.post("http://127.0.0.1:8000/api/ressources/", data).then(
-          (res: any) => {
-            console.log(res)
-            this.ressources = res
-            this.loading = false;
-          }
-        )
-      }
-    } else {
-      this.routerService.routeRoute('/auth/sign-in');
-    }
   }
 }

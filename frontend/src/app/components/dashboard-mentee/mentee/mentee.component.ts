@@ -11,15 +11,7 @@ export class MenteeComponent implements OnInit {
   loading = true
   constructor(private routerService: RouterService) { }
   ngOnInit(): void {
-    const userString = localStorage.getItem('user');
-    if (userString !== null) {
-      const user = JSON.parse(userString);
-      if (user.is_mentor) {
-        this.routerService.routeRoute('/auth/sign-in');
-      }
-    } else {
-      this.routerService.routeRoute('/auth/sign-in');
-    }
+
   }
 
   changeActive(active: number) {

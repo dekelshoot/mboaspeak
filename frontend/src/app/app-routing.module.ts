@@ -7,12 +7,14 @@ import { MentorComponent } from './components/dashboard-mentor/mentor/mentor.com
 import { MenteeComponent } from './components/dashboard-mentee/mentee/mentee.component';
 import { AboutComponent } from './components/about/about.component';
 import { AppsComponent } from './components/apps/apps.component';
+import { DashComponent } from './components/dashboard/dash/dash.component';
 
 const routes: Routes = [
   { path: 'start', component: StartComponent },
-  { path: 'apps', component: AppsComponent },
+  { path: 'apps', component: MentorComponent },
   { path: 'about', component: AboutComponent },
   { path: '', pathMatch: 'full', component: StartComponent },
+  { path: 'dashboard', component: DashComponent },
   { path: 'auth/sign-in', component: SigninComponent },
   { path: 'auth/sign-up', component: SignupComponent },
   { path: 'dashboard/mentor', component: MentorComponent },

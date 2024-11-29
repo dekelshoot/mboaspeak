@@ -40,29 +40,6 @@ export class EvaluationMenteeComponent implements OnInit {
 
 
   chargeEvaluation() {
-    this.changeActive(1)
-    this.loading = true
-    const userString = localStorage.getItem('user');
-    if (userString !== null) {
-      const user = JSON.parse(userString);
-      if (user.is_mentor) {
-        this.routerService.routeRoute('/auth/sign-in');
-      } else {
-        let data = {
-          "action": 9,
-          "mentee": user.id
-        };
-        this.requestService.post("http://127.0.0.1:8000/api/evaluation/", data).then(
-          (res: any) => {
-            console.log(res)
-            this.evaluations = res
-            this.loading = false;
-          }
-        )
-      }
-    } else {
-      this.routerService.routeRoute('/auth/sign-in');
-    }
   }
 
   ngOnSubmit() {

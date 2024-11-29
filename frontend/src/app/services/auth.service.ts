@@ -33,13 +33,13 @@ export class AuthService {
   // Obtenir uniquement l'access token
   getAccessToken() {
     const authData = this.getAuthData();
-    return authData.accessToken || null;
+    return authData.access || null;
   }
 
   // Obtenir uniquement le refresh token
   getRefreshToken() {
     const authData = this.getAuthData();
-    return authData.refreshToken || null;
+    return authData.refresh || null;
   }
 }
 

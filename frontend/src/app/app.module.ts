@@ -24,6 +24,9 @@ import { StatMenteeComponent } from './layouts/stat-mentee/stat-mentee.component
 import { AboutComponent } from './components/about/about.component';
 import { AppsComponent } from './components/apps/apps.component';
 import { AuthService } from './services/auth.service';
+import { DashComponent } from './components/dashboard/dash/dash.component';
+import { WordComponent } from './components/dashboard/word/word.component';
+import { ProfileComponent } from './components/dashboard/profile/profile.component';
 
 @NgModule({
   declarations: [
@@ -46,7 +49,12 @@ import { AuthService } from './services/auth.service';
     EvaluationMentorComponent,
     StatMenteeComponent,
     AboutComponent,
-    AppsComponent
+    AppsComponent,
+    DashComponent,
+    WordComponent,
+    ProfileComponent,
+
+
   ],
   imports: [
     BrowserModule,

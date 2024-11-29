@@ -10,13 +10,7 @@ import { RouterService } from 'src/app/services/router.service';
 })
 export class SignupComponent implements OnInit {
   role = 1
-  domaineExpertise: Array<any> = [];
-  qualifications: Array<any> = [];
-  experiences: Array<any> = [];
-  preferences: Array<any> = [];
-  langues: Array<any> = [];
-  disponibilite: Array<any> = [];
-  niveau_education: Array<any> = [];
+
   loadingData = true
 
   languages: Array<any> = [];
@@ -48,7 +42,7 @@ export class SignupComponent implements OnInit {
   initForm() {
     this.formForm = this.formBuilder.group({
       username: ['', [Validators.required]],
-      email: ['', [Validators.required]],
+      email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required]],
       primary_language: ['', [Validators.required]],
     });

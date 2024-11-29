@@ -49,7 +49,9 @@ INSTALLED_APPS = [
     'authentication', 
     'rest_framework.authtoken',
     'rest_framework_simplejwt',
+    'dictionary',
     'corsheaders',
+    
     
 ]
 
@@ -146,8 +148,8 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 SIMPLE_JWT = {
-    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=5),  # Durée de vie des tokens d'accès
-    'REFRESH_TOKEN_LIFETIME': timedelta(days=1),    # Durée de vie des tokens de rafraîchissement
+    'ACCESS_TOKEN_LIFETIME': timedelta(days=365),  # Durée de vie des tokens d'accès
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=365),    # Durée de vie des tokens de rafraîchissement
     'ROTATE_REFRESH_TOKENS': True,                 # Rafraîchir le token de rafraîchissement
     'BLACKLIST_AFTER_ROTATION': True,              # Blacklist les anciens tokens
 }

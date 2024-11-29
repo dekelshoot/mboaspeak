@@ -32,29 +32,7 @@ export class SessionMenteeComponent implements OnInit {
 
 
   chargeSession() {
-    this.changeActive(1)
-    this.loading = true
-    const userString = localStorage.getItem('user');
-    if (userString !== null) {
-      const user = JSON.parse(userString);
-      if (user.is_mentor) {
-        this.routerService.routeRoute('/auth/sign-in');
-      } else {
-        let data = {
-          "action": 5,
-          "mentee": user.id
-        };
-        this.requestService.post("http://127.0.0.1:8000/api/sessions/", data).then(
-          (res: any) => {
-            console.log(res)
-            this.sessions = res
-            this.loading = false;
-          }
-        )
-      }
-    } else {
-      this.routerService.routeRoute('/auth/sign-in');
-    }
+
   }
 
 }

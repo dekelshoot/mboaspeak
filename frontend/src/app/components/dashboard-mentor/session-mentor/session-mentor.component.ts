@@ -35,32 +35,8 @@ export class SessionMentorComponent implements OnInit {
     this.active = active
   }
 
-  chargeMenttee() {
-    this.changeActive(2)
-    this.loading = true
-    const userString = localStorage.getItem('user');
-    if (userString !== null) {
-      const user = JSON.parse(userString);
-      if (user.is_mentee) {
-        this.routerService.routeRoute('/auth/sign-in');
-      } else {
-        let data = {
-          "id": user.id,
-          "type_user": "mentor"
-        }
-        this.requestService.post("http://127.0.0.1:8000/api/connexion/", data).then(
-          (res: any) => {
-            this.users = res.data
-            console.log(this.users)
-            this.loading = false;
-          }
-        )
-      }
-    } else {
-      this.routerService.routeRoute('/auth/sign-in');
-    }
+  chargeMenttee() { }
 
-  }
   chargeData(id: any) {
     console.log(id)
     this.user_id = id
@@ -77,29 +53,6 @@ export class SessionMentorComponent implements OnInit {
   }
 
   chargeSession() {
-    this.changeActive(1)
-    this.loading = true
-    const userString = localStorage.getItem('user');
-    if (userString !== null) {
-      const user = JSON.parse(userString);
-      if (user.is_mentee) {
-        this.routerService.routeRoute('/auth/sign-in');
-      } else {
-        let data = {
-          "action": 2,
-          "mentor": user.id
-        };
-        this.requestService.post("http://127.0.0.1:8000/api/sessions/", data).then(
-          (res: any) => {
-            console.log(res)
-            this.sessions = res
-            this.loading = false;
-          }
-        )
-      }
-    } else {
-      this.routerService.routeRoute('/auth/sign-in');
-    }
   }
 
   ngOnSubmit() {
