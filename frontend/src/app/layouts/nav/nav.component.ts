@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { AuthService } from 'src/app/services/auth.service';
 import { RouterService } from 'src/app/services/router.service';
 
 @Component({
@@ -6,6 +7,12 @@ import { RouterService } from 'src/app/services/router.service';
   templateUrl: './nav.component.html',
   styleUrls: ['./nav.component.scss']
 })
-export class NavComponent {
-  constructor(public routerService: RouterService) { }
+export class NavComponent implements OnInit {
+  constructor(public routerService: RouterService, public authService: AuthService) { }
+  auth = false
+  ngOnInit(): void {
+    if (this.authService.hasAuthData()) {
+      this.auth = true
+    }
+  }
 }

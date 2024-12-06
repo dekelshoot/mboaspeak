@@ -1,14 +1,16 @@
 from rest_framework.views import APIView
+from rest_framework.generics import ListAPIView
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
 from rest_framework import status
-from .models import Word, Expression
-from .serializers import WordSerializer, ExpressionSerializer
+from .models import Word
+from .serializers import WordSerializer
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
-from .models import Word
+from .models import Word,Vote, Star,DisLike
 from rest_framework.exceptions import NotFound
 from authentication.models import User
+from rest_framework.pagination import PageNumberPagination
 
 class CreateWordView(APIView):
     permission_classes = [IsAuthenticated]
@@ -27,41 +29,9 @@ class CreateWordView(APIView):
 
         # Retourner une erreur si la validation échoue
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-# Vue pour créer une expression
-class CreateExpressionView(APIView):
-    permission_classes = [IsAuthenticated]
 
-    def post(self, request):
-        serializer = ExpressionSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save(user=request.user)
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-# Vue pour ajouter un mot à une expression
-class AddWordToExpressionView(APIView):
-    permission_classes = [IsAuthenticated]
 
-    def post(self, request, expression_id, word_id):
-        try:
-            expression = Expression.objects.get(pk=expression_id)
-            word = Word.objects.get(pk=word_id)
-            expression.add_word(word)
-            return Response({"message": "Word added to expression successfully"}, status=status.HTTP_200_OK)
-        except (Expression.DoesNotExist, Word.DoesNotExist):
-            return Response({"error": "Expression or Word not found"}, status=status.HTTP_404_NOT_FOUND)
-
-# Vue pour voter pour une expression
-class VoteExpressionView(APIView):
-    permission_classes = [IsAuthenticated]
-
-    def post(self, request, pk):
-        try:
-            expression = Expression.objects.get(pk=pk)
-            expression.vote()
-            return Response({"message": "Vote added successfully"}, status=status.HTTP_200_OK)
-        except Expression.DoesNotExist:
-            return Response({"error": "Expression not found"}, status=status.HTTP_404_NOT_FOUND)
 
 # Vue pour voter pour un mot
 class VoteWordView(APIView):
@@ -70,11 +40,53 @@ class VoteWordView(APIView):
     def post(self, request, pk):
         try:
             word = Word.objects.get(pk=pk)
-            word.vote()
-            return Response({"message": "Vote added successfully"}, status=status.HTTP_200_OK)
+            word.vote(request.user)
+            # Vérifier si l'utilisateur a déjà voté pour ce mot
+            if Vote.objects.filter(user=request.user, word=word).exists():
+                return Response({"error": "You have already voted for this word."}, status=status.HTTP_400_BAD_REQUEST)
+            # Enregistrer le vote
+            Vote.objects.create(user=request.user, word=word)
+            return Response({"message": "Vote added successfully."}, status=status.HTTP_201_CREATED)
+        
         except Word.DoesNotExist:
             return Response({"error": "Word not found"}, status=status.HTTP_404_NOT_FOUND)
 
+
+# Vue pour dislikes  un mot
+class DislikesWordView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request, pk):
+        try:
+            word = Word.objects.get(pk=pk)
+            word.dislike()
+            if DisLike.objects.filter(user=request.user, word=word).exists():
+                return Response({"error": "You have already disliked for this word."}, status=status.HTTP_400_BAD_REQUEST)
+            # Enregistrer le vote
+            DisLike.objects.create(user=request.user, word=word)
+            return Response({"message": "dislikes added successfully"}, status=status.HTTP_200_OK)
+        except Word.DoesNotExist:
+            return Response({"error": "Word not found"}, status=status.HTTP_404_NOT_FOUND)
+
+
+# Vue pour dislikes  un mot
+class starWordView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request, pk):
+        if request.user.user_type != 'linguist':
+                return Response({"error": "You do not have permission to add star."}, status=status.HTTP_403_FORBIDDEN)
+
+        try:
+            word = Word.objects.get(pk=pk)
+            word.add_star()
+            if Star.objects.filter(user=request.user, word=word).exists():
+                return Response({"error": "You have already Stard for this word."}, status=status.HTTP_400_BAD_REQUEST)
+            # Enregistrer le vote
+            Star.objects.create(user=request.user, word=word)
+            return Response({"message": "star added successfully"}, status=status.HTTP_200_OK)
+        except Word.DoesNotExist:
+            return Response({"error": "Word not found"}, status=status.HTTP_404_NOT_FOUND)
 
 class UpdateWordView(APIView):
     permission_classes = [IsAuthenticated]
@@ -114,7 +126,7 @@ class user_added_words(APIView):
             words = Word.objects.filter(user=user)
             
             # Préparer les données pour les retourner au format JSON
-            words_data = [{"id": word.id, "word_name": word.word_name, "definition": word.definition, "lang_definition":word.lang_definition,"meaning_fr":word.meaning_fr, "meaning_en":word.meaning_en, "language":word.language,"votes":word.votes,"date_submitted":word.date_submitted} for word in words]
+            words_data = [{"id": word.id, "word_name": word.word_name, "definition": word.definition, "example":word.example, "lang_definition":word.lang_definition,"meaning_fr":word.meaning_fr, "meaning_en":word.meaning_en, "language":word.language,"votes":word.votes,"dislikes":word.dislikes,"star":word.star,"date_submitted":word.date_submitted} for word in words]
             
             return JsonResponse({"words": words_data})
 
@@ -123,60 +135,190 @@ class user_added_words(APIView):
         
         
 class WordDetailView(APIView):
-    permission_classes = [IsAuthenticated]
-
+    
     def get(self, request, id):
         print("hello")
         try:
             word = Word.objects.get(id=id)  # Récupère le mot via son ID
         except Word.DoesNotExist:
             return Response({"error": "Word not found."}, status=status.HTTP_404_NOT_FOUND)
+        liked = False
+        stared = False
+        disliked = False
 
-        # Retourne les détails du mot sous forme de dictionnaire
         return Response({
-            "id": word.id, "word_name": word.word_name, "definition": word.definition, "lang_definition":word.lang_definition,"meaning_fr":word.meaning_fr, "meaning_en":word.meaning_en, "language":word.language,"votes":word.votes,"date_submitted":word.date_submitted
+            "id": word.id,
+            "liked": liked,
+            "stared": stared,
+            "disliked": disliked,
+            "word_name": word.word_name,
+            "definition": word.definition,
+            "lang_definition": word.lang_definition,
+            "meaning_fr": word.meaning_fr,
+            "meaning_en": word.meaning_en,
+            "example": word.example,
+            "language": word.language,
+            "votes": word.votes,
+            "dislikes": word.dislikes,
+            "star": word.star,
+            "date_submitted": word.date_submitted,
+            "added_by": word.user.username if word.user else None,
         })
         
-
-class UpdateUserTypeView(APIView):
-    # Autoriser uniquement les administrateurs
+class WordDetailViewWithaccess(APIView):
     permission_classes = [IsAuthenticated]
-
-    def patch(self, request, username):
+    def get(self, request, id):
+        print("hello")
         try:
-            if request.user.user_type!= "admin":
-                return Response(
-                    {'error': 'user no authorized.'},
-                    status=status.HTTP_400_BAD_REQUEST
-                )
-                
-            # Récupérer l'utilisateur avec l'ID fourni
-            user = User.objects.get(username=username)
+            word = Word.objects.get(id=id)  # Récupère le mot via son ID
+        except Word.DoesNotExist:
+            return Response({"error": "Word not found."}, status=status.HTTP_404_NOT_FOUND)
+        liked = False
+        print(request.user.id)
 
-            # Récupérer le nouveau type d'utilisateur depuis la requête
-            new_user_type = request.data.get('user_type')
-            if new_user_type not in ['admin', 'contributor', 'linguist']:
-                return Response(
-                    {'error': 'Invalid user type. Valid options: admin, contributor, linguist.'},
-                    status=status.HTTP_400_BAD_REQUEST
-                )
+        liked = Vote.objects.filter(user=request.user, word=word).exists()
+        stared = Star.objects.filter(user=request.user, word=word).exists()
+        disliked = DisLike.objects.filter(user=request.user, word=word).exists()
 
-            # Mettre à jour le champ user_type
-            user.user_type = new_user_type
-            user.save()
+        return Response({
+            "id": word.id,
+            "liked": liked,
+            "stared": stared,
+            "disliked": disliked,
+            "word_name": word.word_name,
+            "definition": word.definition,
+            "lang_definition": word.lang_definition,
+            "meaning_fr": word.meaning_fr,
+            "meaning_en": word.meaning_en,
+            "example": word.example,
+            "language": word.language,
+            "votes": word.votes,
+            "dislikes": word.dislikes,
+            "star": word.star,
+            "date_submitted": word.date_submitted,
+            "added_by": word.user.username if word.user else None,
+        }, status=200)
+   
+        
 
-            return Response(
-                {'message': f"User type updated successfully to '{new_user_type}' for user {user.username}."},
-                status=status.HTTP_200_OK
-            )
+    
 
-        except User.DoesNotExist:
-            return Response(
-                {'error': 'User not found.'},
-                status=status.HTTP_404_NOT_FOUND
-            )
-        except Exception as e:
-            return Response(
-                {'error': f"An error occurred: {str(e)}"},
-                status=status.HTTP_500_INTERNAL_SERVER_ERROR
-            )
+class CustomWordPagination(PageNumberPagination):
+    page_size = 2  # Nombre de mots par page
+    page_size_query_param = 'page_size'
+    max_page_size = 50
+
+class PaginatedWordListView(ListAPIView):
+    queryset = Word.objects.all().order_by('-date_submitted')
+    pagination_class = CustomWordPagination
+
+    def list(self, request, *args, **kwargs):
+        page = self.paginate_queryset(self.get_queryset())
+        if page is not None:
+            # Construire une réponse avec le nom de l'utilisateur
+            custom_data = [
+                {
+                    "id": word.id,
+                    "word_name": word.word_name,
+                    "definition": word.definition,  
+                    "lang": word.language,
+                    "example":word.example,
+                    "votes": word.votes,
+                    "dislikes":word.dislikes,"star":word.star,
+                    "submitted_at": word.date_submitted.strftime('%Y-%m-%d %H:%M:%S'),
+                    "added_by": word.user.username,  # Ajout du nom de l'utilisateur
+                }
+                for word in page
+            ]
+
+            return self.get_paginated_response({
+                "count": self.paginator.page.paginator.count,
+                "page": self.paginator.page.number,
+                "next_page_url": self.paginator.get_next_link(),
+                "previous_page_url": self.paginator.get_previous_link(),
+                "results": custom_data,
+            })
+        
+        return Response({"error": "No words available"}, status=404)
+
+
+class WordSearchView(APIView):
+
+    def get(self, request):
+        # Récupérer la query passée en paramètre ?query=<mot>
+        search_query = request.query_params.get('query', None)
+
+        if not search_query:
+            return Response({"error": "Query parameter 'query' is required."}, status=400)
+
+        # Effectuer la recherche (case insensitive)
+        words = Word.objects.filter(word_name__icontains=search_query).order_by('-date_submitted')
+
+        # Construire les résultats de la recherche
+        word_data = [
+            {
+                "id": word.id,
+                "word_name": word.word_name,
+                "definition": word.definition,
+                "language": word.language,
+                "votes": word.votes,
+                "dislikes":word.dislikes,"star":word.star,
+                "example":word.example,
+                "submitted_at": word.date_submitted.strftime('%Y-%m-%d %H:%M:%S'),
+                "added_by": word.user.username,
+            }
+            for word in words
+        ]
+
+        return Response({"results": word_data}, status=200)
+    
+
+class TopVotedWordsView(APIView):
+    
+
+    def get(self, request):
+        # Récupérer les 4 mots avec le plus grand nombre de votes
+        top_words = Word.objects.order_by('-votes')[:4]
+
+        # Construire la réponse JSON avec les détails des mots
+        word_data = [
+            {
+                "id": word.id,
+                "word_name": word.word_name,
+                "definition": word.definition,
+                "votes": word.votes,
+                "dislikes":word.dislikes,"star":word.star,
+                "example":word.example,
+                "language":word.language,
+                "submitted_at": word.date_submitted.strftime('%Y-%m-%d %H:%M:%S'),
+                "added_by": word.user.username,
+            }
+            for word in top_words
+        ]
+
+        return Response({"top_words": word_data}, status=200)
+    
+class recentWordsView(APIView):
+    
+
+    def get(self, request):
+        # Récupérer les 4 mots avec le plus grand nombre de votes
+        top_words = Word.objects.order_by('-date_submitted')[:4]
+
+        # Construire la réponse JSON avec les détails des mots
+        word_data = [
+            {
+                "id": word.id,
+                "word_name": word.word_name,
+                "definition": word.definition,
+                "votes": word.votes,
+                "dislikes":word.dislikes,"star":word.star,
+                "example":word.example,
+                "language":word.language,
+                "submitted_at": word.date_submitted.strftime('%Y-%m-%d %H:%M:%S'),
+                "added_by": word.user.username,
+            }
+            for word in top_words
+        ]
+
+        return Response({"recent_words": word_data}, status=200)

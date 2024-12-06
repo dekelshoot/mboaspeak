@@ -10,9 +10,15 @@
       </li>
       <li class="nav-item">
         <a
-          (click)="routerService.routeRoute('/about')"
+          (click)="routerService.routeRoute('/feed/dictionary')"
           class="nav-link px-2 text-body-secondary"
-          >About</a
+          >Dictionary</a
+        >
+      </li>
+
+      <li class="nav-item">
+        <a (click)="logout()" class="nav-link px-2 text-body-secondary"
+          >logout</a
         >
       </li>
     </ul>

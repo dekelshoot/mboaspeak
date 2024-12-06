@@ -44,7 +44,7 @@
           </p>
           <div class="d-grid gap-2 d-md-flex justify-content-md-start">
             <button
-              (click)="start()"
+              (click)="onJoin()"
               class="btn btn-outline-secondary"
               type="button"
             >
@@ -67,7 +67,7 @@
         </p>
         <div class="d-grid gap-2 d-sm-flex justify-content-sm-center mb-5">
           <button
-            (click)="routerService.routeRoute('/auth/sign-up')"
+            (click)="onJoin()"
             type="button"
             class="btn btn-outline-secondary btn-lg px-4 me-sm-3"
           >
@@ -102,7 +102,7 @@
           <h2>Key Features</h2>
           <ul class="list-unstyled">
             <li>
-              <strong>MWord Management :</strong> Add, update, and manage words
+              <strong>Word Management :</strong> Add, update, and manage words
               with the option to mark them as "starred".
             </li>
             <li>
@@ -127,7 +127,7 @@
             </li>
           </ul>
           <button (click)="start()" class="btn btn-outline-light" type="button">
-            Commencer
+            Get Started
           </button>
         </div>
       </div>
@@ -161,7 +161,7 @@
             class="btn btn-outline-secondary"
             type="button"
           >
-            Commencer
+            Get Started
           </button>
         </div>
       </div>
@@ -190,7 +190,7 @@
           class="btn btn-outline-secondary"
           type="button"
         >
-          Commencer
+          Get Started
         </button>
       </div>
     </div>

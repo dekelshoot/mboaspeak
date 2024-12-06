@@ -67,7 +67,7 @@ export class SigninComponent {
         console.log('Login successful! Data stored in localStorage:', this.authService.getAuthData());
 
         setTimeout(() => {
-          this.routerService.routeRoute("/apps")
+          this.routerService.routeRoute("/dashboard")
         }, 2000)
       }, (reason: any) => {
         this.loadingData = false

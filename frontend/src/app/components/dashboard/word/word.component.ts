@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 import { RequestService } from 'src/app/services/request.service';
 import { RouterService } from 'src/app/services/router.service';
@@ -21,14 +22,21 @@ export class WordComponent implements OnInit {
 
   formForm!: FormGroup;
 
-  constructor(public requestService: RequestService, private formBuilder: FormBuilder, private routerService: RouterService,
-    private authService: AuthService
+  constructor(public requestService: RequestService, private formBuilder: FormBuilder, public routerService: RouterService,
+    private authService: AuthService, private route: ActivatedRoute
   ) { }
   ngOnInit(): void {
     const authData = localStorage.getItem('authData');
     if (!this.authService.hasAuthData()) {
       this.routerService.routeRoute("/auth/sign-in")
     }
+
+    this.route.queryParams.subscribe(params => {
+      const view = params['view2'];
+      if (view != undefined) {
+        this.active = view
+      }
+    });
     this.loadWord();
   }
 
@@ -40,6 +48,7 @@ export class WordComponent implements OnInit {
       lang_definition: ['', [Validators.required]],
       meaning_fr: ['', [Validators.required]],
       meaning_en: ['', [Validators.required]],
+      example: ['', [Validators.required]],
     });
   }
 
@@ -78,6 +87,7 @@ export class WordComponent implements OnInit {
           meaning_fr: res.meaning_fr,
           meaning_en: res.meaning_en,
           language: res.language,
+          example: res.example,
         }
 
         this.formForm.setValue(data)
@@ -104,7 +114,7 @@ export class WordComponent implements OnInit {
     const meaning_fr = this.formForm.get('meaning_fr')?.value;
     const meaning_en = this.formForm.get('meaning_en')?.value;
     const language = this.formForm.get('language')?.value;
-
+    const example = this.formForm.get('example')?.value;
 
 
     if (this.authService.hasAuthData()) {
@@ -115,6 +125,7 @@ export class WordComponent implements OnInit {
         "meaning_fr": meaning_fr,
         "meaning_en": meaning_en,
         "language": language,
+        "example": example
 
       }
       console.log(data)
@@ -140,6 +151,7 @@ export class WordComponent implements OnInit {
     const meaning_fr = this.formForm.get('meaning_fr')?.value;
     const meaning_en = this.formForm.get('meaning_en')?.value;
     const language = this.formForm.get('language')?.value;
+    const example = this.formForm.get('example')?.value;
 
 
 
@@ -151,6 +163,7 @@ export class WordComponent implements OnInit {
         "meaning_fr": meaning_fr,
         "meaning_en": meaning_en,
         "language": language,
+        "example": example,
 
       }
       console.log(data)

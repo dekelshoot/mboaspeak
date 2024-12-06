@@ -49,9 +49,38 @@ export class RequestService {
   getAll(base: any) {
     let token = this.authService.getAccessToken()
     const headers = this.headers.set('Authorization', `Bearer ${token}`);
-    console.log(headers)
     return new Promise((resolve, reject) => {
       this.http.get(base, { headers: headers }).subscribe(
+        (res: any) => {
+          resolve(res);
+        },
+        (err: any) => {
+          reject(err);
+        }
+      )
+    })
+
+  }
+
+  getAll2(base: any) {
+    const headers = this.headers
+    return new Promise((resolve, reject) => {
+      this.http.get(base, { headers: headers }).subscribe(
+        (res: any) => {
+          resolve(res);
+        },
+        (err: any) => {
+          reject(err);
+        }
+      )
+    })
+
+  }
+
+
+  getWithoutAccess(base: any) {
+    return new Promise((resolve, reject) => {
+      this.http.get(base, { headers: this.headers }).subscribe(
         (res: any) => {
           resolve(res);
         },
@@ -67,7 +96,6 @@ export class RequestService {
   //inserer les informations dans la bd
   postWithAccess(base: any, data: any) {
     let token = this.authService.getAccessToken()
-    console.log(token)
     const headers = this.headers.set('Authorization', `Bearer ${token}`);
     return new Promise((resolve, reject) => {
       this.http.post(base, data, { headers: headers }).subscribe(
@@ -94,16 +122,44 @@ export class RequestService {
     })
   }
 
+  //inserer les informations dans la bd
+  postWithoutData(base: any) {
+    return new Promise((resolve, reject) => {
+      this.http.post(base, { headers: this.headers }).subscribe(
+        (res: any) => {
+          resolve(res);
+        },
+        (err: any) => {
+          reject(err);
+        }
+      )
+    })
+  }
 
 
 
   //update les informations dans la bd
   update(base: any, id: any, data: any) {
     let token = this.authService.getAccessToken()
-    console.log(token)
     const headers = this.headers.set('Authorization', `Bearer ${token}`);
     return new Promise((resolve, reject) => {
       this.http.put(`${base}/${id}/`, data, { headers: headers }).subscribe(
+        (res: any) => {
+          resolve(res);
+        },
+        (err: any) => {
+          reject(err);
+        }
+      )
+    })
+  }
+
+  //update les informations dans la bd
+  updatePartial(base: any, id: any, data: any) {
+    let token = this.authService.getAccessToken()
+    const headers = this.headers.set('Authorization', `Bearer ${token}`);
+    return new Promise((resolve, reject) => {
+      this.http.patch(`${base}/${id}/`, data, { headers: headers }).subscribe(
         (res: any) => {
           resolve(res);
         },

@@ -1,0 +1,377 @@
+<main>
+  <div class="container py-4">
+    <header class="pb-3 mb-4 border-bottom" *ngIf="active == 1 && !loading">
+      <a
+        href="/"
+        class="d-flex align-items-center text-body-emphasis text-decoration-none"
+      >
+        <img
+          class="mb-4"
+          src="../assets/MboaSpeak.png"
+          alt=""
+          width="50"
+          height="50"
+        />
+        <span class="fs-4">Forum MboaSpeak</span>
+      </a>
+    </header>
+
+    <div class="container">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a>Home</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Forum</li>
+      </ol>
+      <div class="px-4 pt-2 my-2 text-center border-bottom">
+        <h4 class="display-5 fw-bold text-body-emphasis">
+          Welcome to the Mboaspeak Forum
+        </h4>
+        <div class="col-lg-6 mx-auto">
+          <p class="lead mb-2">
+            Explore and contribute tot the growing collection of Cameroonian
+            Creole words.
+          </p>
+        </div>
+      </div>
+
+      <div class="row" *ngIf="!loading">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+          <!---  debut  -->
+
+          <div class="container" *ngIf="active == 1">
+            <div class="row">
+              <!-- Main content -->
+              <div class="col-lg-9 mb-3">
+                <form [formGroup]="formFormOrder">
+                  <div class="row text-left mb-5">
+                    <div class="col-lg-6 mb-3 mb-sm-0">
+                      <div
+                        class="dropdown bootstrap-select form-control form-control-lg bg-white bg-op-9 text-sm w-lg-50"
+                        style="width: 100%"
+                      >
+                        <select
+                          class="form-control form-control-lg bg-white bg-op-9 text-sm w-lg-50"
+                          data-toggle="select"
+                          tabindex="-98"
+                          (change)="onChangeLanguage()"
+                          formControlName="language"
+                        >
+                          <option value="language">Language</option>
+                          <option value="english">English</option>
+                          <option value="french">French</option>
+                          <option value="camfranglais">Camfranglais</option>
+                          <option value="pidgin">Pidgin</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="col-lg-6 text-lg-right">
+                      <div
+                        class="dropdown bootstrap-select form-control form-control-lg bg-white bg-op-9 ml-auto text-sm w-lg-50"
+                        style="width: 100%"
+                      >
+                        <select
+                          class="form-control form-control-lg bg-white bg-op-9 ml-auto text-sm w-lg-50"
+                          data-toggle="select"
+                          tabindex="-98"
+                          (change)="onChangeOrder()"
+                          formControlName="order"
+                        >
+                          <option value="filter_by">Filter by</option>
+                          <option value="votes">Votes</option>
+                          <option value="comment_count">Replys</option>
+                          <option value="star">Star</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                </form>
+                <!-- End of post 1 -->
+                <div
+                  class="card row-hover pos-relative py-3 px-3 mb-3 border-warning border-top-0 border-right-0 border-bottom-0 rounded-0"
+                  *ngFor="let post of data"
+                >
+                  <div class="row align-items-center">
+                    <div class="col-md-8 mb-3 mb-sm-0">
+                      <h5>
+                        <a
+                          style="cursor: pointer"
+                          (click)="loadPost(post.id, 2)"
+                          class="text-primary"
+                          >{{ post.title }}</a
+                        >
+                      </h5>
+                      <p class="text-sm">
+                        <span class="op-6">Posted on </span>
+                        <a class="text-black">{{
+                          post.created_at | date : "medium"
+                        }}</a>
+                        <span class="op-6"> by </span>
+                        <a class="text-black"> {{ post.added_by }} </a>
+                      </p>
+                      <div class="text-sm op-5">
+                        <a class="text-black mr-2">language: </a>
+                        <a class="text-black mr-2">({{ post.language }})</a>
+                      </div>
+                    </div>
+                    <div class="col-md-4 op-7">
+                      <div class="row text-center op-7">
+                        <div class="col px-1">
+                          <span class="d-block text-sm"
+                            >{{ post.votes }}
+                            <i class="fa fa-thumbs-up text-primary"></i
+                          ></span>
+                        </div>
+                        <div class="col px-1">
+                          <span class="d-block text-sm"
+                            >{{ post.comment_count }}
+                            <i class="fa fa-reply text-success"></i
+                          ></span>
+                        </div>
+                        <div class="col px-1">
+                          <span class="d-block text-sm"
+                            >{{ post.star }}
+                            <i class="fa fa-star text-warning"></i
+                          ></span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- /End of post 1 -->
+                <!--
+                <div class="row">
+                  <button
+                    type="button"
+                    (click)="next()"
+                    class="btn btn-primary btn-block"
+                    [disabled]="!next_page"
+                  >
+                    <i class=""></i>Load more...
+                  </button>
+                </div>
+                -->
+              </div>
+              <!-- Sidebar content -->
+              <div class="col-lg-3 mb-4 mb-lg-0 px-lg-0 mt-lg-0">
+                <div
+                  style="
+                    visibility: hidden;
+                    display: none;
+                    width: 285px;
+                    height: 801px;
+                    margin: 0px;
+                    float: none;
+                    position: static;
+                    inset: 85px auto auto;
+                  "
+                ></div>
+                <div
+                  data-settings='{"parent":"#content","mind":"#header","top":10,"breakpoint":992}'
+                  data-toggle="sticky"
+                  class="sticky"
+                  style="top: 85px"
+                >
+                  <div class="sticky-inner">
+                    <a
+                      (click)="
+                        this.routerService.routeRouteWithParams(
+                          '/dashboard',
+                          6,
+                          2
+                        )
+                      "
+                      class="btn btn-lg btn-block btn-success rounded-0 py-4 mb-3 bg-op-6 roboto-bold"
+                      >Add Topic</a
+                    >
+                    <div class="bg-white mb-3">
+                      <h4 class="px-3 py-4 op-5 m-0">Active Topics</h4>
+                      <hr class="m-0" />
+                      <div
+                        class="pos-relative px-3 py-3"
+                        *ngFor="let top of topCommented"
+                      >
+                        <h6 class="text-primary text-sm">
+                          <a
+                            style="cursor: pointer"
+                            (click)="loadPost(top.id, 2)"
+                            class="text-primary"
+                            >{{ top.title }}
+                          </a>
+                        </h6>
+                        <p class="mb-0 text-sm">
+                          <span class="op-6"
+                            >language: {{ top.language }}
+                          </span>
+                        </p>
+                        <p class="mb-0 text-sm">
+                          <span class="op-6"> by </span>
+                          <a class="text-black">{{ top.added_by }}</a>
+                        </p>
+                      </div>
+                      <hr class="m-0" />
+                    </div>
+                    <div class="bg-white text-sm">
+                      <h4 class="px-3 py-4 op-5 m-0 roboto-bold">Stats</h4>
+                      <hr class="my-0" />
+                      <div class="row text-center d-flex flex-row op-7 mx-0">
+                        <div
+                          class="col-sm-6 flex-ew text-center py-3 border-bottom border-right"
+                        >
+                          <a class="d-block lead font-weight-bold">{{
+                            stat.total_posts
+                          }}</a>
+                          Topics
+                        </div>
+                        <div
+                          class="col-sm-6 col flex-ew text-center py-3 border-bottom mx-0"
+                        >
+                          <a class="d-block lead font-weight-bold">{{
+                            stat.total_comments
+                          }}</a>
+                          comments
+                        </div>
+                      </div>
+                      <div class="row d-flex flex-row op-7">
+                        <div
+                          class="col-sm-6 flex-ew text-center py-3 border-right mx-0"
+                        >
+                          <a class="d-block lead font-weight-bold">{{
+                            stat.total_users
+                          }}</a>
+                          Members
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!---  fin  -->
+
+          <!-- debut 2-->
+          <link
+            href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css"
+            rel="stylesheet"
+          />
+          <div class="container" *ngIf="active == 2">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item">
+                <button
+                  type="button"
+                  (click)="loadView(1)"
+                  class="btn btn-primary"
+                >
+                  <i class=""></i>Back
+                </button>
+              </li>
+            </ol>
+            <div class="col-md-12">
+              <div class="social-feed-box">
+                <div class="social-avatar">
+                  <a href="" class="pull-left">
+                    <img
+                      alt="image"
+                      src="https://bootdey.com/img/Content/avatar/avatar1.png"
+                    />
+                  </a>
+                  <div class="media-body">
+                    <a class="text-primary"> {{ postDetail.post.added_by }} </a>
+                    <small class="text-muted">{{
+                      postDetail.post.created_at | date : "medium"
+                    }}</small>
+                  </div>
+                </div>
+                <div class="social-body">
+                  <h3>{{ postDetail.post.title }}</h3>
+                  <p>
+                    {{ postDetail.post.content }}
+                  </p>
+                  <div class="btn-group">
+                    <button
+                      (click)="onVote(postDetail.post.id, 2)"
+                      [disabled]="!allowLike(postDetail.post)"
+                      type="button"
+                      class="btn btn-primary"
+                    >
+                      <i class="fa fa-thumbs-up"></i>
+                      {{ postDetail.post.votes }}
+                    </button>
+                    &nbsp;
+                    <button
+                      (click)="onDislike(postDetail.post.id, 2)"
+                      [disabled]="!allowDisLike(postDetail.post)"
+                      type="button"
+                      class="btn btn-danger"
+                    >
+                      <i class="fa fa-thumbs-down"></i>
+                      {{ postDetail.post.dislikes }}
+                    </button>
+                    &nbsp;
+                    <button
+                      [disabled]="!isLinguist()"
+                      (click)="onStar(postDetail.post.id, 2)"
+                      [disabled]="!allowStar(postDetail.post)"
+                      type="button"
+                      class="btn btn-warning"
+                    >
+                      <i class="fa fa-star"></i>
+                      {{ postDetail.post.star }}
+                    </button>
+                  </div>
+                </div>
+                <div class="social-footer">
+                  <div
+                    class="social-comment"
+                    *ngFor="let comment of postDetail.comments"
+                  >
+                    <a href="" class="pull-left">
+                      <img
+                        alt="image"
+                        src="https://bootdey.com/img/Content/avatar/avatar1.png"
+                      />
+                    </a>
+                    <div class="media-body">
+                      <a class="text-primary"> {{ comment.added_by }} : </a>
+                      {{ comment.content }}
+                      <br />
+                      <small class="text-muted">{{
+                        comment.created_at | date : "medium"
+                      }}</small>
+                    </div>
+                  </div>
+
+                  <div class="social-comment" *ngIf="auth">
+                    <a href="" class="pull-left">
+                      <img
+                        alt="image"
+                        src="https://bootdey.com/img/Content/avatar/avatar1.png"
+                      />
+                    </a>
+                    <form [formGroup]="formForm" (ngSubmit)="ngOnSubmit()">
+                      <div class="media-body">
+                        <textarea
+                          class="form-control"
+                          placeholder="Write comment..."
+                          formControlName="comment"
+                          (keydown.enter)="ngOnSubmit()"
+                        ></textarea>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- fin 2-->
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="loading" class="px-4 pt-5 my-5 text-center">
+      <div class="spinner-border text-secondary" role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div>
+    </div>
+  </div>
+</main>

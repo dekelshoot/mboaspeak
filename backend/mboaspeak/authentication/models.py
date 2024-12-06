@@ -16,6 +16,7 @@ class User(AbstractUser):
         choices=[('admin', 'Admin'), ('contributor', 'Contributor'), ('linguist', 'Linguist')],
         default='contributor',
     )
+    vote_weight = models.PositiveIntegerField(default=1)  # Champ déplacé ici
 
     # Les relations groups et user_permissions pour éviter les conflits
     groups = models.ManyToManyField(
@@ -33,38 +34,40 @@ class User(AbstractUser):
         return self.username
 
 
-
-
 class Admin(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='admin')
-    vote_weight = models.PositiveIntegerField(default=5)
+
+    def save(self, *args, **kwargs):
+        # Définir le poids de vote pour les admins
+        self.user.vote_weight = 5
+        self.user.save()
+        super().save(*args, **kwargs)
 
     def __str__(self):
         return f"Admin: {self.user.username}"
-    
-    def add_star(self, word):
-        # Exemple d'une méthode spécifique aux linguistes
-        word.is_starred = True
-        word.save()
 
 
 class Contributor(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='contributor')
-    vote_weight = models.PositiveIntegerField(default=1)
+
+    def save(self, *args, **kwargs):
+        # Définir le poids de vote pour les contributeurs
+        self.user.vote_weight = 1
+        self.user.save()
+        super().save(*args, **kwargs)
 
     def __str__(self):
         return f"Contributor: {self.user.username}"
 
 
-
 class Linguist(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='linguist')
-    vote_weight = models.PositiveIntegerField(default=3)
 
-    def add_star(self, word):
-        # Exemple d'une méthode spécifique aux linguistes
-        word.is_starred = True
-        word.save()
+    def save(self, *args, **kwargs):
+        # Définir le poids de vote pour les linguistes
+        self.user.vote_weight = 5
+        self.user.save()
+        super().save(*args, **kwargs)
 
     def __str__(self):
         return f"Linguist: {self.user.username}"

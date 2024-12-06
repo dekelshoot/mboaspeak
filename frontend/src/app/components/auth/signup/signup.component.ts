@@ -22,13 +22,13 @@ export class SignupComponent implements OnInit {
     private formBuilder: FormBuilder, public routerService: RouterService
   ) { }
   ngOnInit(): void {
-    this.chargeDataMentor();
+    this.chargeData();
 
 
   }
 
-  chargeDataMentor() {
-    this.requestService.getAll("http://127.0.0.1:8000/api/auth/language/").then((res: any) => {
+  chargeData() {
+    this.requestService.getAll2("http://127.0.0.1:8000/api/auth/language/").then((res: any) => {
       console.log(res)
       this.loadingData = false
       this.languages = res

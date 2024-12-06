@@ -1,0 +1,322 @@
+<main>
+  <div class="container py-4">
+    <header class="pb-3 mb-4 border-bottom" *ngIf="active == 1 && !loading">
+      <a
+        href="/"
+        class="d-flex align-items-center text-body-emphasis text-decoration-none"
+      >
+        <img
+          class="mb-4"
+          src="../assets/MboaSpeak.png"
+          alt=""
+          width="50"
+          height="50"
+        />
+        <span class="fs-4">Dictionary MboaSpeak</span>
+      </a>
+    </header>
+
+    <div class="container">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="#">Home</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Dictionary</li>
+      </ol>
+      <div class="px-4 pt-2 my-2 text-center border-bottom">
+        <h4 class="display-5 fw-bold text-body-emphasis">
+          Welcome to the Mboaspeak Dictionary
+        </h4>
+        <div class="col-lg-6 mx-auto">
+          <p class="lead mb-2">
+            Explore and contribute tot the growing collection of Cameroonian
+            Creole words.
+          </p>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+          <div class="well search-result">
+            <form
+              class="parent"
+              [formGroup]="formForm"
+              (ngSubmit)="ngOnSubmit()"
+            >
+              <div class="input-group mb-3">
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="type your search"
+                  aria-label="type your search"
+                  aria-describedby="button-addon2"
+                  formControlName="search"
+                />
+                <button
+                  class="btn btn-primary"
+                  [disabled]="formForm.invalid"
+                  type="submit"
+                  id="button-addon2"
+                >
+                  Search
+                </button>
+              </div>
+            </form>
+          </div>
+
+          <br />
+          <!-- view 1 -->
+          <main *ngIf="active == 1 && !loading">
+            <div class="mb-5">
+              <a
+                style="cursor: pointer"
+                class="btn btn-primary btn-lg px-4"
+                (click)="
+                  this.routerService.routeRouteWithParams('/dashboard', 2, 2)
+                "
+                >Submit a new word</a
+              >
+            </div>
+
+            <div class="row g-5">
+              <div class="col-md-4">
+                <h2 class="text-body-emphasis">Recent Submissions</h2>
+
+                <ul class="list-unstyled ps-0">
+                  <li
+                    *ngFor="let word of recentWords; let i = index"
+                    (click)="loadWord(word.id, 4)"
+                  >
+                    <a
+                      class="icon-link mb-1"
+                      rel="noopener"
+                      target="_blank"
+                      style="cursor: pointer"
+                    >
+                      <svg class="bi" width="16" height="16">
+                        <use xlink:href="#arrow-right-circle" />
+                      </svg>
+                      <p class="fs-3">{{ word.word_name }}</p>
+                      <p>({{ word.language }})</p>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+
+              <div class="col-md-4">
+                <h2 class="text-body-emphasis">Popular Words</h2>
+                <a
+                  class="icon-link mb-1 fs-3"
+                  (click)="loadWord(topWords[0].id, 4)"
+                  style="cursor: pointer"
+                  >{{ topWords[0].word_name }}</a
+                >
+                <p>Language : {{ topWords[0].language }}</p>
+                <p>Définition : {{ topWords[0].definition }}</p>
+                <p>votes : {{ topWords[0].votes }}</p>
+              </div>
+
+              <div class="col-md-4">
+                <h2 class="text-body-emphasis">CamFranglais Spotlight</h2>
+                <p>
+                  A blend of French and English, Camfranglais is a vibrant and
+                  evolving language spoken in Cameroon. Explore its unique
+                  vocabulary and cultural influence through our dictionary.
+                </p>
+                <button class="btn btn-primary">Learn More</button>
+              </div>
+            </div>
+          </main>
+
+          <br />
+          <!-- view 2 -->
+          <div *ngIf="active == 2 && !loading">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item">
+                <button
+                  type="button"
+                  (click)="loadView(1)"
+                  class="btn btn-primary"
+                >
+                  <i class=""></i>Back
+                </button>
+              </li>
+            </ol>
+            <div *ngFor="let word of data; let i = index">
+              <div class="well search-result" (click)="loadWord(word.id, 3)">
+                <div class="row">
+                  <div class="col-xs-6 col-sm-9 col-md-9 col-lg-10 title">
+                    <h3>{{ word.word_name }} ({{ word.language }})</h3>
+                    <p>
+                      {{ word.definition }}
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <br />
+            </div>
+          </div>
+
+          <!-- view 3 -->
+          <div *ngIf="active == 3 && !loading">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item">
+                <button
+                  type="button"
+                  (click)="loadView(2)"
+                  class="btn btn-primary"
+                >
+                  <i class=""></i>Back
+                </button>
+              </li>
+            </ol>
+            <div class="well search-result">
+              <div class="row">
+                <div class="col-xs-6 col-sm-9 col-md-9 col-lg-10 title">
+                  <h2>
+                    {{ wordDetail.word_name }} ({{ wordDetail.language }})
+                  </h2>
+                  <p>
+                    <span class="fw-semibold">Submitted By:</span>
+                    {{ wordDetail.added_by }}
+                    <span class="fw-semibold">on </span>
+                    {{ wordDetail.date_submitted | date : "medium" }}
+                  </p>
+                  <p class="fw-semibold">Definition:</p>
+                  <p>
+                    {{ wordDetail.definition }} | ({{
+                      wordDetail.lang_definition
+                    }})
+                  </p>
+                  <p class="fw-semibold">Example:</p>
+                  <p>
+                    {{ wordDetail.example }}
+                  </p>
+                  <p class="fw-semibold">English Translation:</p>
+                  <p>
+                    {{ wordDetail.meaning_en }}
+                  </p>
+                  <p class="fw-semibold">French Translation:</p>
+                  <p>
+                    {{ wordDetail.meaning_fr }}
+                  </p>
+                  <p>
+                    <button
+                      (click)="onVote(wordDetail.id, 3)"
+                      [disabled]="!allowLike(wordDetail)"
+                      type="button"
+                      class="btn btn-primary"
+                    >
+                      Vote {{ wordDetail.votes }}
+                    </button>
+                    &nbsp;
+                    <button
+                      (click)="onDislike(wordDetail.id, 3)"
+                      [disabled]="!allowDisLike(wordDetail)"
+                      type="button"
+                      class="btn btn-danger"
+                    >
+                      dislikes {{ wordDetail.dislikes }}
+                    </button>
+                    &nbsp;
+                    <button
+                      [disabled]="!isLinguist()"
+                      (click)="onStar(wordDetail.id, 3)"
+                      [disabled]="!allowStar(wordDetail)"
+                      type="button"
+                      class="btn btn-warning"
+                    >
+                      star {{ wordDetail.star }}
+                    </button>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- view 4 -->
+          <div *ngIf="active == 4 && !loading">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item">
+                <button
+                  type="button"
+                  (click)="loadView(1)"
+                  class="btn btn-primary"
+                >
+                  <i class=""></i>Back
+                </button>
+              </li>
+            </ol>
+            <div class="well search-result">
+              <div class="row">
+                <div class="col-xs-6 col-sm-9 col-md-9 col-lg-10 title">
+                  <h2>
+                    {{ wordDetail.word_name }} ({{ wordDetail.language }})
+                  </h2>
+                  <p>
+                    <span class="fw-semibold">Submitted By:</span>
+                    {{ wordDetail.added_by }}
+                    <span class="fw-semibold">on </span>
+                    {{ wordDetail.date_submitted | date : "medium" }}
+                  </p>
+                  <p class="fw-semibold">Definition:</p>
+                  <p>
+                    {{ wordDetail.definition }} | ({{
+                      wordDetail.lang_definition
+                    }})
+                  </p>
+                  <p class="fw-semibold">Example:</p>
+                  <p>
+                    {{ wordDetail.example }}
+                  </p>
+                  <p class="fw-semibold">English Translation:</p>
+                  <p>
+                    {{ wordDetail.meaning_en }}
+                  </p>
+                  <p class="fw-semibold">French Translation:</p>
+                  <p>
+                    {{ wordDetail.meaning_fr }}
+                  </p>
+                  <p>
+                    <button
+                      (click)="onVote(wordDetail.id, 4)"
+                      [disabled]="!allowLike(wordDetail)"
+                      type="button"
+                      class="btn btn-primary"
+                    >
+                      Vote {{ wordDetail.votes }}
+                    </button>
+                    &nbsp;
+                    <button
+                      (click)="onDislike(wordDetail.id, 4)"
+                      [disabled]="!allowDisLike(wordDetail)"
+                      type="button"
+                      class="btn btn-danger"
+                    >
+                      dislikes {{ wordDetail.dislikes }}
+                    </button>
+                    &nbsp;
+                    <button
+                      (click)="onStar(wordDetail.id, 4)"
+                      [disabled]="!allowStar(wordDetail)"
+                      type="button"
+                      class="btn btn-warning"
+                    >
+                      star {{ wordDetail.star }}
+                    </button>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <br />
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="loading" class="px-4 pt-5 my-5 text-center">
+      <div class="spinner-border text-secondary" role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div>
+    </div>
+  </div>
+</main>

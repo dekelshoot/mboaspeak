@@ -27,6 +27,12 @@ import { AuthService } from './services/auth.service';
 import { DashComponent } from './components/dashboard/dash/dash.component';
 import { WordComponent } from './components/dashboard/word/word.component';
 import { ProfileComponent } from './components/dashboard/profile/profile.component';
+import { AdminComponent } from './components/dashboard/admin/admin.component';
+import { DictionaryComponent } from './components/feeds/dictionary/dictionary.component';
+import { ExpressionComponent } from './components/dashboard/expression/expression.component';
+import { CommonPhraseComponent } from './components/feeds/common-phrase/common-phrase.component';
+import { PostComponent } from './components/dashboard/post/post.component';
+import { ForumComponent } from './components/forum/forum.component';
 
 @NgModule({
   declarations: [
@@ -53,6 +59,14 @@ import { ProfileComponent } from './components/dashboard/profile/profile.compone
     DashComponent,
     WordComponent,
     ProfileComponent,
+    AdminComponent,
+    DictionaryComponent,
+    ExpressionComponent,
+    CommonPhraseComponent,
+    PostComponent,
+    ForumComponent,
+
+
 
 
   ],

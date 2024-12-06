@@ -13,6 +13,7 @@
           <th scope="col">meaning_fr</th>
           <th scope="col">meaning_en</th>
           <th scope="col">language</th>
+          <th scope="col">example</th>
           <th scope="col">vote</th>
           <th scope="col">edit</th>
         </tr>
@@ -25,6 +26,7 @@
           <td>{{ word.meaning_fr }}</td>
           <td>{{ word.meaning_en }}</td>
           <td>{{ word.language }}</td>
+          <td>{{ word.example }}</td>
           <td>{{ word.votes }}</td>
           <td>
             <button (click)="edit(word.id)" class="btn btn-primary">
@@ -126,6 +128,19 @@
       </div>
 
       <br />
+
+      <div class="form-floating mb-3">
+        <input
+          type="text"
+          formControlName="example"
+          class="form-control"
+          id="floatingInput"
+          placeholder=""
+        />
+        <label for="floatingInput">example</label>
+      </div>
+
+      <br />
       <button
         class="w-100 btn btn-primary btn-lg"
         [disabled]="formForm.invalid"
@@ -220,12 +235,25 @@
       </div>
 
       <br />
+
+      <div class="form-floating mb-3">
+        <input
+          type="text"
+          formControlName="example"
+          class="form-control"
+          id="floatingInput"
+          placeholder=""
+        />
+        <label for="floatingInput">example</label>
+      </div>
+
+      <br />
       <button
         class="w-100 btn btn-primary btn-lg"
         [disabled]="formForm.invalid"
         type="submit"
       >
-        Add word
+        Edit word
       </button>
     </form>
   </div>

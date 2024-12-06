@@ -31,6 +31,7 @@
           Word
         </a>
       </li>
+
       <li>
         <a
           class="nav-link text-white"
@@ -49,6 +50,26 @@
         >
           <i class="bi bi-card-checklist"></i>
           Profile
+        </a>
+      </li>
+      <li>
+        <a
+          class="nav-link text-white"
+          [ngClass]="{ active: active == 6 }"
+          (click)="changeActive(6)"
+        >
+          <i class="bi bi-card-checklist"></i>
+          Post
+        </a>
+      </li>
+      <li>
+        <a
+          class="nav-link text-white"
+          [ngClass]="{ active: active == 5 }"
+          (click)="changeActive(5)"
+        >
+          <i class="bi bi-card-checklist"></i>
+          Admin
         </a>
       </li>
     </ul>
@@ -84,10 +105,18 @@
   </div>
 
   <div class="content" *ngIf="active == 3">
-    <app-ressource class="session" style="width: 100%"></app-ressource>
+    <app-expression class="session" style="width: 100%"></app-expression>
   </div>
 
   <div class="content" *ngIf="active == 4">
     <app-profile class="session" style="width: 100%"></app-profile>
+  </div>
+
+  <div class="content" *ngIf="active == 6">
+    <app-post class="session" style="width: 100%"></app-post>
+  </div>
+
+  <div class="content" *ngIf="active == 5">
+    <app-admin class="session" style="width: 100%"></app-admin>
   </div>
 </main>

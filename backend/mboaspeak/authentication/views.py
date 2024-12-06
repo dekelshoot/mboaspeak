@@ -9,7 +9,7 @@ from .serializers import UserSerializer
 
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.authtoken.models import Token
-
+from django.http import JsonResponse
 from .serializers import UserSerializer
 from django.contrib.auth import authenticate
 from .serializers import RegisterSerializer
@@ -135,3 +135,30 @@ class LanguageView(APIView):
         language = [x[0] for x in LANGUAGE_CHOICES] 
 
         return Response(language, status=status.HTTP_200_OK)
+    
+class UserListView(APIView):
+    permission_classes = [IsAuthenticated]  # Restriction d'accès : uniquement les utilisateurs authentifiés
+
+    def get(self, request):
+        # Vérifier si un filtre est passé en paramètre
+        user_type = request.query_params.get('user_type', None)  # Ex : ?user_type=admin
+
+        if user_type == "admin":
+            users = User.objects.filter(user_type='admin')
+        elif user_type == "linguist":
+            users = User.objects.filter(user_type='linguist')
+        else:
+            users = User.objects.all()  # Retourne tous les utilisateurs si aucun filtre n'est fourni
+
+        # Construire une liste de dictionnaires avec les informations des utilisateurs
+        user_data = [
+            {
+                "username": user.username,
+                "email": user.email,
+                "primary_language": user.primary_language,
+                "user_type": user.user_type,
+            }
+            for user in users
+        ]
+
+        return JsonResponse({"users": user_data}, safe=False, status=200)

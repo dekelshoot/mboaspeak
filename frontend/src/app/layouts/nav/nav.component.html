@@ -24,17 +24,21 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <a class="nav-link" (click)="routerService.routeRoute('/about')"
+          <a
+            class="nav-link"
+            (click)="routerService.routeRoute('/feed/dictionary')"
             >Dictionary</a
           >
         </li>
         <li class="nav-item">
-          <a class="nav-link" (click)="routerService.routeRoute('/about')"
+          <a
+            class="nav-link"
+            (click)="routerService.routeRoute('/feed/common-phrase')"
             >Common Phrase</a
           >
         </li>
         <li class="nav-item">
-          <a class="nav-link" (click)="routerService.routeRoute('/about')"
+          <a class="nav-link" (click)="routerService.routeRoute('/forum')"
             >Forum</a
           >
         </li>
@@ -45,14 +49,12 @@
         </li>
       </ul>
       <form class="d-flex" role="search">
-        <input
-          class="form-control me-2"
-          type="search"
-          placeholder="Search"
-          aria-label="Search"
-        />
-        <button class="btn btn-outline-secondary btn-lg" type="submit">
-          Search
+        <button
+          class="btn btn-outline-secondary btn-lg"
+          type="submit"
+          (click)="this.routerService.routeRoute('/dashboard')"
+        >
+          Dashboard
         </button>
       </form>
     </div>

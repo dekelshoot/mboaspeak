@@ -11,4 +11,7 @@ export class RouterService {
   routeRoute(route: string) {
     this.router.navigate([route]);
   }
+  routeRouteWithParams(route: string, view1: number, view2: number) {
+    this.router.navigate([route], { queryParams: { view1: view1, view2: view2 } });
+  }
 }
