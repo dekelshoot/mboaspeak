@@ -280,7 +280,7 @@
                         class="form-check-input"
                         type="radio"
                         [id]="'choice-' + i + '-' + j"
-                        formControlName="text"
+                        formControlName="is_correct"
                       />
                       <label
                         class="form-check-label"
@@ -293,6 +293,13 @@
                 </div>
               </div>
             </div>
+            <button
+              type="submit"
+              class="btn btn-primary mt-3"
+              [disabled]="formForm.invalid"
+            >
+              Submit Answers
+            </button>
           </form>
         </div>
       </div>

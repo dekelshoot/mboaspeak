@@ -8,7 +8,7 @@ import { NavComponent } from './layouts/nav/nav.component';
 import { FooterComponent } from './layouts/footer/footer.component';
 import { SigninComponent } from './components/auth/signin/signin.component';
 import { SignupComponent } from './components/auth/signup/signup.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 import { StatComponent } from './layouts/stat/stat.component';
@@ -28,6 +28,14 @@ import { PostComponent } from './components/dashboard/post/post.component';
 import { ForumComponent } from './components/forum/forum.component';
 import { LearningSpaceComponent } from './components/learning-space/learning-space.component';
 import { LearningComponent } from './components/dashboard/learning/learning.component';
+import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { ModuleWithProviders } from '@angular/core';
+import { provideTranslateService } from "@ngx-translate/core";
+
+export function HttpLoaderFactory(http: HttpClient) {
+  return new TranslateHttpLoader(http, './assets/i18n/', '.json');
+}
 
 @NgModule({
   declarations: [
@@ -57,9 +65,8 @@ import { LearningComponent } from './components/dashboard/learning/learning.comp
     LearningComponent,
 
 
-
-
   ],
+
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -68,7 +75,11 @@ import { LearningComponent } from './components/dashboard/learning/learning.comp
     FormsModule,
 
   ],
-  providers: [AuthService],
+  providers: [AuthService,
+    provideTranslateService({
+      defaultLanguage: 'en'
+    })
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
