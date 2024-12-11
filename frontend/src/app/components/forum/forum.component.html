@@ -270,10 +270,7 @@
               <div class="social-feed-box">
                 <div class="social-avatar">
                   <a href="" class="pull-left">
-                    <img
-                      alt="image"
-                      src="https://bootdey.com/img/Content/avatar/avatar1.png"
-                    />
+                    <img alt="image" src="../assets/MboaSpeak.png" />
                   </a>
                   <div class="media-body">
                     <a class="text-primary"> {{ postDetail.post.added_by }} </a>
@@ -326,10 +323,7 @@
                     *ngFor="let comment of postDetail.comments"
                   >
                     <a href="" class="pull-left">
-                      <img
-                        alt="image"
-                        src="https://bootdey.com/img/Content/avatar/avatar1.png"
-                      />
+                      <img alt="image" src="../assets/MboaSpeak.png" />
                     </a>
                     <div class="media-body">
                       <a class="text-primary"> {{ comment.added_by }} : </a>
@@ -343,10 +337,7 @@
 
                   <div class="social-comment" *ngIf="auth">
                     <a href="" class="pull-left">
-                      <img
-                        alt="image"
-                        src="https://bootdey.com/img/Content/avatar/avatar1.png"
-                      />
+                      <img alt="image" src="../assets/MboaSpeak.png" />
                     </a>
                     <form [formGroup]="formForm" (ngSubmit)="ngOnSubmit()">
                       <div class="media-body">

@@ -64,6 +64,18 @@
       </li>
       <li>
         <a
+          *ngIf="user_type == 'admin'"
+          class="nav-link text-white"
+          [ngClass]="{ active: active == 7 }"
+          (click)="changeActive(7)"
+        >
+          <i class="bi bi-card-checklist"></i>
+          course
+        </a>
+      </li>
+      <li>
+        <a
+          *ngIf="user_type == 'admin'"
           class="nav-link text-white"
           [ngClass]="{ active: active == 5 }"
           (click)="changeActive(5)"
@@ -100,23 +112,33 @@
     style="width: 100%"
   ></app-stat>
 
-  <div class="content" *ngIf="active == 2">
+  <div class="content overflow-auto" *ngIf="active == 2">
     <app-word class="session" style="width: 100%"></app-word>
   </div>
 
-  <div class="content" *ngIf="active == 3">
+  <div class="content overflow-auto" *ngIf="active == 3">
     <app-expression class="session" style="width: 100%"></app-expression>
   </div>
 
-  <div class="content" *ngIf="active == 4">
+  <div class="content overflow-auto" *ngIf="active == 4">
     <app-profile class="session" style="width: 100%"></app-profile>
   </div>
 
-  <div class="content" *ngIf="active == 6">
+  <div class="content overflow-auto" *ngIf="active == 6">
     <app-post class="session" style="width: 100%"></app-post>
   </div>
 
-  <div class="content" *ngIf="active == 5">
+  <div
+    class="content overflow-auto"
+    *ngIf="active == 7 && user_type == 'admin'"
+  >
+    <app-learning class="session" style="width: 100%"></app-learning>
+  </div>
+
+  <div
+    class="content overflow-auto"
+    *ngIf="active == 5 && user_type == 'admin'"
+  >
     <app-admin class="session" style="width: 100%"></app-admin>
   </div>
 </main>

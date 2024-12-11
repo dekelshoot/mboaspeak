@@ -1,0 +1,307 @@
+<main>
+  <div class="container py-4">
+    <header class="pb-3 mb-4 border-bottom" *ngIf="active == 1 && !loading">
+      <a
+        href="/"
+        class="d-flex align-items-center text-body-emphasis text-decoration-none"
+      >
+        <img
+          class="mb-4"
+          src="../assets/MboaSpeak.png"
+          alt=""
+          width="50"
+          height="50"
+        />
+        <span class="fs-4">Learning Space</span>
+      </a>
+    </header>
+
+    <div class="container">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a>Home</a></li>
+        <li class="breadcrumb-item active" aria-current="page">
+          Learning Space
+        </li>
+      </ol>
+      <div class="px-4 pt-2 my-2 text-center border-bottom">
+        <h4 class="display-5 fw-bold text-body-emphasis">
+          Welcome to the Mboaspeak Learning Space
+        </h4>
+        <div class="col-lg-6 mx-auto">
+          <p class="lead mb-2">
+            Explore and contribute tot the growing collection of Cameroonian
+            Creole words.
+          </p>
+        </div>
+      </div>
+
+      <div class="row" *ngIf="!loading"></div>
+
+      <!--jsdfds-->
+      <div
+        class="container bootstrap snippets bootdey"
+        *ngIf="active == 1 && !loading"
+      >
+        <br />
+        <h2>All Lesson</h2>
+        <br />
+        <div class="row">
+          <div
+            class="col-md-6 col-sm-6 col-xs-12"
+            *ngFor="let lesson of data"
+            style="cursor: pointer"
+            (click)="loadlesson(lesson.id, 2)"
+          >
+            <section class="widget">
+              <div class="widget-body">
+                <div class="post-user mt-n-xs">
+                  <h5 class="mb-xs mt-xs">
+                    <span class="fw-semi-bold">@{{ lesson.added_by }}</span>
+                  </h5>
+                  <p class="fs-mini text-muted">
+                    <time>{{ lesson.created_at }}</time> &nbsp;
+                  </p>
+                </div>
+                <div
+                  class="widget-middle-overflow windget-padding-md clearfix text-white"
+                  [ngClass]="getRandomElement()"
+                >
+                  <h3 class="mt-lg mb-lg">
+                    {{ lesson.title }}
+                  </h3>
+                  <ul class="tags text-white pull-right">
+                    <li>
+                      <a>{{ lesson.language }}</a>
+                    </li>
+                  </ul>
+                </div>
+                <p class="fs-mini mt-sm col-12 text-truncate">
+                  {{ lesson.content }}
+                </p>
+              </div>
+            </section>
+          </div>
+        </div>
+      </div>
+      <!--dsfds-->
+
+      <div class="blog-single gray-bg" *ngIf="active == 2 && !loading">
+        <span class="view"
+          ><button class="btn btn-primary" [disabled]="active == 2">
+            Lesson
+          </button>
+          &nbsp;
+          <button class="btn btn-primary" (click)="loadView(3)">
+            Quiz
+          </button></span
+        >
+        <button type="button" (click)="loadView(1)" class="btn btn-primary">
+          <i class=""></i>Back
+        </button>
+        <div class="container">
+          <div class="row align-items-start">
+            <div class="col-lg-8 m-15px-tb">
+              <article class="article">
+                <div class="article-img ratio ratio-16x9">
+                  <iframe
+                    [src]="lessonDetail.video_url"
+                    title="YouTube video player"
+                    frameborder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    referrerpolicy="strict-origin-when-cross-origin"
+                    allowfullscreen
+                  ></iframe>
+                </div>
+                <div class="article-title">
+                  <h2>{{ lessonDetail.title }}</h2>
+                  <div class="media">
+                    <div class="avatar">
+                      <img src="../../assets/avatar1.png" title="" alt="" />
+                    </div>
+                    <div class="media-body">
+                      <label>{{ lessonDetail.added_by }}</label>
+                      <span>{{
+                        lessonDetail.created_at | date : "medium"
+                      }}</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="article-content">
+                  <p>
+                    {{ lessonDetail.content }}
+                  </p>
+                </div>
+                <div class="nav tag-cloud">
+                  <a>{{ lessonDetail.language }}</a>
+                </div>
+              </article>
+            </div>
+            <div class="col-lg-4 m-15px-tb blog-aside">
+              <!-- Latest Post -->
+              <div class="widget widget-latest-post">
+                <div class="widget-title">
+                  <h3>Latest Post</h3>
+                </div>
+                <div class="widget-body">
+                  <div class="latest-post-aside media">
+                    <div
+                      class="lpa-left media-body"
+                      *ngFor="let lesson of recentlessons"
+                    >
+                      <div class="lpa-title">
+                        <h5>
+                          <a
+                            style="cursor: pointer"
+                            (click)="loadlesson(lesson.id, 2)"
+                            >{{ lesson.title }}</a
+                          >
+                        </h5>
+                      </div>
+                      <div class="lpa-meta">
+                        <a class="name"> {{ lesson.added_by }} </a>
+                        <a class="date">
+                          {{ lesson.created_at | date : "medium" }}
+                        </a>
+                      </div>
+                      <br />
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- End Latest Post -->
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="blog-single gray-bg" *ngIf="active == 3 && !loading">
+        <span class="view"
+          ><button class="btn btn-primary" (click)="loadView(2)">Lesson</button>
+          &nbsp;
+          <button class="btn btn-primary" [disabled]="active == 3">
+            Quiz
+          </button></span
+        >
+
+        <button type="button" (click)="loadView(2)" class="btn btn-primary">
+          <i class=""></i>Back
+        </button>
+
+        <div class="container mt-5">
+          <h1 class="mb-3">{{ formForm.get("quiz.title")?.value }}</h1>
+
+          <form
+            *ngIf="questions"
+            [formGroup]="formForm"
+            (ngSubmit)="onSubmit()"
+          >
+            <div formGroupName="quiz">
+              <div formArrayName="questions">
+                <div
+                  *ngFor="let question of questions.controls; let i = index"
+                  [formGroupName]="i"
+                  class="mb-4"
+                >
+                  <h5>{{ quiz.questions[i]?.text }}</h5>
+                  <div formArrayName="choices">
+                    <div
+                      *ngFor="
+                        let choice of getChoices(i).controls;
+                        let j = index
+                      "
+                      [formGroupName]="j"
+                      class="form-check"
+                    >
+                      <input
+                        class="form-check-input"
+                        type="radio"
+                        [id]="'choice-' + i + '-' + j"
+                        formControlName="is_correct"
+                      />
+                      <label
+                        class="form-check-label"
+                        [for]="'choice-' + i + '-' + j"
+                      >
+                        {{ quiz.questions[i].choices[j]?.text }}
+                      </label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <button
+              type="submit"
+              class="btn btn-primary mt-3"
+              [disabled]="formForm.invalid"
+            >
+              Submit Answers
+            </button>
+          </form>
+        </div>
+      </div>
+
+      <div class="blog-single gray-bg" *ngIf="active == 4 && !loading">
+        <span class="view"
+          ><button class="btn btn-primary" (click)="loadView(2)">Lesson</button>
+          &nbsp;
+          <button class="btn btn-primary" disabled>Quiz</button></span
+        >
+        <button type="button" (click)="loadView(3)" class="btn btn-primary">
+          <i class=""></i>Back
+        </button>
+        <div class="container mt-5">
+          <h1 class="mb-3">{{ formForm.get("quiz.title")?.value }}</h1>
+
+          <form
+            *ngIf="questions"
+            [formGroup]="formForm"
+            (ngSubmit)="onSubmit()"
+          >
+            <div formGroupName="quiz">
+              <div formArrayName="questions">
+                <div
+                  *ngFor="let question of questions.controls; let i = index"
+                  [formGroupName]="i"
+                  class="mb-4 alert"
+                  [ngClass]="{'alert-success': result[i],
+                   'alert-danger': !result[i],}"
+                >
+                  <h5>{{ quiz.questions[i]?.text }}</h5>
+                  <div formArrayName="choices">
+                    <div
+                      *ngFor="
+                        let choice of getChoices(i).controls;
+                        let j = index
+                      "
+                      [formGroupName]="j"
+                      class="form-check"
+                    >
+                      <input
+                        class="form-check-input"
+                        type="radio"
+                        [id]="'choice-' + i + '-' + j"
+                        formControlName="text"
+                      />
+                      <label
+                        class="form-check-label"
+                        [for]="'choice-' + i + '-' + j"
+                      >
+                        {{ quiz.questions[i].choices[j]?.text }}
+                      </label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="loading" class="px-4 pt-5 my-5 text-center">
+      <div class="spinner-border text-secondary" role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div>
+    </div>
+  </div>
+</main>

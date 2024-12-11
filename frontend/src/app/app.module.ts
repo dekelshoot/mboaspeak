@@ -10,16 +10,9 @@ import { SigninComponent } from './components/auth/signin/signin.component';
 import { SignupComponent } from './components/auth/signup/signup.component';
 import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-import { MentorComponent } from './components/dashboard-mentor/mentor/mentor.component';
-import { MenteeComponent } from './components/dashboard-mentee/mentee/mentee.component';
+
 import { StatComponent } from './layouts/stat/stat.component';
-import { SessionMenteeComponent } from './components/dashboard-mentee/session-mentee/session-mentee.component';
-import { SessionMentorComponent } from './components/dashboard-mentor/session-mentor/session-mentor.component';
-import { AddSessionMentorComponent } from './components/dashboard-mentor/add-session-mentor/add-session-mentor.component';
-import { RessourceComponent } from './components/dashboard-mentor/ressource/ressource.component';
-import { RessourceMenteeComponent } from './components/dashboard-mentee/ressource-mentee/ressource-mentee.component';
-import { EvaluationMenteeComponent } from './components/dashboard-mentee/evaluation-mentee/evaluation-mentee.component';
-import { EvaluationMentorComponent } from './components/dashboard-mentor/evaluation-mentor/evaluation-mentor.component';
+
 import { StatMenteeComponent } from './layouts/stat-mentee/stat-mentee.component';
 import { AboutComponent } from './components/about/about.component';
 import { AppsComponent } from './components/apps/apps.component';
@@ -33,6 +26,8 @@ import { ExpressionComponent } from './components/dashboard/expression/expressio
 import { CommonPhraseComponent } from './components/feeds/common-phrase/common-phrase.component';
 import { PostComponent } from './components/dashboard/post/post.component';
 import { ForumComponent } from './components/forum/forum.component';
+import { LearningSpaceComponent } from './components/learning-space/learning-space.component';
+import { LearningComponent } from './components/dashboard/learning/learning.component';
 
 @NgModule({
   declarations: [
@@ -43,16 +38,9 @@ import { ForumComponent } from './components/forum/forum.component';
     FooterComponent,
     SigninComponent,
     SignupComponent,
-    MentorComponent,
-    MenteeComponent,
+
     StatComponent,
-    SessionMenteeComponent,
-    SessionMentorComponent,
-    AddSessionMentorComponent,
-    RessourceComponent,
-    RessourceMenteeComponent,
-    EvaluationMenteeComponent,
-    EvaluationMentorComponent,
+
     StatMenteeComponent,
     AboutComponent,
     AppsComponent,
@@ -65,6 +53,8 @@ import { ForumComponent } from './components/forum/forum.component';
     CommonPhraseComponent,
     PostComponent,
     ForumComponent,
+    LearningSpaceComponent,
+    LearningComponent,
 
 
 

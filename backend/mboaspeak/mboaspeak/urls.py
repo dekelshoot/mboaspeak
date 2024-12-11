@@ -9,4 +9,5 @@ urlpatterns = [
     path('api/expression/', include('expressions.urls')),
     path('api/admin/', include('Mboa_admin.urls')),
     path('api/post/', include('forum.urls')),
+    path('api/learning/', include('learning.urls')),
 ]

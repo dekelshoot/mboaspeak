@@ -13,13 +13,17 @@ import { ActivatedRoute } from '@angular/router';
 export class DashComponent implements OnInit {
   active = 1
   loading = false
+  user_type = ""
   constructor(private routerService: RouterService, private authService: AuthService, private route: ActivatedRoute) { }
   ngOnInit(): void {
 
     const authData = localStorage.getItem('authData');
     if (!this.authService.hasAuthData()) {
       this.routerService.routeRoute("/auth/sign-in")
+
     }
+    this.user_type = this.authService.getAuthData().user_type
+    console.log(this.authService.getAuthData().user_type)
     this.route.queryParams.subscribe(params => {
       const view = params['view1'];
       if (view != undefined) {
