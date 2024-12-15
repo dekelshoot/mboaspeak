@@ -122,7 +122,12 @@
                   evolving language spoken in Cameroon. Explore its unique
                   vocabulary and cultural influence through our dictionary.
                 </p>
-                <button class="btn btn-primary">Learn More</button>
+                <button
+                  class="btn btn-primary"
+                  (click)="routerService.routeRoute('/learning-space')"
+                >
+                  Learn More
+                </button>
               </div>
             </div>
           </main>
@@ -196,7 +201,8 @@
                       type="button"
                       class="btn btn-primary"
                     >
-                      Vote {{ expressionDetail.votes }}
+                      <i class="fa fa-thumbs-up"></i>
+                      {{ expressionDetail.votes }}
                     </button>
                     &nbsp;
                     <button
@@ -205,7 +211,8 @@
                       type="button"
                       class="btn btn-danger"
                     >
-                      dislikes {{ expressionDetail.dislikes }}
+                      <i class="fa fa-thumbs-down"></i>
+                      {{ expressionDetail.dislikes }}
                     </button>
                     &nbsp;
                     <button
@@ -215,7 +222,7 @@
                       type="button"
                       class="btn btn-warning"
                     >
-                      star {{ expressionDetail.star }}
+                      <i class="fa fa-star"></i> {{ expressionDetail.star }}
                     </button>
                   </p>
                 </div>
@@ -264,7 +271,8 @@
                       type="button"
                       class="btn btn-primary"
                     >
-                      Vote {{ expressionDetail.votes }}
+                      <i class="fa fa-thumbs-up"></i>
+                      {{ expressionDetail.votes }}
                     </button>
                     &nbsp;
                     <button
@@ -273,7 +281,8 @@
                       type="button"
                       class="btn btn-danger"
                     >
-                      dislikes {{ expressionDetail.dislikes }}
+                      <i class="fa fa-thumbs-down"></i>
+                      {{ expressionDetail.dislikes }}
                     </button>
                     &nbsp;
                     <button
@@ -282,7 +291,7 @@
                       type="button"
                       class="btn btn-warning"
                     >
-                      star {{ expressionDetail.star }}
+                      <i class="fa fa-star"></i> {{ expressionDetail.star }}
                     </button>
                   </p>
                 </div>

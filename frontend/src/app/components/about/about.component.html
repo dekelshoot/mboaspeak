@@ -1,89 +1,78 @@
 <section class="our-webcoderskull padding-lg">
   <div class="container">
-    <div class="row heading heading-icon">
-      <h2>Our Team</h2>
+    <header class="pb-3 mb-4 border-bottom">
+      <a
+        href="/"
+        class="d-flex align-items-center text-body-emphasis text-decoration-none"
+      >
+        <img
+          class="mb-4"
+          src="../assets/MboaSpeak.png"
+          alt=""
+          width="200"
+          height="200"
+        />
+        <span class="fs-4">About Us</span>
+      </a>
+    </header>
+
+    <div class="container">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a>Home</a></li>
+        <li class="breadcrumb-item active" aria-current="page">About Us</li>
+      </ol>
+      <div class="px-4 pt-2 my-2 text-center border-bottom">
+        <h4 class="display-5 fw-bold text-body-emphasis">
+          Welcome to Mboaspeak, a collaborative platform for Cameroonian Creole
+          languages!
+        </h4>
+      </div>
+
+      <div class="p-5 mb-4 bg-body-tertiary rounded-3">
+        <div class="container-fluid py-5">
+          <h3 class="display-16 fw-bold">Project Overview:</h3>
+          <p class="lead">
+            Mboaspeak is an academic project developed by Lelithi Mekontso
+            Eglessia Dacosta at the Higher Institute of Translation,
+            Interpretation and Communication Yaoundé, as part of the Language
+            Engineering and Translation program. The platform facilitates the
+            sharing of translations and common phrases between Cameroonian
+            Pidgin, Camfranglais, English, and French.
+          </p>
+
+          <h3 class="display-16 fw-bold">Our Mission:</h3>
+          <p class="lead">
+            We aim to build a thriving community where users can collaborate to
+            create and share translations, contributing to the preservation and
+            revitalization of Cameroonian Pidgin and Camfranglais. This project
+            also investigates the effectiveness of collaborative translation
+            platforms for under-resourced languages.
+          </p>
+
+          <h3 class="display-16 fw-bold">Join Us:</h3>
+          <p class="lead">
+            Become a part of the Mboaspeak community and help us build this
+            valuable resource!
+          </p>
+
+          <button
+            (click)="routerService.routeRoute('/auth/sign-up')"
+            class="btn btn-outline-secondary mr-5"
+            style="margin: 10px"
+            type="button"
+          >
+            Inscrivez-vous Maintenant
+          </button>
+
+          <button
+            (click)="start()"
+            class="btn btn-outline-secondary"
+            type="button"
+          >
+            Get Started
+          </button>
+        </div>
+      </div>
     </div>
-    <ul class="row">
-      <li class="col-12 col-md-6 col-lg-3">
-        <div class="cnt-block equal-hight" style="height: 349px">
-          <figure>
-            <img src="../../assets/dekel.jpg" class="img-responsive" alt="" />
-          </figure>
-          <h3>THCOUPE KENGNE DEKEL JUNIOR</h3>
-          <p>Scrum master</p>
-          <ul class="follow-us clearfix">
-            <li>
-              <a href="#"><i class="bi bi-facebook" aria-hidden="true"></i></a>
-            </li>
-            <li>
-              <a href="#"><i class="bi bi-twitter" aria-hidden="true"></i></a>
-            </li>
-            <li>
-              <a href="#"><i class="bi bi-linkedin" aria-hidden="true"></i></a>
-            </li>
-          </ul>
-        </div>
-      </li>
-      <li class="col-12 col-md-6 col-lg-3">
-        <div class="cnt-block equal-hight" style="height: 349px">
-          <figure>
-            <img src="../../assets/aurel.jpg" class="img-responsive" alt="" />
-          </figure>
-          <h3>TOUKAM KAMGNIA AUREL EMMANUEL</h3>
-          <p>Scrum team</p>
-          <ul class="follow-us clearfix">
-            <li>
-              <a href="#"><i class="bi bi-facebook" aria-hidden="true"></i></a>
-            </li>
-            <li>
-              <a href="#"><i class="bi bi-twitter" aria-hidden="true"></i></a>
-            </li>
-            <li>
-              <a href="#"><i class="bi bi-linkedin" aria-hidden="true"></i></a>
-            </li>
-          </ul>
-        </div>
-      </li>
-      <li class="col-12 col-md-6 col-lg-3">
-        <div class="cnt-block equal-hight" style="height: 349px">
-          <figure>
-            <img src="../../assets/ousman.jpg" class="img-responsive" alt="" />
-          </figure>
-          <h3>NJIKOUFON Mfochive ousmanou</h3>
-          <p>Product owner</p>
-          <ul class="follow-us clearfix">
-            <li>
-              <a href="#"><i class="bi bi-facebook" aria-hidden="true"></i></a>
-            </li>
-            <li>
-              <a href="#"><i class="bi bi-twitter" aria-hidden="true"></i></a>
-            </li>
-            <li>
-              <a href="#"><i class="bi bi-linkedin" aria-hidden="true"></i></a>
-            </li>
-          </ul>
-        </div>
-      </li>
-      <li class="col-12 col-md-6 col-lg-3">
-        <div class="cnt-block equal-hight" style="height: 349px">
-          <figure>
-            <img src="../../assets/prisca.jpg" class="img-responsive" alt="" />
-          </figure>
-          <h3>GUIFFOU AKWETE WINNIE PRISCA</h3>
-          <p>Scrum team</p>
-          <ul class="follow-us clearfix">
-            <li>
-              <a href="#"><i class="bi bi-facebook" aria-hidden="true"></i></a>
-            </li>
-            <li>
-              <a href="#"><i class="bi bi-twitter" aria-hidden="true"></i></a>
-            </li>
-            <li>
-              <a href="#"><i class="bi bi-linkedin" aria-hidden="true"></i></a>
-            </li>
-          </ul>
-        </div>
-      </li>
-    </ul>
   </div>
 </section>

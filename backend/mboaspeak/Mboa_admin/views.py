@@ -10,6 +10,12 @@ from django.http import JsonResponse
 from rest_framework.exceptions import NotFound
 from authentication.models import User,Admin,Linguist,Contributor
 
+from django.db.models import Count
+from authentication.models import User
+from forum.models import Post, Comment
+from dictionary.models import Word 
+from expressions.models import Expression
+from learning.models import Lesson
 
 class UpdateUserTypeView(APIView):
     # Autoriser uniquement les administrateurs
@@ -94,3 +100,25 @@ class UserListView(APIView):
         ]
 
         return JsonResponse({"users": user_data}, safe=False, status=200)
+
+
+class StatisticsView(APIView):
+    permission_classes = [IsAuthenticated]
+    def get(self, request):
+        # Nombre total de posts
+        total_posts = Post.objects.filter(user=request.user).count()
+        total_words = Word.objects.filter(user=request.user).count()
+        total_expressions = Expression.objects.filter(user=request.user).count()
+        total_lessons = Lesson.objects.filter(user=request.user).count()
+        total_comments = Comment.objects.filter(user=request.user).count()
+        
+        # Construire la réponse
+        statistics = {
+            "total_posts": total_posts,
+            "total_words": total_words,
+            "total_comments": total_comments,
+            "total_expressions":total_expressions,
+            "total_lessons":total_lessons
+        }
+
+        return Response(statistics, status=200)

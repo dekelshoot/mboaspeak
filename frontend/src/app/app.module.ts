@@ -13,7 +13,6 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 import { StatComponent } from './layouts/stat/stat.component';
 
-import { StatMenteeComponent } from './layouts/stat-mentee/stat-mentee.component';
 import { AboutComponent } from './components/about/about.component';
 import { AppsComponent } from './components/apps/apps.component';
 import { AuthService } from './services/auth.service';
@@ -48,8 +47,6 @@ export function HttpLoaderFactory(http: HttpClient) {
     SignupComponent,
 
     StatComponent,
-
-    StatMenteeComponent,
     AboutComponent,
     AppsComponent,
     DashComponent,
@@ -63,6 +60,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     ForumComponent,
     LearningSpaceComponent,
     LearningComponent,
+
 
 
   ],
