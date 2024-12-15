@@ -1,0 +1,53 @@
+{
+    "start": {
+        "part1": {
+            "title": "Bienvenue sur Mboa Speak",
+            "text": "Votre porte d'entrée vers les langues créoles camerounaises. Connectez-vous, apprenez et partagez ! Plongez dans la richesse de notre patrimoine culturel avec des langues comme le Pidgin, le CamFranglais, et bien d'autres. MboaSpeak réunit contributeurs, linguistes et passionnés pour explorer et élargir les frontières linguistiques. Que vous soyez ici pour apprendre, contribuer ou simplement vous connecter à la communauté, nous avons ce qu'il vous faut. Rejoignez-nous pour créer un pont entre les générations grâce au pouvoir du langage et de la communication.",
+            "button": "Rejoindre la Communauté"
+        },
+        "part2": {
+            "title": "Explorez et Apprenez les Langues Créoles Camerounaises",
+            "text": "Chaque langue est une porte d'entrée vers une culture unique. Avec MboaSpeak, découvrez des ressources, connectez-vous avec des passionnés et contribuez à préserver notre patrimoine linguistique.",
+            "button1": "Rejoindre la Communauté",
+            "button2": "Commencer Maintenant"
+        },
+        "part3": {
+            "right": {
+                "title": "Fonctionnalités Clés",
+                "strong1": "Gestion des Mots :",
+                "text1": "Ajoutez, mettez à jour et gérez les mots avec l'option de les marquer comme ''favoris''.",
+                "strong2": "Votes sur les Mots",
+                "text2": "Chaque utilisateur peut voter sur les mots, avec des poids de vote personnalisés.",
+                "strong3": "Système de Traduction",
+                "text3": " : Contribuez à enrichir les définitions dans différentes langues.",
+                "strong4": "Gestion des Mots :",
+                "text4": " : Ajoutez, mettez à jour et gérez les mots avec l'option de les marquer comme ''favoris''.",
+                "strong5": "Votes sur les Mots",
+                "text5": " : Chaque utilisateur peut voter sur les mots, avec des poids de vote personnalisés.",
+                "strong6": "Système de Traduction",
+                "text6": " : Contribuez à enrichir les définitions dans différentes langues.",
+                "button": "Commencer"
+            },
+            "left": {
+                "title": "Pourquoi Choisir Notre Application ?",
+                "strong1": "Interface Intuitive",
+                "text1": " : Une interface simple et facile à utiliser.",
+                "strong2": "Support Personnalisé",
+                "text2": " : Un support réactif pour toutes vos questions.",
+                "strong3": "Communauté Engagée",
+                "text3": " : Rejoignez une communauté passionnée de mentors et de mentorés.",
+                "strong4": "Évolutivité :",
+                "text4": " : L'application s'adapte à vos besoins.",
+                "strong5": "Confidentialité et Sécurité",
+                "text5": " : Vos données sont sécurisées et protégées.",
+                "button": "Commencer"
+            }
+        },
+        "part4": {
+            "title": "Prêt à Commencer Votre Voyage avec MboaSpeak ?",
+            "text": "Rejoignez notre plateforme et commencez à enrichir MboaSpeak dès aujourd'hui.",
+            "button1": "Rejoindre la Communauté",
+            "button2": "Commencer Maintenant"
+        }
+    }
+}

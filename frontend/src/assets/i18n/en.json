@@ -1,0 +1,53 @@
+{
+    "start": {
+        "part1": {
+            "title": "Welcome to Mboa Speak",
+            "text": "Your gateway to Cameroonian Creole languages. Connect, learn, and share! Dive into the richness of our cultural heritage with languages like Pidgin, CamFranglais, and more. MboaSpeak brings together contributors, linguists, and enthusiasts to explore and expand linguistic frontiers. Whether you’re here to learn, contribute, or simply connect with the community, we’ve got you covered. Join us in building a bridge between generations through the power of language and communication.",
+            "button": "Join the Community"
+        },
+        "part2": {
+            "title": "Explore and Learn Cameroonian Creole Languages",
+            "text": "Every language is a gateway to a unique culture. With MboaSpeak, discover resources, connect with enthusiasts, and contribute to preserving our linguistic heritage.",
+            "button1": "Join the Community",
+            "button2": "Get Started Now"
+        },
+        "part3": {
+            "right": {
+                "title": "Key Features",
+                "strong1": " Word Management :",
+                "text1": "Add, update, and manage words with the option to mark them as ''starred''.",
+                "strong2": "Voting on Words",
+                "text2": "Each user can vote on words, with customized vote weights.",
+                "strong3": "Translation System",
+                "text3": ": Contribute to enriching definitions in different languages.",
+                "strong4": "MWord Management :",
+                "text4": " : Add, update, and manage words with the option to mark them as 'starred'.",
+                "strong5": "Voting on Words",
+                "text5": ": Each user can vote on words, with customized vote weights.",
+                "strong6": "Translation System",
+                "text6": ": Contribute to enriching definitions in different languages.",
+                "button": "Get Started"
+            },
+            "left": {
+                "title": "Why Choose Our Application?",
+                "strong1": " Intuitive Interface",
+                "text1": ": A simple, easy-to-use interface.",
+                "strong2": "Personalized Support",
+                "text2": ": Responsive support for all your questions.",
+                "strong3": "Engaged Community",
+                "text3": ": Join a passionate community of mentors and mentees.",
+                "strong4": "Scalability :",
+                "text4": " : The application adapts to your needs.",
+                "strong5": "Confidentiality and Security",
+                "text5": ": Your data is secure and protected.",
+                "button": "Get Started"
+            }
+        },
+        "part4": {
+            "title": "Ready to Start Your MboaSpeak Journey?",
+            "text": "Join our platform and start enriching Mnoaspeak today.",
+            "button1": "Join the Community",
+            "button2": "Get Started Now"
+        }
+    }
+}

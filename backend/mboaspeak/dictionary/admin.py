@@ -12,5 +12,4 @@ class WordAdmin(admin.ModelAdmin):
 
 
 
-# Vous pouvez également enregistrer le modèle Component si nécessaire
-admin.site.register(Component)
+

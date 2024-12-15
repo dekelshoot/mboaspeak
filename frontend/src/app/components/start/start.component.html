@@ -30,17 +30,10 @@
         </div>
         <div class="col-lg-6">
           <h1 class="display-5 fw-bold text-body-emphasis lh-1 mb-3">
-            Welcome to Mboa Speak
+            {{ "start.part1.title" | translate }}
           </h1>
           <p class="lead">
-            Your gateway to Cameroonian Creole languages. Connect, learn, and
-            share! Dive into the richness of our cultural heritage with
-            languages like Pidgin, CamFranglais, and more. MboaSpeak brings
-            together contributors, linguists, and enthusiasts to explore and
-            expand linguistic frontiers. Whether you’re here to learn,
-            contribute, or simply connect with the community, we’ve got you
-            covered. Join us in building a bridge between generations through
-            the power of language and communication.
+            {{ "start.part1.text" | translate }}
           </p>
           <div class="d-grid gap-2 d-md-flex justify-content-md-start">
             <button
@@ -48,7 +41,7 @@
               class="btn btn-outline-secondary"
               type="button"
             >
-              Join the Mboa Speak Community
+              {{ "start.part1.button" | translate }}
             </button>
           </div>
         </div>
@@ -57,13 +50,11 @@
 
     <div class="px-4 pt-5 my-5 text-center border-bottom">
       <h1 class="display-4 fw-bold text-body-emphasis">
-        Explore and Learn Cameroonian Creole Languages
+        {{ "start.part2.title" | translate }}
       </h1>
       <div class="col-lg-6 mx-auto">
         <p class="lead mb-4">
-          Every language is a gateway to a unique culture. With MboaSpeak,
-          discover resources, connect with enthusiasts, and contribute to
-          preserving our linguistic heritage.
+          {{ "start.part2.text" | translate }}
         </p>
         <div class="d-grid gap-2 d-sm-flex justify-content-sm-center mb-5">
           <button
@@ -71,14 +62,14 @@
             type="button"
             class="btn btn-outline-secondary btn-lg px-4 me-sm-3"
           >
-            Join the Community
+            {{ "start.part2.button1" | translate }}
           </button>
           <button
             (click)="start()"
             type="button"
             class="btn btn-outline-secondary btn-lg px-4"
           >
-            Get Started Now
+            {{ "start.part2.button2" | translate }}
           </button>
         </div>
       </div>
@@ -99,61 +90,61 @@
     <div class="row align-items-md-stretch">
       <div class="col-md-6">
         <div class="h-100 p-5 text-bg-dark rounded-3">
-          <h2>Key Features</h2>
+          <h2>{{ "start.part3.right.title" | translate }}</h2>
           <ul class="list-unstyled">
             <li>
-              <strong>Word Management :</strong> Add, update, and manage words
-              with the option to mark them as "starred".
+              <strong>{{ "start.part3.right.strong1" | translate }}</strong>
+              {{ "start.part3.right.text1" | translate }}
             </li>
             <li>
-              <strong>Voting on Words</strong> Each user can vote on words, with
-              customized vote weights.
+              <strong>{{ "start.part3.right.strong2" | translate }}</strong>
+              {{ "start.part3.right.text2" | translate }}
             </li>
             <li>
-              <strong>Translation System</strong> : Contribute to enriching
-              definitions in different languages.
+              <strong>{{ "start.part3.right.strong3" | translate }}</strong>
+              {{ "start.part3.right.text3" | translate }}
             </li>
             <li>
-              <strong>MWord Management :</strong> : Add, update, and manage
-              words with the option to mark them as "starred".
+              <strong>{{ "start.part3.right.strong4" | translate }}</strong>
+              {{ "start.part3.right.text4" | translate }}
             </li>
             <li>
-              <strong>Voting on Words</strong>: Each user can vote on words,
-              with customized vote weights.
+              <strong>{{ "start.part3.right.strong5" | translate }}</strong
+              >{{ "start.part3.right.text5" | translate }}
             </li>
             <li>
-              <strong>Translation System</strong> : Contribute to enriching
-              definitions in different languages.
+              <strong>{{ "start.part3.right.strong6" | translate }}</strong>
+              {{ "start.part3.right.text5" | translate }}
             </li>
           </ul>
           <button (click)="start()" class="btn btn-outline-light" type="button">
-            Get Started
+            {{ "start.part3.right.button" | translate }}
           </button>
         </div>
       </div>
       <div class="col-md-6">
         <div class="h-100 p-5 bg-body-tertiary border rounded-3">
-          <h2>Why Choose Our Application?</h2>
+          <h2>{{ "start.part3.left.title" | translate }}</h2>
           <ul class="list-unstyled">
             <li>
-              <strong>Intuitive Interface</strong>: A simple, easy-to-use
-              interface.
+              <strong>{{ "start.part3.left.strong1" | translate }}</strong
+              >{{ "start.part3.left.text1" | translate }}
             </li>
             <li>
-              <strong>Personalized Support</strong>: Responsive support for all
-              your questions.
+              <strong>{{ "start.part3.left.strong2" | translate }}</strong
+              >{{ "start.part3.left.text2" | translate }}
             </li>
             <li>
-              <strong>Engaged Community</strong>: Join a passionate community of
-              mentors and mentees.
+              <strong>{{ "start.part3.left.strong3" | translate }}</strong
+              >{{ "start.part3.left.text3" | translate }}
             </li>
             <li>
-              <strong>Scalability</strong>: The application adapts to your
-              needs.
+              <strong>{{ "start.part3.left.strong4" | translate }}</strong
+              >{{ "start.part3.left.text4" | translate }}
             </li>
             <li>
-              <strong>Confidentiality and Security</strong>: Your data is secure
-              and protected.
+              <strong>{{ "start.part3.left.strong5" | translate }}</strong
+              >{{ "start.part3.left.text5" | translate }}
             </li>
           </ul>
           <button
@@ -161,7 +152,7 @@
             class="btn btn-outline-secondary"
             type="button"
           >
-            Get Started
+            {{ "start.part3.left.button" | translate }}
           </button>
         </div>
       </div>
@@ -170,10 +161,10 @@
     <div class="p-5 mb-4 bg-body-tertiary rounded-3">
       <div class="container-fluid py-5">
         <h1 class="display-5 fw-bold">
-          Ready to Start Your MboaSpeak Journey?
+          {{ "start.part4.title" | translate }}
         </h1>
         <p class="lead">
-          Join our platform and start enriching Mnoaspeak today.
+          {{ "start.part4.text" | translate }}
         </p>
 
         <button
@@ -182,7 +173,7 @@
           style="margin: 10px"
           type="button"
         >
-          Inscrivez-vous Maintenant
+          {{ "start.part4.button1" | translate }}
         </button>
 
         <button
@@ -190,7 +181,7 @@
           class="btn btn-outline-secondary"
           type="button"
         >
-          Get Started
+          {{ "start.part4.button2" | translate }}
         </button>
       </div>
     </div>
