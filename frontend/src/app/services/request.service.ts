@@ -108,6 +108,22 @@ export class RequestService {
       )
     })
   }
+
+  delete(base: any) {
+    let token = this.authService.getAccessToken()
+    const headers = this.headers.set('Authorization', `Bearer ${token}`);
+    return new Promise((resolve, reject) => {
+      this.http.delete(base, { headers: headers }).subscribe(
+        (res: any) => {
+          resolve(res);
+        },
+        (err: any) => {
+          reject(err);
+        }
+      )
+    })
+  }
+
   //inserer les informations dans la bd
   post(base: any, data: any) {
     return new Promise((resolve, reject) => {
@@ -170,10 +186,7 @@ export class RequestService {
     })
   }
 
-  //supprimer les informations dans la bd
-  delete(base: any, id: any) {
-    return this.http.delete(`${base}/${id}`);
-  }
+
   deleteAll(base: any) {
     return this.http.delete(base);
   }

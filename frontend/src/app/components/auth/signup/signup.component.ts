@@ -1,14 +1,16 @@
 import { Component, OnInit } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
 import { RequestService } from '../../../services/request.service';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { RouterService } from 'src/app/services/router.service';
-
+import { TranslaterService } from 'src/app/services/translater.service';
 @Component({
   selector: 'app-signup',
   templateUrl: './signup.component.html',
   styleUrls: ['./signup.component.scss']
 })
 export class SignupComponent implements OnInit {
+  translate!: any
   role = 1
 
   loadingData = true
@@ -19,8 +21,8 @@ export class SignupComponent implements OnInit {
 
 
   constructor(private requestService: RequestService,
-    private formBuilder: FormBuilder, public routerService: RouterService
-  ) { }
+    private formBuilder: FormBuilder, public routerService: RouterService, public translater:TranslaterService
+  ) { this.translate = this.translater.translate}
   ngOnInit(): void {
     this.chargeData();
 

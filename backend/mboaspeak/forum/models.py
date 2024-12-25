@@ -19,23 +19,22 @@ class Post(models.Model):
     star = models.IntegerField(default=0)
 
     def vote(self, user):
-        # Obtenez l'utilisateur actuel
+        # get actual user
         print(user)
-        # Déterminez le poids du vote en fonction du type d'utilisateur
-        if user.user_type == 'admin':  # Vérifie si l'utilisateur est un admin
+        # set vote weight according to user type
+        if user.user_type == 'admin':  # Check if user is admin
             vote_weight = user.vote_weight
             print("admin",vote_weight)
-        elif hasattr(user, 'linguist'):  # Vérifie si l'utilisateur est un linguist
+        elif hasattr(user, 'linguist'):  # Check if user is linguist
             vote_weight = user.vote_weight
             print("linguist")
-        elif hasattr(user, 'contributor'):  # Vérifie si l'utilisateur est un contributor
+        elif hasattr(user, 'contributor'):  # Check if user is contributor
             vote_weight = user.vote_weight
             print("contributor")
             print(user)
         else:
-            vote_weight = 1  # Valeur par défaut si l'utilisateur n'a pas de rôle spécifique
-        
-        # Ajoute le poids du vote à la valeur des votes
+            vote_weight = 1  # default vote weight
+        # Add vote weight to initial weight
         self.votes += vote_weight
         
         self.save()

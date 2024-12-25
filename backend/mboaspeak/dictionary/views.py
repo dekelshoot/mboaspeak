@@ -16,24 +16,24 @@ class CreateWordView(APIView):
     permission_classes = [IsAuthenticated]
 
     def post(self, request):
-        # Sérialiser les données du mot envoyées par le client
+        # Serializes the data of the word sent by the user
         serializer = WordSerializer(data=request.data)
         
-        # Vérifier si les données sont valides
+        # Verifies if the data are valid 
         if serializer.is_valid():
-            # Sauvegarder le mot dans la base de données
+            # saves the word in the data base 
             word = serializer.save(user=request.user)
 
-            # Retourner la réponse avec les données sérialisées
+            # Returns a response with the serialised datas
             return Response(serializer.data, status=status.HTTP_201_CREATED)
 
-        # Retourner une erreur si la validation échoue
+        # Returns a response with the errors if the data are not valid
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 
 
-# Vue pour voter pour un mot
+# View to vote for a word
 class VoteWordView(APIView):
     permission_classes = [IsAuthenticated]
 
@@ -41,10 +41,10 @@ class VoteWordView(APIView):
         try:
             word = Word.objects.get(pk=pk)
             word.vote(request.user)
-            # Vérifier si l'utilisateur a déjà voté pour ce mot
+            # Verifies if the user has already voted for the word 
             if Vote.objects.filter(user=request.user, word=word).exists():
                 return Response({"error": "You have already voted for this word."}, status=status.HTTP_400_BAD_REQUEST)
-            # Enregistrer le vote
+            # Save vote
             Vote.objects.create(user=request.user, word=word)
             return Response({"message": "Vote added successfully."}, status=status.HTTP_201_CREATED)
         
@@ -52,7 +52,7 @@ class VoteWordView(APIView):
             return Response({"error": "Word not found"}, status=status.HTTP_404_NOT_FOUND)
 
 
-# Vue pour dislikes  un mot
+# View to dislike
 class DislikesWordView(APIView):
     permission_classes = [IsAuthenticated]
 
@@ -62,14 +62,14 @@ class DislikesWordView(APIView):
             word.dislike()
             if DisLike.objects.filter(user=request.user, word=word).exists():
                 return Response({"error": "You have already disliked for this word."}, status=status.HTTP_400_BAD_REQUEST)
-            # Enregistrer le vote
+            # save vote
             DisLike.objects.create(user=request.user, word=word)
             return Response({"message": "dislikes added successfully"}, status=status.HTTP_200_OK)
         except Word.DoesNotExist:
             return Response({"error": "Word not found"}, status=status.HTTP_404_NOT_FOUND)
 
 
-# Vue pour dislikes  un mot
+# View to star a word 
 class starWordView(APIView):
     permission_classes = [IsAuthenticated]
 
@@ -93,19 +93,19 @@ class UpdateWordView(APIView):
 
     def put(self, request, pk):
         try:
-            # Récupérer le mot à mettre à jour
+            # collects word to update
             word = Word.objects.get(pk=pk)
 
-            # Vérifier si l'utilisateur a la permission de modifier ce mot
+            # verify user's permission to update
             if word.user != request.user:
                 return Response({"error": "You do not have permission to edit this word."}, status=status.HTTP_403_FORBIDDEN)
 
-            # Sérialiser les nouvelles données envoyées par l'utilisateur
+            # Serializes new data sent by user
             serializer = WordSerializer(word, data=request.data, partial=True)
 
-            # Vérifier la validité des données
+            # Checks validity of data sent 
             if serializer.is_valid():
-                serializer.save()  # Sauvegarder les modifications dans la base de données
+                serializer.save()  # saves the modification in the database
                 return Response(serializer.data, status=status.HTTP_200_OK)
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         
@@ -119,13 +119,13 @@ class user_added_words(APIView):
     
     def get(self,request):
         try:
-            # Récupérer l'utilisateur connecté
+            # collects online user 
             user = request.user
             
-            # Récupérer tous les mots ajoutés par cet utilisateur
+            # Collects all the words added by the user
             words = Word.objects.filter(user=user)
             
-            # Préparer les données pour les retourner au format JSON
+            # List of datas to be returned in JSON format 
             words_data = [{"id": word.id, "word_name": word.word_name, "definition": word.definition, "example":word.example, "lang_definition":word.lang_definition,"meaning_fr":word.meaning_fr, "meaning_en":word.meaning_en, "language":word.language,"votes":word.votes,"dislikes":word.dislikes,"star":word.star,"date_submitted":word.date_submitted} for word in words]
             
             return JsonResponse({"words": words_data})
@@ -139,7 +139,7 @@ class WordDetailView(APIView):
     def get(self, request, id):
         print("hello")
         try:
-            word = Word.objects.get(id=id)  # Récupère le mot via son ID
+            word = Word.objects.get(id=id)  # Collects word through its ID
         except Word.DoesNotExist:
             return Response({"error": "Word not found."}, status=status.HTTP_404_NOT_FOUND)
         liked = False
@@ -170,7 +170,7 @@ class WordDetailViewWithaccess(APIView):
     def get(self, request, id):
         print("hello")
         try:
-            word = Word.objects.get(id=id)  # Récupère le mot via son ID
+            word = Word.objects.get(id=id)  # collect word through id
         except Word.DoesNotExist:
             return Response({"error": "Word not found."}, status=status.HTTP_404_NOT_FOUND)
         liked = False
@@ -204,7 +204,7 @@ class WordDetailViewWithaccess(APIView):
     
 
 class CustomWordPagination(PageNumberPagination):
-    page_size = 2  # Nombre de mots par page
+    page_size = 2  # Number of word per page
     page_size_query_param = 'page_size'
     max_page_size = 50
 
@@ -215,7 +215,7 @@ class PaginatedWordListView(ListAPIView):
     def list(self, request, *args, **kwargs):
         page = self.paginate_queryset(self.get_queryset())
         if page is not None:
-            # Construire une réponse avec le nom de l'utilisateur
+            # make a response with username
             custom_data = [
                 {
                     "id": word.id,
@@ -245,16 +245,16 @@ class PaginatedWordListView(ListAPIView):
 class WordSearchView(APIView):
 
     def get(self, request):
-        # Récupérer la query passée en paramètre ?query=<mot>
+        # Collects query in parameter ?query=<mot>
         search_query = request.query_params.get('query', None)
 
         if not search_query:
             return Response({"error": "Query parameter 'query' is required."}, status=400)
 
-        # Effectuer la recherche (case insensitive)
+        # makes search
         words = Word.objects.filter(word_name__icontains=search_query).order_by('-date_submitted')
 
-        # Construire les résultats de la recherche
+        # builds the result of the search 
         word_data = [
             {
                 "id": word.id,
@@ -277,10 +277,10 @@ class TopVotedWordsView(APIView):
     
 
     def get(self, request):
-        # Récupérer les 4 mots avec le plus grand nombre de votes
+        # Collects 4 most voted words
         top_words = Word.objects.order_by('-votes')[:4]
 
-        # Construire la réponse JSON avec les détails des mots
+        # builds a JSON response with the word details 
         word_data = [
             {
                 "id": word.id,
@@ -302,10 +302,10 @@ class recentWordsView(APIView):
     
 
     def get(self, request):
-        # Récupérer les 4 mots avec le plus grand nombre de votes
+        # Collects 4 recently addedwords
         top_words = Word.objects.order_by('-date_submitted')[:4]
 
-        # Construire la réponse JSON avec les détails des mots
+        # Builds a json response with de word details 
         word_data = [
             {
                 "id": word.id,

@@ -12,25 +12,24 @@
           width="50"
           height="50"
         />
-        <span class="fs-4">Common Phrase MboaSpeak</span>
+        <span class="fs-4"> {{ "common-phrase.title0" | translate }}</span>
       </a>
     </header>
 
     <div class="container">
       <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="#">Home</a></li>
+        <li class="breadcrumb-item"><a href="#">{{ "common-phrase.list1" | translate }}</a></li>
         <li class="breadcrumb-item active" aria-current="page">
-          Common phrase
+          {{ "common-phrase.list2" | translate }}
         </li>
       </ol>
       <div class="px-4 pt-2 my-2 text-center border-bottom">
         <h4 class="display-5 fw-bold text-body-emphasis">
-          Welcome to the Mboaspeak Common phrase
+          {{ "common-phrase.title1" | translate }}
         </h4>
         <div class="col-lg-6 mx-auto">
           <p class="lead mb-2">
-            Explore and contribute tot the growing collection of Cameroonian
-            Creole Common phrases.
+            {{ "common-phrase.text1" | translate }}
           </p>
         </div>
       </div>
@@ -47,7 +46,7 @@
                 <input
                   type="text"
                   class="form-control"
-                  placeholder="type your search"
+                  placeholder="{{ 'common-phrase.placeholder' | translate }}"
                   aria-label="type your search"
                   aria-describedby="button-addon2"
                   formControlName="search"
@@ -58,7 +57,7 @@
                   type="submit"
                   id="button-addon2"
                 >
-                  Search
+                {{ "common-phrase.button1" | translate }}
                 </button>
               </div>
             </form>
@@ -74,13 +73,13 @@
                 (click)="
                   this.routerService.routeRouteWithParams('/dashboard', 3, 2)
                 "
-                >Submit a new expression</a
+                >{{ "common-phrase.button2" | translate }}</a
               >
             </div>
 
             <div class="row g-5">
               <div class="col-md-4">
-                <h2 class="text-body-emphasis">Recent Submissions</h2>
+                <h2 class="text-body-emphasis">{{ "common-phrase.title2" | translate }}</h2>
 
                 <ul class="list-unstyled ps-0">
                   <li
@@ -104,29 +103,27 @@
               </div>
 
               <div class="col-md-4">
-                <h2 class="text-body-emphasis">Popular expressions</h2>
+                <h2 class="text-body-emphasis">{{ "common-phrase.title3" | translate }}</h2>
                 <a
                   class="icon-link mb-1 fs-3"
                   (click)="loadexpression(topExpressions[0].id, 4)"
                   style="cursor: pointer"
                   >{{ topExpressions[0].exp }}</a
                 >
-                <p>Language : {{ topExpressions[0].language }}</p>
-                <p>votes : {{ topExpressions[0].votes }}</p>
+                <p>{{ "common-phrase.P1" | translate }}: {{ topExpressions[0].language }}</p>
+                <p>{{ "common-phrase.p2" | translate }} : {{ topExpressions[0].votes }}</p>
               </div>
 
               <div class="col-md-4">
-                <h2 class="text-body-emphasis">CamFranglais Spotlight</h2>
+                <h2 class="text-body-emphasis">{{ "common-phrase.title4" | translate }}</h2>
                 <p>
-                  A blend of French and English, Camfranglais is a vibrant and
-                  evolving language spoken in Cameroon. Explore its unique
-                  vocabulary and cultural influence through our dictionary.
+                  {{ "common-phrase.text2" | translate }}
                 </p>
                 <button
                   class="btn btn-primary"
                   (click)="routerService.routeRoute('/learning-space')"
                 >
-                  Learn More
+                {{ "common-phrase.btn" | translate }}
                 </button>
               </div>
             </div>
@@ -142,7 +139,7 @@
                   (click)="loadView(1)"
                   class="btn btn-primary"
                 >
-                  <i class=""></i>Back
+                  <i class=""></i>{{ "common-phrase.btn1" | translate }}
                 </button>
               </li>
             </ol>
@@ -170,7 +167,7 @@
                   (click)="loadView(2)"
                   class="btn btn-primary"
                 >
-                  <i class=""></i>Back
+                  <i class=""></i>{{ "common-phrase.btn1" | translate }}
                 </button>
               </li>
             </ol>
@@ -181,16 +178,16 @@
                     {{ expressionDetail.exp }} ({{ expressionDetail.language }})
                   </h2>
                   <p>
-                    <span class="fw-semibold">Submitted By:</span>
+                    <span class="fw-semibold">{{ "common-phrase.p3" | translate }}</span>
                     {{ expressionDetail.added_by }}
-                    <span class="fw-semibold">on </span>
+                    <span class="fw-semibold">{{ "common-phrase.p4" | translate }} </span>
                     {{ expressionDetail.date_submitted | date : "medium" }}
                   </p>
-                  <p class="fw-semibold">English Translation:</p>
+                  <p class="fw-semibold">{{ "common-phrase.p5" | translate }}</p>
                   <p>
                     {{ expressionDetail.meaning_en }}
                   </p>
-                  <p class="fw-semibold">French Translation:</p>
+                  <p class="fw-semibold">{{ "common-phrase.p6" | translate }}</p>
                   <p>
                     {{ expressionDetail.meaning_fr }}
                   </p>
@@ -239,7 +236,7 @@
                   (click)="loadView(1)"
                   class="btn btn-primary"
                 >
-                  <i class=""></i>Back
+                  <i class=""></i>{{ "common-phrase.btn1" | translate }}
                 </button>
               </li>
             </ol>
@@ -250,17 +247,17 @@
                     {{ expressionDetail.exp }} ({{ expressionDetail.language }})
                   </h2>
                   <p>
-                    <span class="fw-semibold">Submitted By:</span>
+                    <span class="fw-semibold">{{ "common-phrase.p3" | translate }}</span>
                     {{ expressionDetail.added_by }}
-                    <span class="fw-semibold">on </span>
+                    <span class="fw-semibold">{{ "common-phrase.p4" | translate }} </span>
                     {{ expressionDetail.date_submitted | date : "medium" }}
                   </p>
 
-                  <p class="fw-semibold">English Translation:</p>
+                  <p class="fw-semibold">{{ "common-phrase.p5" | translate }}</p>
                   <p>
                     {{ expressionDetail.meaning_en }}
                   </p>
-                  <p class="fw-semibold">French Translation:</p>
+                  <p class="fw-semibold">{{ "common-phrase.p6" | translate }}:</p>
                   <p>
                     {{ expressionDetail.meaning_fr }}
                   </p>

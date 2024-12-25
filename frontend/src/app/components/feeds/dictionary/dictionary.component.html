@@ -12,23 +12,22 @@
           width="50"
           height="50"
         />
-        <span class="fs-4">Dictionary MboaSpeak</span>
+        <span class="fs-4"> {{ "dictionary.title1" | translate }}</span>
       </a>
     </header>
 
     <div class="container">
       <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="#">Home</a></li>
-        <li class="breadcrumb-item active" aria-current="page">Dictionary</li>
+        <li class="breadcrumb-item"><a href="#">{{ "dictionary.lien1" | translate }}</a></li>
+        <li class="breadcrumb-item active" aria-current="page">{{ "dictionary.lien2" | translate }}</li>
       </ol>
       <div class="px-4 pt-2 my-2 text-center border-bottom">
         <h4 class="display-5 fw-bold text-body-emphasis">
-          Welcome to the Mboaspeak Dictionary
+          {{ "dictionary.title0" | translate }}
         </h4>
         <div class="col-lg-6 mx-auto">
           <p class="lead mb-2">
-            Explore and contribute tot the growing collection of Cameroonian
-            Creole words.
+            {{ "dictionary.text1" | translate }}
           </p>
         </div>
       </div>
@@ -45,8 +44,8 @@
                 <input
                   type="text"
                   class="form-control"
-                  placeholder="type your search"
-                  aria-label="type your search"
+                  placeholder="{{ 'dictionary.placeholder' | translate }}"
+                  aria-label="search for a word"
                   aria-describedby="button-addon2"
                   formControlName="search"
                 />
@@ -56,7 +55,7 @@
                   type="submit"
                   id="button-addon2"
                 >
-                  Search
+                {{ "dictionary.button1" | translate }}
                 </button>
               </div>
             </form>
@@ -72,13 +71,13 @@
                 (click)="
                   this.routerService.routeRouteWithParams('/dashboard', 2, 2)
                 "
-                >Submit a new word</a
+                >{{ "dictionary.button2" | translate }}</a
               >
             </div>
 
             <div class="row g-5">
               <div class="col-md-4">
-                <h2 class="text-body-emphasis">Recent Submissions</h2>
+                <h2 class="text-body-emphasis">{{ "dictionary.title2" | translate }}</h2>
 
                 <ul class="list-unstyled ps-0">
                   <li
@@ -102,30 +101,28 @@
               </div>
 
               <div class="col-md-4">
-                <h2 class="text-body-emphasis">Popular Words</h2>
+                <h2 class="text-body-emphasis">{{ "dictionary.title3" | translate }}</h2>
                 <a
                   class="icon-link mb-1 fs-3"
                   (click)="loadWord(topWords[0].id, 4)"
                   style="cursor: pointer"
                   >{{ topWords[0].word_name }}</a
                 >
-                <p>Language : {{ topWords[0].language }}</p>
-                <p>Définition : {{ topWords[0].definition }}</p>
-                <p>votes : {{ topWords[0].votes }}</p>
+                <p>{{ "dictionary.text2" | translate }} : {{ topWords[0].language }}</p>
+                <p>{{ "dictionary.text3" | translate }}: {{ topWords[0].definition }}</p>
+                <p>{{ "dictionary.text4" | translate }} : {{ topWords[0].votes }}</p>
               </div>
 
               <div class="col-md-4">
-                <h2 class="text-body-emphasis">CamFranglais Spotlight</h2>
+                <h2 class="text-body-emphasis">{{ "dictionary.title4" | translate }}</h2>
                 <p>
-                  A blend of French and English, Camfranglais is a vibrant and
-                  evolving language spoken in Cameroon. Explore its unique
-                  vocabulary and cultural influence through our dictionary.
+                  {{ "dictionary.P1" | translate }}
                 </p>
                 <button
                   class="btn btn-primary"
                   (click)="routerService.routeRoute('/learning-space')"
                 >
-                  Learn More
+                {{ "dictionary.button3" | translate }}
                 </button>
               </div>
             </div>
@@ -141,7 +138,7 @@
                   (click)="loadView(1)"
                   class="btn btn-primary"
                 >
-                  <i class=""></i>Back
+                  <i class=""></i>{{ "dictionary.button4" | translate }}
                 </button>
               </li>
             </ol>
@@ -169,7 +166,7 @@
                   (click)="loadView(2)"
                   class="btn btn-primary"
                 >
-                  <i class=""></i>Back
+                  <i class=""></i>{{ "dictionary.button5" | translate }}
                 </button>
               </li>
             </ol>
@@ -180,26 +177,26 @@
                     {{ wordDetail.word_name }} ({{ wordDetail.language }})
                   </h2>
                   <p>
-                    <span class="fw-semibold">Submitted By:</span>
+                    <span class="fw-semibold">{{ "dictionary.text5" | translate }}:</span>
                     {{ wordDetail.added_by }}
-                    <span class="fw-semibold">on </span>
+                    <span class="fw-semibold">{{ "dictionary.text6" | translate }} </span>
                     {{ wordDetail.date_submitted | date : "medium" }}
                   </p>
-                  <p class="fw-semibold">Definition:</p>
+                  <p class="fw-semibold">{{ "dictionary.text7" | translate }}</p>
                   <p>
                     {{ wordDetail.definition }} | ({{
                       wordDetail.lang_definition
                     }})
                   </p>
-                  <p class="fw-semibold">Example:</p>
+                  <p class="fw-semibold">{{ "dictionary.text8" | translate }}</p>
                   <p>
                     {{ wordDetail.example }}
                   </p>
-                  <p class="fw-semibold">English Translation:</p>
+                  <p class="fw-semibold"> {{ "dictionary.text9" | translate }}</p>
                   <p>
                     {{ wordDetail.meaning_en }}
                   </p>
-                  <p class="fw-semibold">French Translation:</p>
+                  <p class="fw-semibold">{{ "dictionary.text10" | translate }}</p>
                   <p>
                     {{ wordDetail.meaning_fr }}
                   </p>
@@ -247,7 +244,7 @@
                   (click)="loadView(1)"
                   class="btn btn-primary"
                 >
-                  <i class=""></i>Back
+                  <i class=""></i>{{ "dictionary.button6" | translate }}
                 </button>
               </li>
             </ol>
@@ -258,26 +255,26 @@
                     {{ wordDetail.word_name }} ({{ wordDetail.language }})
                   </h2>
                   <p>
-                    <span class="fw-semibold">Submitted By:</span>
+                    <span class="fw-semibold">{{ "dictionary.text11" | translate }}</span>
                     {{ wordDetail.added_by }}
-                    <span class="fw-semibold">on </span>
+                    <span class="fw-semibold">{{ "dictionary.text12" | translate }}</span>
                     {{ wordDetail.date_submitted | date : "medium" }}
                   </p>
-                  <p class="fw-semibold">Definition:</p>
+                  <p class="fw-semibold">{{ "dictionary.text13" | translate }}</p>
                   <p>
                     {{ wordDetail.definition }} | ({{
                       wordDetail.lang_definition
                     }})
                   </p>
-                  <p class="fw-semibold">Example:</p>
+                  <p class="fw-semibold">{{ "dictionary.text14" | translate }}</p>
                   <p>
                     {{ wordDetail.example }}
                   </p>
-                  <p class="fw-semibold">English Translation:</p>
+                  <p class="fw-semibold">{{ "dictionary.text15" | translate }}</p>
                   <p>
                     {{ wordDetail.meaning_en }}
                   </p>
-                  <p class="fw-semibold">French Translation:</p>
+                  <p class="fw-semibold">{{ "dictionary.text16" | translate }}</p>
                   <p>
                     {{ wordDetail.meaning_fr }}
                   </p>

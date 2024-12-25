@@ -45,9 +45,9 @@ class PostView(APIView):
 
 # Pagination personnalisée
 class PostPagination(PageNumberPagination):
-    page_size = 1  # Nombre d'éléments par page
-    page_size_query_param = 'page_size'  # Permet de personnaliser le nombre par page via URL
-    max_page_size = 100  # Taille maximale par page
+    page_size = 1  # number of elements in a page 
+    page_size_query_param = 'page_size'  # personalise this number through URL
+    max_page_size = 100  # Max height per page
 
 class PostListView(ListAPIView):
     queryset = Post.objects.all().order_by('-created_at')
@@ -58,15 +58,15 @@ class PostListView(ListAPIView):
     ordering = ['-created_at']
 
     def get(self, request, *args, **kwargs):
-        # Annoter les posts avec le nombre de commentaires
+        # Annotate the posts with the number of comments
         queryset = self.filter_queryset(
             self.get_queryset().annotate(comment_count=Count('comments'))
         )
         
-        # Paginer le queryset annoté
+        
         page = self.paginate_queryset(queryset)
         if page is not None:
-            # Construire les données pour la page courante
+            # Build data in the page 
             post_data = [
                 {
                     "id": post.id,
@@ -83,10 +83,10 @@ class PostListView(ListAPIView):
                 }
                 for post in page
             ]
-            # Retourner les données paginées
+            # Return anotated data
             return self.get_paginated_response(post_data)
 
-        # Si aucune pagination, retourner toutes les données (cas limite)
+        # If no pagination, return all data
         return Response(queryset)
     
 
@@ -95,19 +95,19 @@ class UpdatePostView(APIView):
     permission_classes = [IsAuthenticated]
     def put(self, request, pk):
         try:
-            # Récupérer le post à mettre à jour
+            # Get post to update 
             post = Post.objects.get(pk=pk)
 
-            # Vérifier si l'utilisateur a la permission de modifier ce mot
+            # Verify if user has the permission to update
             if post.user != request.user:
                 return Response({"error": "You do not have permission to edit this post."}, status=status.HTTP_403_FORBIDDEN)
 
-            # Sérialiser les nouvelles données envoyées par l'utilisateur
+            # Serilize new data
             serializer = PostSerializer(post, data=request.data, partial=True)
 
-            # Vérifier la validité des données
+            # Verifiy validity of data 
             if serializer.is_valid():
-                serializer.save()  # Sauvegarder les modifications dans la base de données
+                serializer.save()  # Save modification in the database 
                 return Response(serializer.data, status=status.HTTP_200_OK)
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         
@@ -175,7 +175,21 @@ class CommentPostView(APIView):
             return Response({"message": "Comment added successfully."}, status=status.HTTP_201_CREATED)
         except Post.DoesNotExist:
             return Response({"error": "Post not found."}, status=status.HTTP_404_NOT_FOUND)
+    
+    def delete(self, request, id):
+        if request.user.user_type != 'admin':
+            return Response({"error": "You do not have permission to delete a post."}, status=status.HTTP_403_FORBIDDEN)
+        try:
+            comment = Comment.objects.get(id=id)
 
+            # Delete the comment
+            comment.delete()
+
+            return Response({"message": "Comment deleted successfully."}, status=status.HTTP_200_OK)
+        except Comment.DoesNotExist:
+            return Response({"error": "Comment not found."}, status=status.HTTP_404_NOT_FOUND)
+        
+        
 class PostDetailView(APIView):
 
 
@@ -183,7 +197,7 @@ class PostDetailView(APIView):
         try:
             post = Post.objects.get(id=id)
             
-            # Récupérer et sérialiser les commentaires associés au post
+            # Collect and serialise comments on a post 
             comments = Comment.objects.filter(post=post).order_by('created_at')
             comment_serializer = CommentSerializer(comments, many=True)
             
@@ -216,6 +230,22 @@ class PostDetailView(APIView):
         except Post.DoesNotExist:
             return Response({"error": "Post not found"}, status=status.HTTP_404_NOT_FOUND)
 
+    def delete(self, request, id):
+        if request.user.user_type != 'admin':
+            return Response({"error": "You do not have permission to delete a post."}, status=status.HTTP_403_FORBIDDEN)
+        try:
+            post = Post.objects.get(id=id)
+            # Delete all associated comments first
+            Comment.objects.filter(post=post).delete()
+            VotePost.objects.filter(post=post).delete()
+            DislikePost.objects.filter(post=post).delete()
+            StarPost.objects.filter(post=post).delete()
+
+            # Delete the post
+            post.delete()
+            return Response({"message": "Post and all associated comments deleted successfully."}, status=status.HTTP_200_OK)
+        except Post.DoesNotExist:
+            return Response({"error": "Post not found"}, status=status.HTTP_404_NOT_FOUND)
 
 
 
@@ -226,7 +256,7 @@ class PostSearchView(APIView):
             return Response({"error": "Query parameter 'query' is required."}, status=400)
         post = Post.objects.filter(title__icontains=query)
         serializer = PostSerializer(post, many=True)
-        # Récupérer et sérialiser les commentaires associés au post
+        # Collect and cerialise comments on a post 
         comments = Comment.objects.filter(post=post)
         comment_serializer = CommentSerializer(comments, many=True)
         return Response({
@@ -237,13 +267,13 @@ class PostSearchView(APIView):
 
 class TopCommentedPostsView(APIView):
     """
-    Vue qui retourne les 4 premiers posts ayant le plus de commentaires.
+    View that gives the 
     """
     def get(self, request):
         # Annoter les posts avec le nombre de commentaires
         posts = Post.objects.annotate(comment_count=Count('comments')).order_by('-comment_count')[:4]
 
-        # Construire la réponse JSON avec les détails des mots
+        # Construire la réponse JSON avec les détails des post 
         post_data = [
             {
                 "id": post.id,
@@ -426,3 +456,40 @@ class StatisticsView(APIView):
         }
 
         return Response(statistics, status=200)
+    
+    
+class DeletePostView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def delete(self, request, pk):
+        if request.user.user_type != 'admin':
+            return Response({"error": "You do not have permission to delete a post."}, status=status.HTTP_403_FORBIDDEN)
+        try:
+            post = Post.objects.get(pk=pk)
+            # Delete all associated comments first
+            Comment.objects.filter(post=post).delete()
+            VotePost.objects.filter(post=post).delete()
+            DislikePost.objects.filter(post=post).delete()
+            StarPost.objects.filter(post=post).delete()
+
+            # Delete the post
+            post.delete()
+            return Response({"message": "Post and all associated comments deleted successfully."}, status=status.HTTP_200_OK)
+        except Post.DoesNotExist:
+            return Response({"error": "Post not found"}, status=status.HTTP_404_NOT_FOUND)
+
+class DeleteCommentView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def delete(self, request, pk):
+        if request.user.user_type != 'admin':
+            return Response({"error": "You do not have permission to delete a post."}, status=status.HTTP_403_FORBIDDEN)
+        try:
+            comment = Comment.objects.get(pk=pk)
+
+            # Delete the comment
+            comment.delete()
+
+            return Response({"message": "Comment deleted successfully."}, status=status.HTTP_200_OK)
+        except Comment.DoesNotExist:
+            return Response({"error": "Comment not found."}, status=status.HTTP_404_NOT_FOUND)

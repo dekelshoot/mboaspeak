@@ -32,19 +32,19 @@ class UpdateExpressionView(APIView):
     permission_classes = [IsAuthenticated]
     def put(self, request, pk):
         try:
-            # Récupérer le mot à mettre à jour
+            # Collects expression to update
             expression = Expression.objects.get(pk=pk)
 
-            # Vérifier si l'utilisateur a la permission de modifier ce mot
+            # Check is user is authorized to make modification 
             if expression.user != request.user:
                 return Response({"error": "You do not have permission to edit this expression."}, status=status.HTTP_403_FORBIDDEN)
 
-            # Sérialiser les nouvelles données envoyées par l'utilisateur
+            # Sérialises the new data sent by the user 
             serializer = ExpressionSerializer(expression, data=request.data, partial=True)
 
-            # Vérifier la validité des données
+            # Checks the validity of the data 
             if serializer.is_valid():
-                serializer.save()  # Sauvegarder les modifications dans la base de données
+                serializer.save()  # Saves the modification in the Database
                 return Response(serializer.data, status=status.HTTP_200_OK)
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         
@@ -142,10 +142,10 @@ class TopVotedExpressionsView(APIView):
     
 
     def get(self, request):
-        # Récupérer les 4 mots avec le plus grand nombre de votes
+        # Collects the 4 most voted expression 
         top_expressions = Expression.objects.order_by('-votes')[:4]
 
-        # Construire la réponse JSON avec les détails des mots
+        # builds a Json response with the details of the expression
         expression_data = [
             {
                 "id": expression.id,
@@ -169,10 +169,10 @@ class recentExpressionsView(APIView):
     
 
     def get(self, request):
-        # Récupérer les 4 mots avec le plus grand nombre de votes
+        # Collects the 4 most recent expressions submitted
         top_expressions = Expression.objects.order_by('-date_submitted')[:4]
 
-        # Construire la réponse JSON avec les détails des mots
+        # builds a Json response with the details of the expression 
         expression_data = [
             {
                 "id": expression.id,
@@ -196,7 +196,7 @@ class ExpressionDetailViewWithaccess(APIView):
     permission_classes = [IsAuthenticated]
     def get(self, request, id):
         try:
-            expression = Expression.objects.get(id=id)  # Récupère l'expression via son ID
+            expression = Expression.objects.get(id=id)  # Collects expression through Id
         except Expression.DoesNotExist:
             return Response({"error": "Expression not found."}, status=status.HTTP_404_NOT_FOUND)
         liked = False

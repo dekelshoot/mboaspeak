@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
 import { AuthService } from 'src/app/services/auth.service';
 import { RouterService } from 'src/app/services/router.service';
+import { TranslaterService } from 'src/app/services/translater.service';
 
 @Component({
   selector: 'app-about',
@@ -8,8 +10,11 @@ import { RouterService } from 'src/app/services/router.service';
   styleUrls: ['./about.component.scss']
 })
 export class AboutComponent {
+  translate!: any
 
-  constructor(public routerService: RouterService, private authService: AuthService) { }
+  constructor(public routerService: RouterService, private authService: AuthService, public translater:TranslaterService) {
+    this.translate = this.translater.translate
+   }
 
   start() {
     this.routerService.routeRoute('/feed/dictionary')

@@ -4,7 +4,7 @@ from django.db import models
 from django.db import models
 from django.conf import settings
 
-# Modèle Component
+# Model Component
 class Component(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="components")
     date_submitted = models.DateTimeField(auto_now_add=True)
@@ -16,37 +16,37 @@ class Component(models.Model):
     meaning_en = models.TextField(blank=True, null=True)
 
     def vote(self,user):
-        # Obtenez l'utilisateur actuel
+        # get actual user
         print(user)
-        # Déterminez le poids du vote en fonction du type d'utilisateur
-        if user.user_type == 'admin':  # Vérifie si l'utilisateur est un admin
+        # set vote weight according to user type
+        if user.user_type == 'admin':  # verfy if user is admin 
             vote_weight = user.vote_weight
             print("admin",vote_weight)
-        elif hasattr(user, 'linguist'):  # Vérifie si l'utilisateur est un linguist
+        elif hasattr(user, 'linguist'):  # verfy if user is linguist
             vote_weight = user.vote_weight
             print("linguist")
-        elif hasattr(user, 'contributor'):  # Vérifie si l'utilisateur est un contributor
+        elif hasattr(user, 'contributor'):  # verfy if user is contributor
             vote_weight = user.vote_weight
             print("contributor")
             print(user)
         else:
-            vote_weight = 1  # Valeur par défaut si l'utilisateur n'a pas de rôle spécifique
+            vote_weight = 1  # vote weigt of no specified user role
         
-        # Ajoute le poids du vote à la valeur des votes
+        # Add vote weight to initial weight
         self.votes += vote_weight
         
         self.save()
         
     def dislike(self):
         dislikes_weight = 1  
-        # Ajoute le poids du vote à la valeur des votes
+        # Add vote weight to initial weight
         self.dislikes += dislikes_weight
         
         self.save()
         
     def add_star(self):
         star_weight = 1  
-        # Ajoute le poids du vote à la valeur des votes
+        # Add vote weight to initial weight
         self.star+= star_weight
         
         self.save()
@@ -54,9 +54,9 @@ class Component(models.Model):
     def show(self):
         return f"{self.meaning_en} ({self.language}) - Submitted by: {self.user.username}"
 
-# Modèle Word
-class Word(Component):  # Hérite de Component
-    word_name = models.CharField(max_length=100)  # Défini uniquement ici
+# Word Word
+class Word(Component):  # Inherites Component
+    word_name = models.CharField(max_length=100) 
     definition = models.TextField()
     example = models.TextField()
     lang_definition = models.CharField(max_length=50)
@@ -72,7 +72,7 @@ class Vote(models.Model):
     timestamp = models.DateTimeField(auto_now_add=True)
 
     class Meta:
-        unique_together = ('user', 'word')  # Empêche un utilisateur de voter deux fois pour le même mot
+        unique_together = ('user', 'word')  # Stops user from voting twice for the same word
         
 class DisLike(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
@@ -80,7 +80,7 @@ class DisLike(models.Model):
     timestamp = models.DateTimeField(auto_now_add=True)
 
     class Meta:
-        unique_together = ('user', 'word')  # Empêche un utilisateur de voter deux fois pour le même mot
+        unique_together = ('user', 'word')  # stops user from voting twice for the same word
 
 class Star(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
@@ -88,4 +88,4 @@ class Star(models.Model):
     timestamp = models.DateTimeField(auto_now_add=True)
 
     class Meta:
-        unique_together = ('user', 'word')  # Empêche un utilisateur de voter deux fois pour le même mot
+        unique_together = ('user', 'word')  # stops user from voting twice for the same word

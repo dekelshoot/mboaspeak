@@ -12,25 +12,24 @@
           width="50"
           height="50"
         />
-        <span class="fs-4">Learning Space</span>
+        <span class="fs-4"> {{ "learning-space.title0" | translate }}</span>
       </a>
     </header>
 
     <div class="container">
       <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a>Home</a></li>
+        <li class="breadcrumb-item"><a>{{ "learning-space.list1" | translate }}</a></li>
         <li class="breadcrumb-item active" aria-current="page">
-          Learning Space
+          {{ "learning-space.list2" | translate }}
         </li>
       </ol>
       <div class="px-4 pt-2 my-2 text-center border-bottom">
         <h4 class="display-5 fw-bold text-body-emphasis">
-          Welcome to the Mboaspeak Learning Space
+          {{ "learning-space.title1" | translate }}
         </h4>
         <div class="col-lg-6 mx-auto">
           <p class="lead mb-2">
-            Explore and contribute tot the growing collection of Cameroonian
-            Creole words.
+            {{ "learning-space.text1" | translate }}
           </p>
         </div>
       </div>
@@ -43,7 +42,7 @@
         *ngIf="active == 1 && !loading"
       >
         <br />
-        <h2>All Lesson</h2>
+        <h2>{{ "learning-space.title2" | translate }}</h2>
         <br />
         <div class="row">
           <div
@@ -88,15 +87,15 @@
       <div class="blog-single gray-bg" *ngIf="active == 2 && !loading">
         <span class="view"
           ><button class="btn btn-primary" [disabled]="active == 2">
-            Lesson
+            {{ "learning-space.btn" | translate }}
           </button>
           &nbsp;
           <button class="btn btn-primary" (click)="loadView(3)">
-            Quiz
+            {{ "learning-space.btn1" | translate }}
           </button></span
         >
         <button type="button" (click)="loadView(1)" class="btn btn-primary">
-          <i class=""></i>Back
+          <i class=""></i>{{ "learning-space.btn2" | translate }}
         </button>
         <div class="container">
           <div class="row align-items-start">
@@ -140,7 +139,7 @@
               <!-- Latest Post -->
               <div class="widget widget-latest-post">
                 <div class="widget-title">
-                  <h3>Latest Post</h3>
+                  <h3>{{ "learning-space.title3" | translate }}</h3>
                 </div>
                 <div class="widget-body">
                   <div class="latest-post-aside media">
@@ -176,15 +175,15 @@
 
       <div class="blog-single gray-bg" *ngIf="active == 3 && !loading">
         <span class="view"
-          ><button class="btn btn-primary" (click)="loadView(2)">Lesson</button>
+          ><button class="btn btn-primary" (click)="loadView(2)">{{ "learning-space.btn" | translate }}</button>
           &nbsp;
           <button class="btn btn-primary" [disabled]="active == 3">
-            Quiz
+            {{ "learning-space.btn1" | translate }}
           </button></span
         >
 
         <button type="button" (click)="loadView(2)" class="btn btn-primary">
-          <i class=""></i>Back
+          <i class=""></i>{{ "learning-space.btn2" | translate }}
         </button>
 
         <div class="container mt-5">
@@ -234,7 +233,7 @@
               class="btn btn-primary mt-3"
               [disabled]="formForm.invalid"
             >
-              Submit Answers
+            {{ "learning-space.btn3" | translate }}
             </button>
           </form>
         </div>

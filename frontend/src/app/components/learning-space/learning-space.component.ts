@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
 import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
 import { AuthService } from 'src/app/services/auth.service';
 import { RequestService } from 'src/app/services/request.service';
 import { RouterService } from 'src/app/services/router.service';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
-
+import { TranslaterService } from 'src/app/services/translater.service';
 
 @Component({
   selector: 'app-learning-space',
@@ -12,6 +13,7 @@ import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
   styleUrls: ['./learning-space.component.scss']
 })
 export class LearningSpaceComponent implements OnInit {
+  translate!: any
   loading = false
   formForm!: FormGroup;
 
@@ -28,9 +30,9 @@ export class LearningSpaceComponent implements OnInit {
   res!: any
   auth = false
 
-  constructor(public requestService: RequestService, private formBuilder: FormBuilder, public routerService: RouterService,
+  constructor(public requestService: RequestService, private formBuilder: FormBuilder, public routerService: RouterService, public translater: TranslaterService,
     private authService: AuthService, private sanitizer: DomSanitizer
-  ) { }
+  ) {this.translate = this.translater.translate }
 
   ngOnInit(): void {
     if (this.authService.hasAuthData()) {

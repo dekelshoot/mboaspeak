@@ -13,7 +13,7 @@
         width="72"
         height="72"
       />
-      <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
+      <h1 class="h3 mb-3 fw-normal">{{ "signin.title" | translate }}</h1>
 
       <div class="form-floating">
         <input
@@ -23,7 +23,7 @@
           placeholder=""
           formControlName="username"
         />
-        <label for="floatingInput">Username</label>
+        <label for="floatingInput">{{ "signin.field1" | translate }}</label>
       </div>
       <div class="form-floating">
         <input
@@ -33,18 +33,18 @@
           placeholder="Password"
           formControlName="password"
         />
-        <label for="floatingPassword">Password</label>
+        <label for="floatingPassword">{{ "signin.field2" | translate }}</label>
       </div>
 
-      <button class="btn btn-primary w-100 py-2" type="submit">Sign in</button>
+      <button class="btn btn-primary w-100 py-2" type="submit">{{ "signin.button" | translate }}</button>
       <br /><br /><br />
-      <p class="mb-1">Vous n'avez pas de compte?</p>
+      <p class="mb-1">{{ "signin.text1" | translate }}</p>
 
       <a
         (click)="routerService.routeRoute('/auth/sign-up')"
         class="text-primary"
         style="cursor: pointer"
-        >se créer un compte</a
+        >{{ "signin.text2" | translate }}</a
       >
     </form>
   </main>

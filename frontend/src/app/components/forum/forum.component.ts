@@ -1,16 +1,18 @@
 import { Component, OnInit } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { filter } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
 import { RequestService } from 'src/app/services/request.service';
 import { RouterService } from 'src/app/services/router.service';
-
+import { TranslaterService } from 'src/app/services/translater.service';
 @Component({
   selector: 'app-forum',
   templateUrl: './forum.component.html',
   styleUrls: ['./forum.component.scss']
 })
 export class ForumComponent implements OnInit {
+  translate!: any
   loading = false
   formForm!: FormGroup;
   formFormOrder!: FormGroup;
@@ -28,8 +30,8 @@ export class ForumComponent implements OnInit {
   auth = false
   next_page = false
   constructor(public requestService: RequestService, private formBuilder: FormBuilder, public routerService: RouterService,
-    private authService: AuthService
-  ) { }
+    private authService: AuthService, public translater: TranslaterService
+  ) { this.translate = this.translater.translate }
 
   ngOnInit(): void {
     if (this.authService.hasAuthData()) {
@@ -62,6 +64,10 @@ export class ForumComponent implements OnInit {
 
   isLinguist() {
     return this.user_type == 'linguist'
+  }
+
+  isAdmin() {
+    return this.user_type == 'admin'
   }
 
   onChangeLanguage() {
@@ -299,6 +305,36 @@ export class ForumComponent implements OnInit {
       (res: any) => {
         console.log(res)
         this.loadPost(id, view)
+      }, (err: any) => {
+        this.loading = false
+        console.log(err)
+      }
+    )
+  }
+
+  onDeletePost(id: number, view: number) {
+    console.log(id)
+    let data = {}
+    this.loading = true
+    this.requestService.delete("http://127.0.0.1:8000/api/post/" + id + "/").then(
+      (res: any) => {
+        console.log(res)
+        this.loadView(view)
+        this.loadData()
+      }, (err: any) => {
+        this.loading = false
+        console.log(err)
+      }
+    )
+  }
+  onDeleteComment(id: number, idPost: number, view: number) {
+    console.log(id)
+    let data = {}
+    this.loading = true
+    this.requestService.delete("http://127.0.0.1:8000/api/post/comment/" + id + "/").then(
+      (res: any) => {
+        console.log(res)
+        this.loadPost(idPost, view)
       }, (err: any) => {
         this.loading = false
         console.log(err)

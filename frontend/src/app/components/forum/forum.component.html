@@ -12,23 +12,24 @@
           width="50"
           height="50"
         />
-        <span class="fs-4">Forum MboaSpeak</span>
+        <span class="fs-4"> MboaSpeak Forum</span>
       </a>
     </header>
 
     <div class="container">
       <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a>Home</a></li>
+        <li class="breadcrumb-item">
+          <a>{{ "forum.lien1" | translate }}</a>
+        </li>
         <li class="breadcrumb-item active" aria-current="page">Forum</li>
       </ol>
       <div class="px-4 pt-2 my-2 text-center border-bottom">
         <h4 class="display-5 fw-bold text-body-emphasis">
-          Welcome to the Mboaspeak Forum
+          {{ "forum.title0" | translate }}
         </h4>
         <div class="col-lg-6 mx-auto">
           <p class="lead mb-2">
-            Explore and contribute tot the growing collection of Cameroonian
-            Creole words.
+            {{ "forum.text1" | translate }}
           </p>
         </div>
       </div>
@@ -55,11 +56,21 @@
                           (change)="onChangeLanguage()"
                           formControlName="language"
                         >
-                          <option value="language">Language</option>
-                          <option value="english">English</option>
-                          <option value="french">French</option>
-                          <option value="camfranglais">Camfranglais</option>
-                          <option value="pidgin">Pidgin</option>
+                          <option value="language">
+                            {{ "forum.option1" | translate }}
+                          </option>
+                          <option value="english">
+                            {{ "forum.option2" | translate }}
+                          </option>
+                          <option value="french">
+                            {{ "forum.option3" | translate }}
+                          </option>
+                          <option value="camfranglais">
+                            {{ "forum.option4" | translate }}
+                          </option>
+                          <option value="pidgin">
+                            {{ "forum.option5" | translate }}
+                          </option>
                         </select>
                       </div>
                     </div>
@@ -75,10 +86,18 @@
                           (change)="onChangeOrder()"
                           formControlName="order"
                         >
-                          <option value="filter_by">Filter by</option>
-                          <option value="votes">Votes</option>
-                          <option value="comment_count">Replys</option>
-                          <option value="star">Star</option>
+                          <option value="filter_by">
+                            {{ "forum.option6" | translate }}
+                          </option>
+                          <option value="votes">
+                            {{ "forum.option7" | translate }}
+                          </option>
+                          <option value="comment_count">
+                            {{ "forum.option8" | translate }}
+                          </option>
+                          <option value="star">
+                            {{ "forum.option9" | translate }}
+                          </option>
                         </select>
                       </div>
                     </div>
@@ -180,10 +199,12 @@
                         )
                       "
                       class="btn btn-lg btn-block btn-success rounded-0 py-4 mb-3 bg-op-6 roboto-bold"
-                      >Add Topic</a
+                      >{{ "forum.a1" | translate }}</a
                     >
                     <div class="bg-white mb-3">
-                      <h4 class="px-3 py-4 op-5 m-0">Active Topics</h4>
+                      <h4 class="px-3 py-4 op-5 m-0">
+                        {{ "forum.title1" | translate }}
+                      </h4>
                       <hr class="m-0" />
                       <div
                         class="pos-relative px-3 py-3"
@@ -199,11 +220,14 @@
                         </h6>
                         <p class="mb-0 text-sm">
                           <span class="op-6"
-                            >language: {{ top.language }}
+                            >{{ "forum.option1" | translate }}:
+                            {{ top.language }}
                           </span>
                         </p>
                         <p class="mb-0 text-sm">
-                          <span class="op-6"> by </span>
+                          <span class="op-6">
+                            {{ "forum.p2" | translate }}</span
+                          >
                           <a class="text-black">{{ top.added_by }}</a>
                         </p>
                       </div>
@@ -219,7 +243,7 @@
                           <a class="d-block lead font-weight-bold">{{
                             stat.total_posts
                           }}</a>
-                          Topics
+                          {{ "forum.stat1" | translate }}
                         </div>
                         <div
                           class="col-sm-6 col flex-ew text-center py-3 border-bottom mx-0"
@@ -227,7 +251,7 @@
                           <a class="d-block lead font-weight-bold">{{
                             stat.total_comments
                           }}</a>
-                          comments
+                          {{ "forum.stat2" | translate }}
                         </div>
                       </div>
                       <div class="row d-flex flex-row op-7">
@@ -237,7 +261,7 @@
                           <a class="d-block lead font-weight-bold">{{
                             stat.total_users
                           }}</a>
-                          Members
+                          {{ "forum.stat3" | translate }}
                         </div>
                       </div>
                     </div>
@@ -262,7 +286,7 @@
                   (click)="loadView(1)"
                   class="btn btn-primary"
                 >
-                  <i class=""></i>Back
+                  <i class=""></i>{{ "forum.btn" | translate }}
                 </button>
               </li>
             </ol>
@@ -315,6 +339,15 @@
                       <i class="fa fa-star"></i>
                       {{ postDetail.post.star }}
                     </button>
+                    &nbsp;
+                    <button
+                      [disabled]="!isAdmin()"
+                      (click)="onDeletePost(postDetail.post.id, 1)"
+                      type="button"
+                      class="btn btn-danger"
+                    >
+                      <i class="bi bi-trash3"></i>
+                    </button>
                   </div>
                 </div>
                 <div class="social-footer">
@@ -332,6 +365,17 @@
                       <small class="text-muted">{{
                         comment.created_at | date : "medium"
                       }}</small>
+                      &nbsp;
+                      <button
+                        [disabled]="!isAdmin()"
+                        (click)="
+                          onDeleteComment(comment.id, postDetail.post.id, 2)
+                        "
+                        type="button"
+                        class="btn btn-danger"
+                      >
+                        <i class="bi bi-trash3"></i>
+                      </button>
                     </div>
                   </div>
 

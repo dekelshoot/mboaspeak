@@ -18,19 +18,19 @@ from .models import LANGUAGE_CHOICES
 
 class RegisterView(APIView):
     """
-    Vue pour l'inscription d'un nouvel utilisateur.
-    Après l'inscription, un access token et un refresh token sont générés.
+    View for the registration of new users 
+    after registration two tokens are genrated , acces and refresh tokens 
     """
 
     def post(self, request):
-        # Sérialisation des données
+        # Data sterialization
         serializer = RegisterSerializer(data=request.data)
         print(request.data)
         if serializer.is_valid():
-            # Créer l'utilisateur et associer son type (Admin, Linguist, Contributor)
+            # Create a new user and associate it with a type (Admin, Linguist, Contributor)
             user = serializer.save()
 
-            # Générer les tokens
+            # Generate tokens
             refresh = RefreshToken.for_user(user)
             access_token = refresh.access_token
 
@@ -50,23 +50,23 @@ class RegisterView(APIView):
 
 class LoginView(APIView):
     """
-    Vue personnalisée pour la connexion d'un utilisateur.
-    Renvoie un access token et un refresh token en cas de succès.
+    personalised view for user login
+    send access and refresh token apres success.
     """
 
     def post(self, request):
-        # Récupérer les informations d'authentification
+        # Collect authentication informations
         username = request.data.get("username")
         password = request.data.get("password")
 
         if not username or not password:
             return Response({"error": "Username and password are required."}, status=status.HTTP_400_BAD_REQUEST)
 
-        # Authentifier l'utilisateur
+        # Authentify user
         user = authenticate(username=username, password=password)
 
         if user is not None:
-            # Créer le refresh token et l'access token
+            # Creates access and refresh tokens
             refresh = RefreshToken.for_user(user)
             access_token = refresh.access_token
 
@@ -90,17 +90,17 @@ class LoginView(APIView):
 
 class UpdateUserView(APIView):
     """
-    Permet à un utilisateur authentifié de mettre à jour ses informations.
+    Enable authenticated user to modify his informations 
     """
     permission_classes = [IsAuthenticated]
 
     def put(self, request):
-        # L'utilisateur connecté est récupéré via `request.user`
+        # The online user is collected through `request.user`
         user = request.user
         serializer = UserSerializer(user, data=request.data, partial=True)
 
         if serializer.is_valid():
-            # Enregistrer les modifications
+            # saves modofiations
             serializer.save()
             return Response(serializer.data, status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
@@ -112,15 +112,14 @@ User = get_user_model()
 
 class UserDetailView(APIView):
     """
-    Vue pour afficher les détails de l'utilisateur authentifié.
-    Cette vue est protégée par JWT, donc seule l'authentification est requise.
+    View to show authenticated user's details
     """
     permission_classes = [IsAuthenticated]
 
     def get(self, request):
-        user = request.user  # Récupérer l'utilisateur connecté
+        user = request.user  # Collects online user
 
-        # Sérialiser les données de l'utilisateur
+        # Serialize user details 
         user_data = {
             "username": user.username,
             "email": user.email,
@@ -137,10 +136,9 @@ class LanguageView(APIView):
         return Response(language, status=status.HTTP_200_OK)
     
 class UserListView(APIView):
-    permission_classes = [IsAuthenticated]  # Restriction d'accès : uniquement les utilisateurs authentifiés
-
+    permission_classes = [IsAuthenticated]  # Access restriction : Only authenticated users 
     def get(self, request):
-        # Vérifier si un filtre est passé en paramètre
+        # Verifies if there is a filter parameter
         user_type = request.query_params.get('user_type', None)  # Ex : ?user_type=admin
 
         if user_type == "admin":
@@ -148,9 +146,9 @@ class UserListView(APIView):
         elif user_type == "linguist":
             users = User.objects.filter(user_type='linguist')
         else:
-            users = User.objects.all()  # Retourne tous les utilisateurs si aucun filtre n'est fourni
+            users = User.objects.all()  # returns all the users if no filter in parameter 
 
-        # Construire une liste de dictionnaires avec les informations des utilisateurs
+        # makes a list of dictionaries with the user's information
         user_data = [
             {
                 "username": user.username,
