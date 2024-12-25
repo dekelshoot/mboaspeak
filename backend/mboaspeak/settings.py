@@ -37,7 +37,12 @@ CORS_ALLOWED_ORIGINS = [
     "http://127.0.0.1:4200",
     "http://localhost:80",
     "http://127.0.0.1:80",
-    
+    "145.223.85.179",
+    "mboaspeak.com"
+    "145.223.85.179:8000",
+    "mboaspeak.com:8000"
+    "145.223.85.179:80",
+    "mboaspeak.com:80"
 ]
 INSTALLED_APPS = [
     'django.contrib.admin',
