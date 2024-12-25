@@ -1,0 +1,76 @@
+<div class="content">
+  <div *ngIf="loading" class="px-4 pt-5 my-5 text-center">
+    <div class="spinner-border text-secondary" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+  </div>
+
+  <div *ngIf="!loading">
+    <h2>Profile</h2>
+    <form class="parent" [formGroup]="formForm" (ngSubmit)="ngOnSubmit()">
+      <div class="form-floating mb-3">
+        <input
+          type="text"
+          formControlName="username"
+          class="form-control"
+          id="floatingInput"
+          placeholder=""
+        />
+        <label for="floatingInput">username</label>
+      </div>
+
+      <br />
+
+      <div class="form-floating mb-3">
+        <input
+          type="email"
+          formControlName="email"
+          class="form-control"
+          id="floatingInput"
+          placeholder=""
+        />
+        <label for="floatingInput">email</label>
+      </div>
+
+      <br />
+
+      <div class="form-floating">
+        <select
+          class="form-select"
+          id="floatingSelect"
+          aria-label="Floating label select example"
+          formControlName="primary_language"
+        >
+          <option *ngFor="let language of languages" [value]="language">
+            {{ language }}
+          </option>
+        </select>
+        <label for="floatingSelect">primary language:</label>
+      </div>
+
+      <br />
+
+      <div class="form-floating mb-3">
+        <input
+          type="email"
+          class="form-control"
+          id="floatingInputDisabled"
+          [value]="user.user_type"
+          placeholder=""
+          disabled
+        />
+        <label for="floatingInputDisabled">user_type</label>
+      </div>
+
+      <br />
+
+      <button
+        class="w-100 btn btn-primary btn-lg"
+        [disabled]="formForm.invalid"
+        type="submit"
+      >
+        Edit profile
+      </button>
+    </form>
+  </div>
+</div>

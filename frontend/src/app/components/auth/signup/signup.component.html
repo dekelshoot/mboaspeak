@@ -1,0 +1,127 @@
+<div class="container">
+  <div *ngIf="loadingData" class="px-4 pt-5 my-5 text-center">
+    <div class="spinner-border text-secondary" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+  </div>
+  <main *ngIf="!loadingData">
+    <div class="py-5 text-center">
+      <img
+        class="d-block mx-auto mb-4"
+        src="../assets/MboaSpeak.png"
+        alt=""
+        width="72"
+        height="72"
+      />
+      <h2>{{ "signup.title" | translate }}</h2>
+
+      <p class="lead">{{ "signup.text1" | translate }}</p>
+    </div>
+
+    <div class="row g-5">
+      <div class="col-md-5 col-lg-4 order-md-last">
+        <h4 class="d-flex justify-content-between align-items-center mb-3">
+          <span class="text-primary">{{ "signup.text2" | translate }}</span>
+        </h4>
+        <ul class="list-group mb-3">
+          <li
+            class="list-group-item d-flex justify-content-between lh-sm"
+            [ngClass]="{ selected: this.role === 1 }"
+          >
+            <div>
+              <h6 class="my-0">{{ "signup.title2" | translate }}</h6>
+              <small>{{ "signup.text3" | translate }}</small>
+            </div>
+          </li>
+        </ul>
+
+        <p class="mb-1">{{ "signup.text4" | translate }}</p>
+        <a
+          style="cursor: pointe"
+          class="text-primary"
+          (click)="routerService.routeRoute('/auth/sign-in')"
+          >{{ "signup.lien1" | translate }}</a
+        >
+      </div>
+
+      <div class="col-md-7 col-lg-8" *ngIf="this.role == 1">
+        <h4 class="mb-3">{{ "signup.title3" | translate }}</h4>
+        <form
+          class="needs-validation"
+          [formGroup]="formForm"
+          (ngSubmit)="ngOnSubmit()"
+          novalidate
+        >
+          <div class="row g-3">
+            <div class="col-12">
+              <label for="username" class="form-label">{{ "signup.field1" | translate }}</label>
+              <div class="input-group has-validation">
+                <span class="input-group-text">@</span>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="username"
+                  formControlName="username"
+                  placeholder="Username"
+                  required
+                />
+                <div class="invalid-feedback">{{ "signup.text5" | translate }}</div>
+              </div>
+            </div>
+
+            <div class="col-12">
+              <label for="email" class="form-label">{{ "signup.field2" | translate }} </label>
+              <input
+                type="email"
+                class="form-control"
+                id="email"
+                formControlName="email"
+                placeholder="you@example.com"
+              />
+              <div class="invalid-feedback">
+                {{ "signup.text6" | translate }}
+              </div>
+            </div>
+
+            <div class="col-12">
+              <label for="password" class="form-label">{{ "signup.field3" | translate }} </label>
+              <input
+                type="password"
+                class="form-control"
+                id="password"
+                formControlName="password"
+                placeholder=""
+              />
+              <div class="invalid-feedback">
+                {{ "signup.text7" | translate }}
+              </div>
+            </div>
+
+            <p>{{ "signup.select" | translate }}</p>
+            <div class="chec">
+              <select
+                class="form-select"
+                formControlName="primary_language"
+                aria-label="Default select example"
+              >
+                <option *ngFor="let language of languages" [value]="language">
+                  {{ language }}
+                </option>
+              </select>
+            </div>
+          </div>
+
+          <hr class="my-4" />
+
+          <button
+            class="w-100 btn btn-primary btn-lg"
+            [disabled]="formForm.invalid"
+            type="submit"
+          >
+          {{ "signup.button" | translate }}
+          </button>
+        </form>
+      </div>
+    </div>
+  </main>
+</div>

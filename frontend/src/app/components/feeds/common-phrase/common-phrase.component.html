@@ -1,0 +1,310 @@
+<main>
+  <div class="container py-4">
+    <header class="pb-3 mb-4 border-bottom" *ngIf="active == 1 && !loading">
+      <a
+        href="/"
+        class="d-flex align-items-center text-body-emphasis text-decoration-none"
+      >
+        <img
+          class="mb-4"
+          src="../assets/MboaSpeak.png"
+          alt=""
+          width="50"
+          height="50"
+        />
+        <span class="fs-4"> {{ "common-phrase.title0" | translate }}</span>
+      </a>
+    </header>
+
+    <div class="container">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="#">{{ "common-phrase.list1" | translate }}</a></li>
+        <li class="breadcrumb-item active" aria-current="page">
+          {{ "common-phrase.list2" | translate }}
+        </li>
+      </ol>
+      <div class="px-4 pt-2 my-2 text-center border-bottom">
+        <h4 class="display-5 fw-bold text-body-emphasis">
+          {{ "common-phrase.title1" | translate }}
+        </h4>
+        <div class="col-lg-6 mx-auto">
+          <p class="lead mb-2">
+            {{ "common-phrase.text1" | translate }}
+          </p>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+          <div class="well search-result">
+            <form
+              class="parent"
+              [formGroup]="formForm"
+              (ngSubmit)="ngOnSubmit()"
+            >
+              <div class="input-group mb-3">
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="{{ 'common-phrase.placeholder' | translate }}"
+                  aria-label="type your search"
+                  aria-describedby="button-addon2"
+                  formControlName="search"
+                />
+                <button
+                  class="btn btn-primary"
+                  [disabled]="formForm.invalid"
+                  type="submit"
+                  id="button-addon2"
+                >
+                {{ "common-phrase.button1" | translate }}
+                </button>
+              </div>
+            </form>
+          </div>
+
+          <br />
+          <!-- view 1 -->
+          <main *ngIf="active == 1 && !loading">
+            <div class="mb-5">
+              <a
+                style="cursor: pointer"
+                class="btn btn-primary btn-lg px-4"
+                (click)="
+                  this.routerService.routeRouteWithParams('/dashboard', 3, 2)
+                "
+                >{{ "common-phrase.button2" | translate }}</a
+              >
+            </div>
+
+            <div class="row g-5">
+              <div class="col-md-4">
+                <h2 class="text-body-emphasis">{{ "common-phrase.title2" | translate }}</h2>
+
+                <ul class="list-unstyled ps-0">
+                  <li
+                    *ngFor="let expression of recentExpressions; let i = index"
+                    (click)="loadexpression(expression.id, 4)"
+                  >
+                    <a
+                      class="icon-link mb-1"
+                      rel="noopener"
+                      target="_blank"
+                      style="cursor: pointer"
+                    >
+                      <svg class="bi" width="16" height="16">
+                        <use xlink:href="#arrow-right-circle" />
+                      </svg>
+                      <p class="">{{ expression.exp }}</p>
+                      <p>({{ expression.language }})</p>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+
+              <div class="col-md-4">
+                <h2 class="text-body-emphasis">{{ "common-phrase.title3" | translate }}</h2>
+                <a
+                  class="icon-link mb-1 fs-3"
+                  (click)="loadexpression(topExpressions[0].id, 4)"
+                  style="cursor: pointer"
+                  >{{ topExpressions[0].exp }}</a
+                >
+                <p>{{ "common-phrase.P1" | translate }}: {{ topExpressions[0].language }}</p>
+                <p>{{ "common-phrase.p2" | translate }} : {{ topExpressions[0].votes }}</p>
+              </div>
+
+              <div class="col-md-4">
+                <h2 class="text-body-emphasis">{{ "common-phrase.title4" | translate }}</h2>
+                <p>
+                  {{ "common-phrase.text2" | translate }}
+                </p>
+                <button
+                  class="btn btn-primary"
+                  (click)="routerService.routeRoute('/learning-space')"
+                >
+                {{ "common-phrase.btn" | translate }}
+                </button>
+              </div>
+            </div>
+          </main>
+
+          <br />
+          <!-- view 2 -->
+          <div *ngIf="active == 2 && !loading">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item">
+                <button
+                  type="button"
+                  (click)="loadView(1)"
+                  class="btn btn-primary"
+                >
+                  <i class=""></i>{{ "common-phrase.btn1" | translate }}
+                </button>
+              </li>
+            </ol>
+            <div *ngFor="let expression of data; let i = index">
+              <div
+                class="well search-result"
+                (click)="loadexpression(expression.id, 3)"
+              >
+                <div class="row">
+                  <div class="col-xs-6 col-sm-9 col-md-9 col-lg-10 title">
+                    <h3>{{ expression.exp }} ({{ expression.language }})</h3>
+                  </div>
+                </div>
+              </div>
+              <br />
+            </div>
+          </div>
+
+          <!-- view 3 -->
+          <div *ngIf="active == 3 && !loading">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item">
+                <button
+                  type="button"
+                  (click)="loadView(2)"
+                  class="btn btn-primary"
+                >
+                  <i class=""></i>{{ "common-phrase.btn1" | translate }}
+                </button>
+              </li>
+            </ol>
+            <div class="well search-result">
+              <div class="row">
+                <div class="col-xs-6 col-sm-9 col-md-9 col-lg-10 title">
+                  <h2>
+                    {{ expressionDetail.exp }} ({{ expressionDetail.language }})
+                  </h2>
+                  <p>
+                    <span class="fw-semibold">{{ "common-phrase.p3" | translate }}</span>
+                    {{ expressionDetail.added_by }}
+                    <span class="fw-semibold">{{ "common-phrase.p4" | translate }} </span>
+                    {{ expressionDetail.date_submitted | date : "medium" }}
+                  </p>
+                  <p class="fw-semibold">{{ "common-phrase.p5" | translate }}</p>
+                  <p>
+                    {{ expressionDetail.meaning_en }}
+                  </p>
+                  <p class="fw-semibold">{{ "common-phrase.p6" | translate }}</p>
+                  <p>
+                    {{ expressionDetail.meaning_fr }}
+                  </p>
+                  <p>
+                    <button
+                      (click)="onVote(expressionDetail.id, 3)"
+                      [disabled]="!allowLike(expressionDetail)"
+                      type="button"
+                      class="btn btn-primary"
+                    >
+                      <i class="fa fa-thumbs-up"></i>
+                      {{ expressionDetail.votes }}
+                    </button>
+                    &nbsp;
+                    <button
+                      (click)="onDislike(expressionDetail.id, 3)"
+                      [disabled]="!allowDisLike(expressionDetail)"
+                      type="button"
+                      class="btn btn-danger"
+                    >
+                      <i class="fa fa-thumbs-down"></i>
+                      {{ expressionDetail.dislikes }}
+                    </button>
+                    &nbsp;
+                    <button
+                      [disabled]="!isLinguist()"
+                      (click)="onStar(expressionDetail.id, 3)"
+                      [disabled]="!allowStar(expressionDetail)"
+                      type="button"
+                      class="btn btn-warning"
+                    >
+                      <i class="fa fa-star"></i> {{ expressionDetail.star }}
+                    </button>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- view 4 -->
+          <div *ngIf="active == 4 && !loading">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item">
+                <button
+                  type="button"
+                  (click)="loadView(1)"
+                  class="btn btn-primary"
+                >
+                  <i class=""></i>{{ "common-phrase.btn1" | translate }}
+                </button>
+              </li>
+            </ol>
+            <div class="well search-result">
+              <div class="row">
+                <div class="col-xs-6 col-sm-9 col-md-9 col-lg-10 title">
+                  <h2>
+                    {{ expressionDetail.exp }} ({{ expressionDetail.language }})
+                  </h2>
+                  <p>
+                    <span class="fw-semibold">{{ "common-phrase.p3" | translate }}</span>
+                    {{ expressionDetail.added_by }}
+                    <span class="fw-semibold">{{ "common-phrase.p4" | translate }} </span>
+                    {{ expressionDetail.date_submitted | date : "medium" }}
+                  </p>
+
+                  <p class="fw-semibold">{{ "common-phrase.p5" | translate }}</p>
+                  <p>
+                    {{ expressionDetail.meaning_en }}
+                  </p>
+                  <p class="fw-semibold">{{ "common-phrase.p6" | translate }}:</p>
+                  <p>
+                    {{ expressionDetail.meaning_fr }}
+                  </p>
+                  <p>
+                    <button
+                      (click)="onVote(expressionDetail.id, 4)"
+                      [disabled]="!allowLike(expressionDetail)"
+                      type="button"
+                      class="btn btn-primary"
+                    >
+                      <i class="fa fa-thumbs-up"></i>
+                      {{ expressionDetail.votes }}
+                    </button>
+                    &nbsp;
+                    <button
+                      (click)="onDislike(expressionDetail.id, 4)"
+                      [disabled]="!allowDisLike(expressionDetail)"
+                      type="button"
+                      class="btn btn-danger"
+                    >
+                      <i class="fa fa-thumbs-down"></i>
+                      {{ expressionDetail.dislikes }}
+                    </button>
+                    &nbsp;
+                    <button
+                      (click)="onStar(expressionDetail.id, 4)"
+                      [disabled]="!allowStar(expressionDetail)"
+                      type="button"
+                      class="btn btn-warning"
+                    >
+                      <i class="fa fa-star"></i> {{ expressionDetail.star }}
+                    </button>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <br />
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="loading" class="px-4 pt-5 my-5 text-center">
+      <div class="spinner-border text-secondary" role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div>
+    </div>
+  </div>
+</main>

@@ -1,0 +1,54 @@
+<div class="container">
+  <footer class="py-3 my-4">
+    <ul class="nav justify-content-center border-bottom pb-3 mb-3">
+      <li class="nav-item">
+        <a
+          (click)="routerService.routeRoute('/')"
+          class="nav-link px-2 text-body-secondary"
+          >Home</a
+        >
+      </li>
+      <li class="nav-item">
+        <a
+          (click)="routerService.routeRoute('/feed/dictionary')"
+          class="nav-link px-2 text-body-secondary"
+          >Dictionary</a
+        >
+      </li>
+
+      <li class="nav-item">
+        <a (click)="logout()" class="nav-link px-2 text-body-secondary"
+          >logout</a
+        >
+      </li>
+
+      <li class="nav-item dropdown">
+        <button
+          class="btn btn-dark dropdown-toggle"
+          data-bs-toggle="dropdown"
+          aria-expanded="false"
+        >
+          language
+        </button>
+        <ul class="dropdown-menu dropdown-menu-dark">
+          <li>
+            <a
+              class="dropdown-item"
+              (click)="this.translate.changeLanguage('fr')"
+              >Français</a
+            >
+          </li>
+          <li>
+            <a
+              class="dropdown-item"
+              (click)="this.translate.changeLanguage('en')"
+              >English</a
+            >
+          </li>
+        
+        </ul>
+      </li>
+    </ul>
+    <p class="text-center text-body-secondary">&copy; 2024 MboaSpeak, Inc</p>
+  </footer>
+</div>

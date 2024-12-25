@@ -1,0 +1,67 @@
+<section class="our-webcoderskull padding-lg">
+  <div class="container">
+    <header class="pb-3 mb-4 border-bottom">
+      <a
+        href="/"
+        class="d-flex align-items-center text-body-emphasis text-decoration-none"
+      >
+        <img
+          class="mb-4"
+          src="../assets/MboaSpeak.png"
+          alt=""
+          width="200"
+          height="200"
+        />
+        <span class="fs-4">{{ "about.title" | translate }}</span>
+      </a>
+    </header>
+
+    <div class="container">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a>Home</a></li>
+        <li class="breadcrumb-item active" aria-current="page">About Us</li>
+      </ol>
+      <div class="px-4 pt-2 my-2 text-center border-bottom">
+        <h4 class="display-5 fw-bold text-body-emphasis">
+          {{ "about.title2" | translate }}
+        </h4>
+      </div>
+
+      <div class="p-5 mb-4 bg-body-tertiary rounded-3">
+        <div class="container-fluid py-5">
+          <h3 class="display-16 fw-bold">{{ "about.title3" | translate }}</h3>
+          <p class="lead">
+            {{ "about.text1" | translate }}
+          </p>
+
+          <h3 class="display-16 fw-bold">{{ "about.title4" | translate }}</h3>
+          <p class="lead">
+            {{ "about.text2" | translate }}
+          </p>
+
+          <h3 class="display-16 fw-bold">{{ "about.title5" | translate }}</h3>
+          <p class="lead">
+            {{ "about.text3" | translate }}
+          </p>
+
+          <button
+            (click)="routerService.routeRoute('/auth/sign-up')"
+            class="btn btn-outline-secondary mr-5"
+            style="margin: 10px"
+            type="button"
+          >
+          {{ "about.button" | translate }}
+          </button>
+
+          <button
+            (click)="start()"
+            class="btn btn-outline-secondary"
+            type="button"
+          >
+            {{ "about.button2" | translate }}
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
