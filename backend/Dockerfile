@@ -17,7 +17,4 @@ COPY . .
 EXPOSE 8000
 
 # Commande pour démarrer le serveur
-RUN openssl genrsa -out key.pem 2048
-RUN openssl req -new -key key.pem -out csr.pem
-RUN openssl x509 -req -in csr.pem -signkey key.pem -out cert.pem
-CMD ["python", "manage.py", "runsslserver", "0.0.0.0:8000", "--certificate", "/app/cert.pem", "--key", "/app/key.pem"]
+CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
