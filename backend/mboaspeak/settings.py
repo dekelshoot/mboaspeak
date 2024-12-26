@@ -81,7 +81,8 @@ INSTALLED_APPS = [
     'Mboa_admin',
     'expressions',
     'forum',
-    'learning'
+    'learning',
+    'sslserver',
 ]
 
 MIDDLEWARE = [
