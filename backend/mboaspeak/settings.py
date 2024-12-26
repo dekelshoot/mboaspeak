@@ -29,7 +29,7 @@ ALLOWED_HOSTS = []
 
 
 
-CORS_ALLOW_ALL_ORIGINS = True
+
 # Application definition
 
 # CORS_ALLOWED_ORIGINS = [
@@ -53,6 +53,7 @@ CORS_ALLOW_ALL_ORIGINS = True
 #     "https://145.223.85.179:80",   
 #     "https://mboaspeak.com:80", 
 # ]
+
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -88,6 +89,30 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     
     
+]
+
+CORS_ALLOW_ALL_ORIGINS = True
+
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:4200",
+    "http://127.0.0.1:4200",
+    "http://localhost:80",
+    "http://127.0.0.1:80",
+     "http://145.223.85.179",        
+    "http://mboaspeak.com",         
+    "http://145.223.85.179:8000",   
+    "http://mboaspeak.com:8000", 
+    "https://145.223.85.179",        
+    "https://mboaspeak.com",         
+    "https://145.223.85.179:8000",   
+    "https://mboaspeak.com:8000", 
+    "http://mboaspeak.com",         
+    "http://145.223.85.179:80",   
+    "http://mboaspeak.com:80", 
+    "https://145.223.85.179",        
+    "https://mboaspeak.com",         
+    "https://145.223.85.179:80",   
+    "https://mboaspeak.com:80", 
 ]
 
 ROOT_URLCONF = 'mboaspeak.urls'
