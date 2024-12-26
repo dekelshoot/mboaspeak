@@ -27,6 +27,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = ["localhost",
     "127.0.0.1",
+    "127.0.0.1:8000",
     "mboaspeak.com",
     "mboaspeak.com:8000","http://mboaspeak.com", 
     "https://mboaspeak.com",  ]
