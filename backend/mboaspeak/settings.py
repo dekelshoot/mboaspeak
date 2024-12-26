@@ -45,6 +45,13 @@ CORS_ALLOWED_ORIGINS = [
     "https://mboaspeak.com",         
     "https://145.223.85.179:8000",   
     "https://mboaspeak.com:8000", 
+    "http://mboaspeak.com",         
+    "http://145.223.85.179:80",   
+    "http://mboaspeak.com:80", 
+    "https://145.223.85.179",        
+    "https://mboaspeak.com",         
+    "https://145.223.85.179:80",   
+    "https://mboaspeak.com:80", 
 ]
 INSTALLED_APPS = [
     'django.contrib.admin',
