@@ -25,8 +25,8 @@ export class CommonPhraseComponent implements OnInit {
   res!: any
   auth = false
   constructor(public requestService: RequestService, private formBuilder: FormBuilder, public routerService: RouterService,
-    private authService: AuthService,public translater:TranslaterService
-  ) { this.translate = this.translater.translate}
+    private authService: AuthService, public translater: TranslaterService
+  ) { this.translate = this.translater.translate }
 
   ngOnInit(): void {
     if (this.authService.hasAuthData()) {
@@ -50,12 +50,12 @@ export class CommonPhraseComponent implements OnInit {
 
   loadData() {
     this.loading = true
-    this.requestService.getWithoutAccess("http://127.0.0.1:8000/api/expression/top-voted/").then(
+    this.requestService.getWithoutAccess(this.requestService.base + "/api/expression/top-voted/").then(
       (res: any) => {
         this.res = res
         this.topExpressions = res.top_expressions
         console.log(res)
-        this.requestService.getWithoutAccess("http://127.0.0.1:8000/api/expression/recent-expression/").then(
+        this.requestService.getWithoutAccess(this.requestService.base + "/api/expression/recent-expression/").then(
           (res: any) => {
             this.res = res
             this.recentExpressions = res.recent_expressions
@@ -135,7 +135,7 @@ export class CommonPhraseComponent implements OnInit {
     this.loading = true
     let url = ""
     if (this.authService.hasAuthData()) {
-      url = "http://127.0.0.1:8000/api/expression/with-access"
+      url = this.requestService.base + "/api/expression/with-access"
       this.requestService.getWithAccess(url, id).then(
         (res: any) => {
           this.expressionDetail = res
@@ -148,7 +148,7 @@ export class CommonPhraseComponent implements OnInit {
         }
       )
     } else {
-      url = "http://127.0.0.1:8000/api/expression/"
+      url = this.requestService.base + "/api/expression/"
       this.requestService.getWithoutAccess(url + id + "/").then(
         (res: any) => {
           this.expressionDetail = res
@@ -168,7 +168,7 @@ export class CommonPhraseComponent implements OnInit {
     this.loading = true;
     const search = this.formForm.get('search')?.value;
     this.loading = true
-    this.requestService.getWithoutAccess("http://127.0.0.1:8000/api/expression/search/?query=" + search).then(
+    this.requestService.getWithoutAccess(this.requestService.base + "/api/expression/search/?query=" + search).then(
       (res: any) => {
         this.data = res.results
         this.loadView(2)
@@ -186,11 +186,11 @@ export class CommonPhraseComponent implements OnInit {
     console.log(id)
     let data = {}
     this.loading = true
-    this.requestService.postWithAccess("http://127.0.0.1:8000//api/dico/expression/vote/" + id + "/", data).then(
+    this.requestService.postWithAccess(this.requestService.base + "//api/dico/expression/vote/" + id + "/", data).then(
       (res: any) => {
         console.log(res)
 
-        this.requestService.getWithAccess("http://127.0.0.1:8000//api/dico/expression", id).then(
+        this.requestService.getWithAccess(this.requestService.base + "//api/dico/expression", id).then(
           (res: any) => {
             console.log(res)
             this.data[i] = res
@@ -214,7 +214,7 @@ export class CommonPhraseComponent implements OnInit {
     console.log(id)
     let data = {}
     this.loading = true
-    this.requestService.postWithAccess("http://127.0.0.1:8000/api/expression/vote/" + id + "/", data).then(
+    this.requestService.postWithAccess(this.requestService.base + "/api/expression/vote/" + id + "/", data).then(
       (res: any) => {
         console.log(res)
         this.loadexpression(id, view)
@@ -229,7 +229,7 @@ export class CommonPhraseComponent implements OnInit {
     console.log(id)
     let data = {}
     this.loading = true
-    this.requestService.postWithAccess("http://127.0.0.1:8000/api/expression/dislike/" + id + "/", data).then(
+    this.requestService.postWithAccess(this.requestService.base + "/api/expression/dislike/" + id + "/", data).then(
       (res: any) => {
         console.log(res)
         this.loadexpression(id, view)
@@ -244,7 +244,7 @@ export class CommonPhraseComponent implements OnInit {
     console.log(id)
     let data = {}
     this.loading = true
-    this.requestService.postWithAccess("http://127.0.0.1:8000/api/expression/star/" + id + "/", data).then(
+    this.requestService.postWithAccess(this.requestService.base + "/api/expression/star/" + id + "/", data).then(
       (res: any) => {
         console.log(res)
         this.loadexpression(id, view)

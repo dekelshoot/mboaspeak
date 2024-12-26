@@ -19,8 +19,8 @@ export class SigninComponent {
   err = false;
   authDataExists: boolean = false;
   constructor(private requestService: RequestService,
-    private formBuilder: FormBuilder, public routerService: RouterService, private authService: AuthService, public translater:TranslaterService
-  ) { this.translate = this.translater.translate}
+    private formBuilder: FormBuilder, public routerService: RouterService, private authService: AuthService, public translater: TranslaterService
+  ) { this.translate = this.translater.translate }
   ngOnInit(): void {
     // const authData = localStorage.getItem('authData');
     // if (this.authService.hasAuthData()) {
@@ -50,7 +50,7 @@ export class SigninComponent {
 
     console.log(data)
 
-    this.requestService.post("http://127.0.0.1:8000/api/auth/login/", data).then(
+    this.requestService.post(this.requestService.base + "/api/auth/login/", data).then(
       (response: any) => {
         console.log(response)
         this.message = `Wellcome back ${response.username} `

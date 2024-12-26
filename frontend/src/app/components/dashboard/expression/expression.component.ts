@@ -51,7 +51,7 @@ export class ExpressionComponent implements OnInit {
 
   loadExpression() {
     this.loading = true
-    this.requestService.getAll("http://127.0.0.1:8000/api/expression/").then(
+    this.requestService.getAll(this.requestService.base + "/api/expression/").then(
       (res: any) => {
         this.expressions = res.expressions
         console.log(this.expressions)
@@ -69,7 +69,7 @@ export class ExpressionComponent implements OnInit {
     console.log(id)
     this.loading = true
 
-    this.requestService.getWithAccess("http://127.0.0.1:8000/api/expression", id).then(
+    this.requestService.getWithAccess(this.requestService.base + "/api/expression", id).then(
       (res: any) => {
         this.expression_edit = res
         console.log(this.expression_edit)
@@ -120,7 +120,7 @@ export class ExpressionComponent implements OnInit {
 
       }
       console.log(data)
-      this.requestService.postWithAccess("http://127.0.0.1:8000/api/expression/", data).then(
+      this.requestService.postWithAccess(this.requestService.base + "/api/expression/", data).then(
         (res: any) => {
           this.loadView(1)
           this.loadExpression()
@@ -154,7 +154,7 @@ export class ExpressionComponent implements OnInit {
 
       }
       console.log(data)
-      this.requestService.update("http://127.0.0.1:8000/api/expression/update", this.expression_edit.id, data).then(
+      this.requestService.update(this.requestService.base + "/api/expression/update", this.expression_edit.id, data).then(
         (res: any) => {
           this.loadView(1)
           this.loadExpression()

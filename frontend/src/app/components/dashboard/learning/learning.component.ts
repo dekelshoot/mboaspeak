@@ -114,7 +114,7 @@ export class LearningComponent implements OnInit {
     this.loading = true
     console.log(this.lessonForm.value)
     if (this.lessonForm.valid) {
-      this.requestService.postWithAccess("http://127.0.0.1:8000/api/learning/", this.lessonForm.value).then(
+      this.requestService.postWithAccess(this.requestService.base + "/api/learning/", this.lessonForm.value).then(
         (res: any) => {
           this.loadView(1)
           this.loadcourse()
@@ -131,7 +131,7 @@ export class LearningComponent implements OnInit {
 
   loadcourse() {
     this.loading = true
-    this.requestService.getAll("http://127.0.0.1:8000/api/learning/user-lessons/").then(
+    this.requestService.getAll(this.requestService.base + "/api/learning/user-lessons/").then(
       (res: any) => {
         this.courses = res
         console.log(res)
@@ -149,7 +149,7 @@ export class LearningComponent implements OnInit {
     console.log(id)
     this.loading = true
 
-    this.requestService.getWithAccess("http://127.0.0.1:8000/api/learning", id).then(
+    this.requestService.getWithAccess(this.requestService.base + "/api/learning", id).then(
       (res: any) => {
         this.course_edit = res
         console.log(this.course_edit)
@@ -235,7 +235,7 @@ export class LearningComponent implements OnInit {
 
       }
       console.log(data)
-      this.requestService.update("http://127.0.0.1:8000/api/course/update", this.course_edit.id, data).then(
+      this.requestService.update(this.requestService.base + "/api/course/update", this.course_edit.id, data).then(
         (res: any) => {
           this.loadView(1)
           this.loadcourse()

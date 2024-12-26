@@ -64,11 +64,11 @@ export class AdminComponent implements OnInit {
 
   loadUser() {
     this.loading = true
-    this.requestService.getAll("http://127.0.0.1:8000/api/admin/users/?user_type=admin").then(
+    this.requestService.getAll(this.requestService.base + "/api/admin/users/?user_type=admin").then(
       (res: any) => {
         this.admin = res.users
         console.log(this.admin)
-        this.requestService.getAll("http://127.0.0.1:8000/api/admin/users/?user_type=linguist").then(
+        this.requestService.getAll(this.requestService.base + "/api/admin/users/?user_type=linguist").then(
           (res: any) => {
             this.linguist = res.users
             console.log(this.linguist)
@@ -99,7 +99,7 @@ export class AdminComponent implements OnInit {
         "user_type": user_type,
       }
       console.log(data)
-      this.requestService.updatePartial("http://127.0.0.1:8000/api/admin/update-user-type", username, data).then(
+      this.requestService.updatePartial(this.requestService.base + "/api/admin/update-user-type", username, data).then(
         (res: any) => {
           this.loadView(1)
           this.loadUser()

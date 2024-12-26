@@ -55,7 +55,7 @@ export class WordComponent implements OnInit {
 
   loadWord() {
     this.loading = true
-    this.requestService.getAll("http://127.0.0.1:8000/api/dico/word/my-words/").then(
+    this.requestService.getAll(this.requestService.base + "/api/dico/word/my-words/").then(
       (res: any) => {
         this.words = res.words
         console.log(this.words)
@@ -73,7 +73,7 @@ export class WordComponent implements OnInit {
     console.log(id)
     this.loading = true
 
-    this.requestService.getWithAccess("http://127.0.0.1:8000/api/dico/word", id).then(
+    this.requestService.getWithAccess(this.requestService.base + "/api/dico/word", id).then(
       (res: any) => {
         this.word_edit = res
         console.log(this.word_edit)
@@ -129,7 +129,7 @@ export class WordComponent implements OnInit {
 
       }
       console.log(data)
-      this.requestService.postWithAccess("http://127.0.0.1:8000/api/dico/word/create/", data).then(
+      this.requestService.postWithAccess(this.requestService.base + "/api/dico/word/create/", data).then(
         (res: any) => {
           this.loadView(1)
           this.loadWord()
@@ -167,7 +167,7 @@ export class WordComponent implements OnInit {
 
       }
       console.log(data)
-      this.requestService.update("http://127.0.0.1:8000/api/dico/word/update", this.word_edit.id, data).then(
+      this.requestService.update(this.requestService.base + "/api/dico/word/update", this.word_edit.id, data).then(
         (res: any) => {
           this.loadView(1)
           this.loadWord()

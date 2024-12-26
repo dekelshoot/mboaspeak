@@ -50,7 +50,7 @@ export class PostComponent implements OnInit {
 
   loadpost() {
     this.loading = true
-    this.requestService.getAll("http://127.0.0.1:8000/api/post/").then(
+    this.requestService.getAll(this.requestService.base + "/api/post/").then(
       (res: any) => {
         this.posts = res.posts
         console.log(this.posts)
@@ -68,7 +68,7 @@ export class PostComponent implements OnInit {
     console.log(id)
     this.loading = true
 
-    this.requestService.getWithAccess("http://127.0.0.1:8000/api/post", id).then(
+    this.requestService.getWithAccess(this.requestService.base + "/api/post", id).then(
       (res: any) => {
         this.post_edit = res
         console.log(this.post_edit)
@@ -111,7 +111,7 @@ export class PostComponent implements OnInit {
         "language": language
       }
       console.log(data)
-      this.requestService.postWithAccess("http://127.0.0.1:8000/api/post/", data).then(
+      this.requestService.postWithAccess(this.requestService.base + "/api/post/", data).then(
         (res: any) => {
           this.loadView(1)
           this.loadpost()
@@ -141,7 +141,7 @@ export class PostComponent implements OnInit {
 
       }
       console.log(data)
-      this.requestService.update("http://127.0.0.1:8000/api/post/update", this.post_edit.id, data).then(
+      this.requestService.update(this.requestService.base + "/api/post/update", this.post_edit.id, data).then(
         (res: any) => {
           this.loadView(1)
           this.loadpost()

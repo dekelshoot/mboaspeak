@@ -74,17 +74,17 @@ export class ForumComponent implements OnInit {
     console.log(this.formFormOrder.get('language')?.value)
     const language = this.formFormOrder.get('language')?.value
     if (language != "language") {
-      this.loadData("http://127.0.0.1:8000/api/post/page/", "?language=" + language)
+      this.loadData(this.requestService.base + "/api/post/page/", "?language=" + language)
     }
   }
   onChangeOrder() {
     const order = this.formFormOrder.get('order')?.value
     if (order != "filter_by") {
-      this.loadData("http://127.0.0.1:8000/api/post/page/", "?order_by=" + order)
+      this.loadData(this.requestService.base + "/api/post/page/", "?order_by=" + order)
     }
   }
 
-  loadData(url = "http://127.0.0.1:8000/api/post/page/", filter = "") {
+  loadData(url = this.requestService.base + "/api/post/page/", filter = "") {
     this.loading = true
     this.requestService.getWithoutAccess(url + filter).then(
       (res: any) => {
@@ -96,13 +96,13 @@ export class ForumComponent implements OnInit {
         // res.results.forEach((element: any) => {
         //   this.data.push(element)
         // });
-        this.requestService.getWithoutAccess("http://127.0.0.1:8000/api/post/top-commented/").then(
+        this.requestService.getWithoutAccess(this.requestService.base + "/api/post/top-commented/").then(
           (res: any) => {
             this.res = res
 
             this.topCommented = res.top_commented_posts
             console.log(res)
-            this.requestService.getWithoutAccess("http://127.0.0.1:8000/api/post/stat/").then(
+            this.requestService.getWithoutAccess(this.requestService.base + "/api/post/stat/").then(
               (res: any) => {
                 this.res = res
                 this.stat = res
@@ -186,7 +186,7 @@ export class ForumComponent implements OnInit {
     this.loading = true
     let url = ""
     if (this.authService.hasAuthData()) {
-      url = "http://127.0.0.1:8000/api/post/with-access"
+      url = this.requestService.base + "/api/post/with-access"
       this.requestService.getWithAccess(url, id).then(
         (res: any) => {
           this.postDetail = res
@@ -199,7 +199,7 @@ export class ForumComponent implements OnInit {
         }
       )
     } else {
-      url = "http://127.0.0.1:8000/api/post/"
+      url = this.requestService.base + "/api/post/"
       this.requestService.getWithoutAccess(url + id + "/").then(
         (res: any) => {
           this.postDetail = res
@@ -222,7 +222,7 @@ export class ForumComponent implements OnInit {
     let data = { "content": comment }
     console.log(comment)
     this.loading = true
-    this.requestService.postWithAccess("http://127.0.0.1:8000/api/post/comment/" + this.postDetail.post.id + "/", data).then(
+    this.requestService.postWithAccess(this.requestService.base + "/api/post/comment/" + this.postDetail.post.id + "/", data).then(
       (res: any) => {
         this.loadPost(this.postDetail.post.id, 2)
         let data = {
@@ -243,11 +243,11 @@ export class ForumComponent implements OnInit {
     console.log(id)
     let data = {}
     this.loading = true
-    this.requestService.postWithAccess("http://127.0.0.1:8000//api/dico/post/vote/" + id + "/", data).then(
+    this.requestService.postWithAccess(this.requestService.base + "//api/dico/post/vote/" + id + "/", data).then(
       (res: any) => {
         console.log(res)
 
-        this.requestService.getWithAccess("http://127.0.0.1:8000//api/dico/post", id).then(
+        this.requestService.getWithAccess(this.requestService.base + "//api/dico/post", id).then(
           (res: any) => {
             console.log(res)
             this.data[i] = res
@@ -271,7 +271,7 @@ export class ForumComponent implements OnInit {
     console.log(id)
     let data = {}
     this.loading = true
-    this.requestService.postWithAccess("http://127.0.0.1:8000/api/post/vote/" + id + "/", data).then(
+    this.requestService.postWithAccess(this.requestService.base + "/api/post/vote/" + id + "/", data).then(
       (res: any) => {
         console.log(res)
         this.loadPost(id, view)
@@ -286,7 +286,7 @@ export class ForumComponent implements OnInit {
     console.log(id)
     let data = {}
     this.loading = true
-    this.requestService.postWithAccess("http://127.0.0.1:8000/api/post/dislike/" + id + "/", data).then(
+    this.requestService.postWithAccess(this.requestService.base + "/api/post/dislike/" + id + "/", data).then(
       (res: any) => {
         console.log(res)
         this.loadPost(id, view)
@@ -301,7 +301,7 @@ export class ForumComponent implements OnInit {
     console.log(id)
     let data = {}
     this.loading = true
-    this.requestService.postWithAccess("http://127.0.0.1:8000/api/post/star/" + id + "/", data).then(
+    this.requestService.postWithAccess(this.requestService.base + "/api/post/star/" + id + "/", data).then(
       (res: any) => {
         console.log(res)
         this.loadPost(id, view)
@@ -316,7 +316,7 @@ export class ForumComponent implements OnInit {
     console.log(id)
     let data = {}
     this.loading = true
-    this.requestService.delete("http://127.0.0.1:8000/api/post/" + id + "/").then(
+    this.requestService.delete(this.requestService.base + "/api/post/" + id + "/").then(
       (res: any) => {
         console.log(res)
         this.loadView(view)
@@ -331,7 +331,7 @@ export class ForumComponent implements OnInit {
     console.log(id)
     let data = {}
     this.loading = true
-    this.requestService.delete("http://127.0.0.1:8000/api/post/comment/" + id + "/").then(
+    this.requestService.delete(this.requestService.base + "/api/post/comment/" + id + "/").then(
       (res: any) => {
         console.log(res)
         this.loadPost(idPost, view)

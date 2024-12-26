@@ -32,7 +32,7 @@ export class LearningSpaceComponent implements OnInit {
 
   constructor(public requestService: RequestService, private formBuilder: FormBuilder, public routerService: RouterService, public translater: TranslaterService,
     private authService: AuthService, private sanitizer: DomSanitizer
-  ) {this.translate = this.translater.translate }
+  ) { this.translate = this.translater.translate }
 
   ngOnInit(): void {
     if (this.authService.hasAuthData()) {
@@ -54,7 +54,7 @@ export class LearningSpaceComponent implements OnInit {
 
 
 
-  loadData(url = "http://127.0.0.1:8000/api/learning/all/",) {
+  loadData(url = this.requestService.base + "/api/learning/all/",) {
     this.loading = true
     this.requestService.getWithoutAccess(url).then(
       (res: any) => {
@@ -87,7 +87,7 @@ export class LearningSpaceComponent implements OnInit {
   loadlesson(id: number, view: number) {
     this.lessonView = id
     this.loading = true
-    let url = "http://127.0.0.1:8000/api/learning/"
+    let url = this.requestService.base + "/api/learning/"
     this.requestService.getWithoutAccess(url + id + "/").then(
       (res: any) => {
         this.lessonDetail = res
@@ -95,7 +95,7 @@ export class LearningSpaceComponent implements OnInit {
         console.log(this.quiz)
         this.lessonDetail.video_url = this.sanitizeUrl(this.lessonDetail.video_url);
 
-        this.requestService.getWithoutAccess("http://127.0.0.1:8000/api/learning/recent/").then(
+        this.requestService.getWithoutAccess(this.requestService.base + "/api/learning/recent/").then(
           (res: any) => {
 
             this.loadView(view)

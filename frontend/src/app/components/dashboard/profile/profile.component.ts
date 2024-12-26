@@ -56,7 +56,7 @@ export class ProfileComponent implements OnInit {
     console.log(id)
     this.loading = true
 
-    this.requestService.getWithAccess("http://127.0.0.1:8000/api/dico/word", id).then(
+    this.requestService.getWithAccess(this.requestService.base + "/api/dico/word", id).then(
       (res: any) => {
         this.word_edit = res
         console.log(this.word_edit)
@@ -102,7 +102,7 @@ export class ProfileComponent implements OnInit {
       console.log(data)
       this.ngOnInit()
       this.loading = false
-      // this.requestService.update("http://127.0.0.1:8000/api/dico/word/update", this.word_edit.id, data).then(
+      // this.requestService.update(this.requestService.base + "/api/dico/word/update", this.word_edit.id, data).then(
       //   (res: any) => {
       //     this.loadView(1)
       //   }, (err: any) => {

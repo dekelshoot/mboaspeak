@@ -24,7 +24,7 @@ export class StatComponent implements OnInit {
 
   chargeData() {
     this.loading = true
-    this.requestService.getAll("http://127.0.0.1:8000/api/admin/stat/").then(
+    this.requestService.getAll(this.requestService.base + "/api/admin/stat/").then(
       (res: any) => {
         console.log(res)
         this.stat = res

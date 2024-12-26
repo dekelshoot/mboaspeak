@@ -21,8 +21,8 @@ export class SignupComponent implements OnInit {
 
 
   constructor(private requestService: RequestService,
-    private formBuilder: FormBuilder, public routerService: RouterService, public translater:TranslaterService
-  ) { this.translate = this.translater.translate}
+    private formBuilder: FormBuilder, public routerService: RouterService, public translater: TranslaterService
+  ) { this.translate = this.translater.translate }
   ngOnInit(): void {
     this.chargeData();
 
@@ -30,7 +30,7 @@ export class SignupComponent implements OnInit {
   }
 
   chargeData() {
-    this.requestService.getAll2("http://127.0.0.1:8000/api/auth/language/").then((res: any) => {
+    this.requestService.getAll2(this.requestService.base + "/api/auth/language/").then((res: any) => {
       console.log(res)
       this.loadingData = false
       this.languages = res
@@ -71,7 +71,7 @@ export class SignupComponent implements OnInit {
 
     console.log(data)
 
-    this.requestService.post("http://127.0.0.1:8000//api/auth/register/", data).then(
+    this.requestService.post(this.requestService.base + "//api/auth/register/", data).then(
       (response) => {
         console.log(response)
         this.routerService.routeRoute("/auth/sign-in")
