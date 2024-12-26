@@ -23,7 +23,7 @@ FROM nginx:alpine
 COPY --from=builder /app/dist/mentor_me /usr/share/nginx/html
 
 # Exposer le port sur lequel NGINX écoute
-EXPOSE 8080
+EXPOSE 80
 
 # Commande pour démarrer NGINX
 CMD ["nginx", "-g", "daemon off;"]
