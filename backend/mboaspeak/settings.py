@@ -25,7 +25,10 @@ SECRET_KEY = 'django-insecure-eflrgkbyd^-nxziexjb5a@@44-xf&@in0mhwhz0l(p17x^(i3g
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["http://mboaspeak.com", 
+ALLOWED_HOSTS = ["localhost",
+    "127.0.0.1",
+    "mboaspeak.com",
+    "mboaspeak.com:8000","http://mboaspeak.com", 
     "https://mboaspeak.com",  ]
 
 
