@@ -17,4 +17,4 @@ COPY . .
 EXPOSE 8000
 
 # Commande pour démarrer le serveur
-CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
+CMD ["python", "manage.py", "runserver", "0.0.0.0:8000","--cert", "cert.pem" ,"--key key.pem"]
