@@ -10,30 +10,11 @@ services:
       - ./backend:/app
     depends_on:
       - frontend
-    networks:
-      - app_network
 
   frontend:
     build:
       context: ./frontend
     ports:
       - "80:80"
-      - "443:443"
     volumes:
       - ./frontend:/app
-      - /etc/letsencrypt/live/mboaspeak.com:/etc/ssl
-    networks:
-      - app_network
-
-  certbot:
-    image: certbot/certbot
-    volumes:
-      - /etc/letsencrypt/live/mboaspeak.com:/etc/letsencrypt
-      - ./nginx/certbot-etc:/etc/nginx/certbot
-    entrypoint: "/bin/sh -c 'trap exit TERM; certbot renew; sleep 12h & wait'"
-    networks:
-      - app_network
-
-networks:
-  app_network:
-    driver: bridge

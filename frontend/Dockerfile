@@ -1,32 +1,29 @@
 # Utiliser une image Node.js officielle pour construire l'application
 FROM node:18 AS builder
 
+# Définir le répertoire de travail
 WORKDIR /app
 
-# Copier les fichiers nécessaires pour installer les dépendances
+# Copier les fichiers nécessaires dans le conteneur
 COPY package.json package-lock.json ./
+
+# Installer les dépendances
 RUN npm install
 
-# Copier le reste du projet frontend et construire l'application
+# Copier tout le projet frontend
 COPY . .
+
+# Construire l'application Angular
 RUN npm run build --prod
 
 # Utiliser une image NGINX pour servir les fichiers Angular
 FROM nginx:alpine
 
-# Copier les fichiers construits dans NGINX
+# Copier les fichiers construits dans le répertoire NGINX
 COPY --from=builder /app/dist/mentor_me /usr/share/nginx/html
 
-# Copier le certificat SSL et la clé privée dans le conteneur Nginx
-COPY ./ssl-certs/fullchain.pem /etc/ssl/certs/fullchain.pem
-COPY ./ssl-certs/privkey.pem /etc/ssl/private/privkey.pem
-
-# Exposer le port 80 et 443 pour Nginx
+# Exposer le port sur lequel NGINX écoute
 EXPOSE 80
-EXPOSE 443
-
-# Copier le fichier de configuration Nginx avec support HTTPS
-COPY ./nginx/ssl.conf /etc/nginx/conf.d/default.conf
 
 # Commande pour démarrer NGINX
 CMD ["nginx", "-g", "daemon off;"]
