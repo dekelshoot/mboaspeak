@@ -18,8 +18,8 @@ FROM nginx:alpine
 COPY --from=builder /app/dist/mentor_me /usr/share/nginx/html
 
 # Copier le certificat SSL et la clé privée dans le conteneur Nginx
-COPY /etc/letsencrypt/live/mboaspeak.com/fullchain.pem /etc/ssl/certs/fullchain.pem
-COPY /etc/letsencrypt/live/mboaspeak.com/privkey.pem /etc/ssl/private/privkey.pem
+COPY ./ssl-certs/fullchain.pem /etc/ssl/certs/fullchain.pem
+COPY ./ssl-certs/privkey.pem /etc/ssl/private/privkey.pem
 
 # Exposer le port 80 et 443 pour Nginx
 EXPOSE 80
