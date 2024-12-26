@@ -17,5 +17,6 @@ COPY . .
 EXPOSE 8000
 
 # Commande pour démarrer le serveur
-CMD ["chmod","+x","./run.sh"]
+RUN chmod +x ./run.sh
+RUN ./run.sh
 CMD ["python", "manage.py", "runsslserver", "0.0.0.0:8000", "--certificate", "/app/cert.pem", "--key", "/app/key.pem"]
