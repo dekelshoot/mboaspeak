@@ -11,7 +11,7 @@ export class RequestService {
       'Content-Type': 'application/json',
     }
   )
-  base = "http://mboaspeak.com:8000/"
+  base = "http://www.mboaspeak.com:8000/"
   constructor(private http: HttpClient, private authService: AuthService) { }
 
 
