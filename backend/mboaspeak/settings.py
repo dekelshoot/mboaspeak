@@ -33,7 +33,10 @@ ALLOWED_HOSTS = ["localhost",
     "https://mboaspeak.com", "http://localhost:4200",
     "http://127.0.0.1:4200","https://mboaspeak.com", 
      "https://localhost:4200",
-    "https://127.0.0.1:4200", ]
+    "https://127.0.0.1:4200", "http://www.mboaspeak.com", 
+    "https://www.mboaspeak.com",  
+    "www.mboaspeak.com", 
+    "www.mboaspeak.com",  ]
 
 
 # CORS_ALLOW_ALL_ORIGINS = True
@@ -62,6 +65,10 @@ CORS_ALLOWED_ORIGINS = [
     "https://mboaspeak.com:80", 
     "http://mboaspeak.com", 
     "https://mboaspeak.com",  
+    "http://www.mboaspeak.com", 
+    "https://www.mboaspeak.com",  
+    "www.mboaspeak.com", 
+    "www.mboaspeak.com",  
 ]
 
 INSTALLED_APPS = [
