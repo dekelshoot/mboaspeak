@@ -50,7 +50,7 @@ export class SigninComponent {
 
     console.log(data)
 
-    this.requestService.post(this.requestService.base + "api/auth/login/", data).then(
+    this.requestService.post(this.requestService.base + "/api/auth/login/", data).then(
       (response: any) => {
         console.log(response)
         this.message = `Wellcome back ${response.username} `

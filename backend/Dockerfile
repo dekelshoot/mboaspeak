@@ -19,7 +19,6 @@ COPY . .
 EXPOSE 8000
 
 # Démarrer le serveur
-CMD ["gunicorn", "--bind", "0.0.0.0:8000", "mboaspeak.wsgi:application"]
+#CMD ["gunicorn", "--bind", "0.0.0.0:8000", "mboaspeak.wsgi:application"]
 
-
-
+CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
