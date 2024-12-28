@@ -60,12 +60,12 @@ export class DictionaryComponent implements OnInit {
         res.results.results.forEach((element: any) => {
           this.data.push(element)
         });
-        this.requestService.getWithoutAccess(this.requestService.base + "/api/dico/word/top-voted/").then(
+        this.requestService.getWithoutAccess(this.requestService.base + "api/dico/word/top-voted/").then(
           (res: any) => {
             this.res = res
             this.topWords = res.top_words
             console.log(res)
-            this.requestService.getWithoutAccess(this.requestService.base + "/api/dico/word/recentWord/").then(
+            this.requestService.getWithoutAccess(this.requestService.base + "api/dico/word/recentWord/").then(
               (res: any) => {
                 this.res = res
                 this.recentWords = res.recent_words
@@ -150,7 +150,7 @@ export class DictionaryComponent implements OnInit {
     this.loading = true
     let url = ""
     if (this.authService.hasAuthData()) {
-      url = this.requestService.base + "/api/dico/word-with-access"
+      url = this.requestService.base + "api/dico/word-with-access"
       this.requestService.getWithAccess(url, id).then(
         (res: any) => {
           this.wordDetail = res
@@ -163,7 +163,7 @@ export class DictionaryComponent implements OnInit {
         }
       )
     } else {
-      url = this.requestService.base + "/api/dico/word/"
+      url = this.requestService.base + "api/dico/word/"
       this.requestService.getWithoutAccess(url + id + "/").then(
         (res: any) => {
           this.wordDetail = res
@@ -187,7 +187,7 @@ export class DictionaryComponent implements OnInit {
 
 
     this.loading = true
-    this.requestService.getWithoutAccess(this.requestService.base + "/api/dico/word/search/?query=" + search).then(
+    this.requestService.getWithoutAccess(this.requestService.base + "api/dico/word/search/?query=" + search).then(
       (res: any) => {
         this.data = res.results
         this.loadView(2)
@@ -205,11 +205,11 @@ export class DictionaryComponent implements OnInit {
     console.log(id)
     let data = {}
     this.loading = true
-    this.requestService.postWithAccess(this.requestService.base + "//api/dico/word/vote/" + id + "/", data).then(
+    this.requestService.postWithAccess(this.requestService.base + "/api/dico/word/vote/" + id + "/", data).then(
       (res: any) => {
         console.log(res)
 
-        this.requestService.getWithAccess(this.requestService.base + "//api/dico/word", id).then(
+        this.requestService.getWithAccess(this.requestService.base + "/api/dico/word", id).then(
           (res: any) => {
             console.log(res)
             this.data[i] = res
@@ -233,7 +233,7 @@ export class DictionaryComponent implements OnInit {
     console.log(id)
     let data = {}
     this.loading = true
-    this.requestService.postWithAccess(this.requestService.base + "//api/dico/word/vote/" + id + "/", data).then(
+    this.requestService.postWithAccess(this.requestService.base + "/api/dico/word/vote/" + id + "/", data).then(
       (res: any) => {
         console.log(res)
         this.loadWord(id, view)
@@ -248,7 +248,7 @@ export class DictionaryComponent implements OnInit {
     console.log(id)
     let data = {}
     this.loading = true
-    this.requestService.postWithAccess(this.requestService.base + "//api/dico/word/dislike/" + id + "/", data).then(
+    this.requestService.postWithAccess(this.requestService.base + "/api/dico/word/dislike/" + id + "/", data).then(
       (res: any) => {
         console.log(res)
         this.loadWord(id, view)
@@ -263,7 +263,7 @@ export class DictionaryComponent implements OnInit {
     console.log(id)
     let data = {}
     this.loading = true
-    this.requestService.postWithAccess(this.requestService.base + "//api/dico/word/star/" + id + "/", data).then(
+    this.requestService.postWithAccess(this.requestService.base + "/api/dico/word/star/" + id + "/", data).then(
       (res: any) => {
         console.log(res)
         this.loadWord(id, view)
