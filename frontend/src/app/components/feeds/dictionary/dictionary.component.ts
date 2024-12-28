@@ -52,7 +52,7 @@ export class DictionaryComponent implements OnInit {
     return this.user_type == 'linguist'
   }
 
-  loadData(url = this.requestService.base + "/api/dico/word/?page=1") {
+  loadData(url = this.requestService.base + "api/dico/word/?page=1") {
     this.loading = true
     this.requestService.getWithoutAccess(url).then(
       (res: any) => {
