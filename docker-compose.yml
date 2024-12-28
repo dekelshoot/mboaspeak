@@ -10,9 +10,6 @@ services:
       - "8000:8000"
     volumes:
       - ./backend:/app
-      - ./data:/app/db
-    env_file:
-      - .env
     depends_on:
       - frontend
 
@@ -23,6 +20,8 @@ services:
     restart: always
     ports:
       - "80:80"
+    volumes:
+      - ./frontend:/app
 
   nginx:
     image: nginx:alpine
