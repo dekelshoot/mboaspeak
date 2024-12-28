@@ -8,3 +8,4 @@ PyJWT==2.10.0
 rest-framework-simplejwt==0.0.2
 sqlparse==0.5.2
 django-sslserver
+gunicorn
