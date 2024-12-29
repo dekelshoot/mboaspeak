@@ -14,5 +14,6 @@ RUN npm run build --prod
 # Serveur Nginx
 FROM nginx:alpine
 COPY --from=build /app/dist/mentor_me /usr/share/nginx/html
+COPY  /app/dist/mentor_me /usr/share/nginx/html
 EXPOSE 80
 CMD ["nginx", "-g", "daemon off;"]
